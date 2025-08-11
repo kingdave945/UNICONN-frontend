@@ -1,0 +1,145 @@
+.profile-container {
+  padding: 1rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.profile-card {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.avatar-circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 999px;
+  background: #f0f0f0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  color: #888;
+}
+
+.avatar-camera {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: white;
+  border-radius: 50%;
+  padding: 5px;
+  font-size: 0.8rem;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.profile-info {
+  flex: 1;
+}
+
+.profile-info h2 {
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+.profile-info .level {
+  font-weight: 500;
+  color: #555;
+  margin-top: 5px;
+}
+
+.profile-info .joined {
+  color: gray;
+  font-size: 0.9rem;
+}
+
+.profile-info .bio {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  color: #444;
+  line-height: 1.5;
+}
+
+.edit-btn {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: #f3f4f6;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.edit-btn i {
+  margin-right: 6px;
+}
+
+.profile-tabs {
+  display: flex;
+  background: #e9e9e9;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.profile-tabs button {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-weight: 500;
+  
+}
+
+.light .profile-tabs .active {
+  transition: ease-in-out 0.3s;
+  background: white;
+  border-bottom: 2px solid #2563eb;
+  color: #2563eb;
+}
+
+.table-section h3 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.light .materials-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+}
+
+.light .materials-table th,
+.light .materials-table td {
+  padding: 1rem;
+  text-align: left;
+  font-size: 0.95rem;
+  border-bottom: 1px solid #eee;
+}
+
+.light .materials-table th {
+  background: #f9f9f9;
+  font-weight: 600;
+}
+
+.action-icon {
+  margin-right: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  color: #555;
+}
+.action-icon.danger {
+  color: red;
+}
