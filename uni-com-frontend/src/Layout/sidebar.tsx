@@ -4,7 +4,7 @@ import { useState } from "react";
 export default function SideBar() {
   const location = useLocation();
   const [ismobile, setIsMobile] = useState(true);
-  const [sidebar, SetSideBar] = useState(true)
+  const [_sidebar, _SetSideBar] = useState(true)
   const sidebarItems = [
     { label: "Home", icon: "bi bi-house-door", path: "/" },
     {

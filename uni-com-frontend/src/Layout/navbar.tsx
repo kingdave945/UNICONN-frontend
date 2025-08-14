@@ -7,7 +7,7 @@ import { Link, useNavigate,  } from "react-router-dom";
   setIsPublic: (value: boolean) => void;
   isPublic: boolean;
 }
-export default function NavBar({theme,toggleTheme,setIsPublic, isPublic}:NavbarProps) {
+export default function NavBar({theme:_theme,toggleTheme,setIsPublic:_setIsPublic, isPublic}:NavbarProps) {
   const navigate = useNavigate();
 
 
