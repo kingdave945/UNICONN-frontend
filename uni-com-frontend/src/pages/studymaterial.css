@@ -1,4 +1,4 @@
- .light .upload-container {
+  .upload-container {
   max-width: 700px;
   margin: 5px auto;
   padding: 2rem;
@@ -75,7 +75,7 @@
 }
 
 /* Toggle switch styling */
-.light .toggle-switch {
+ .toggle-switch {
   width: 44px;
   height: 24px;
   background: #ccc;
@@ -84,10 +84,10 @@
   cursor: pointer;
   transition: background 1s;
 }
-.light .toggle-switch.on {
+ .toggle-switch.on {
   background: #3b82f6;
 }
-.light .toggle-thumb {
+ .toggle-thumb {
   width: 20px;
   height: 20px;
   background: white;

@@ -1,14 +1,14 @@
 import "./navBar.css";
 import { Link, useNavigate,  } from "react-router-dom";
-import { useState, useEffect } from "react";
+
  interface NavbarProps {
   theme: string;
   toggleTheme: () => void;
+  setIsPublic: (value: boolean) => void;
+  isPublic: boolean;
 }
-export default function NavBar({theme,toggleTheme}:NavbarProps) {
+export default function NavBar({theme,toggleTheme,setIsPublic, isPublic}:NavbarProps) {
   const navigate = useNavigate();
-
-  const [isPublic, setIsPublic] = useState(true);
 
 
   return (
@@ -32,18 +32,14 @@ export default function NavBar({theme,toggleTheme}:NavbarProps) {
               <span>/</span>
               <Link to="/register">Register</Link>
               </div>
-        
             </div>
-       
-                <div
-            className={`toggle-switch ${isPublic ? 'off' : 'on'}`}
-            onClick={() =>{ 
-            setIsPublic(!isPublic);
-            toggleTheme()
-            }}
-          >
-            <div className="toggle-thumb"></div>
-          </div>
+   <div
+  className={`toggle-switch ${isPublic ? 'on' : 'off'}`}
+  onClick={toggleTheme}
+>
+  <div className="toggle-thumb"></div>
+</div>
+
       </div>
     </nav>
   );

@@ -8,8 +8,11 @@ import { Outlet } from "react-router-dom";
   interface NavbarProps {
   theme: string;
   toggleTheme: () => void;
+  setIsPublic: (value: boolean) => void;
+  isPublic: boolean;
 }
-export default function Layout({theme,toggleTheme}:NavbarProps) {
+ 
+export default function Layout({theme, toggleTheme, setIsPublic, isPublic}: NavbarProps) {
   //   const [outletloading, setOutletLoading] = useState(true);
   //    useEffect(() => {
   //   const timer = setTimeout(() => {
@@ -24,6 +27,8 @@ export default function Layout({theme,toggleTheme}:NavbarProps) {
       <NavBar
        toggleTheme={toggleTheme}
         theme={theme}
+        setIsPublic = {setIsPublic}
+        isPublic = {isPublic}
       />
       <div className="layout__content">
         <SideBar />

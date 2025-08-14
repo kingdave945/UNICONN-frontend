@@ -2,8 +2,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./login";
 import { Navigate } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import Register from "./register";
+import Register from "./register"
 import './App.css'
+import { ToastContainer } from "react-toastify";
 import Layout from "./Layout/layout";
 import Dashboard from "./pages/dashboard";
 import StudyMaterial from "./pages/studymaterial";
@@ -15,34 +16,46 @@ import UserMan from "./Admin/usermanagement";
 import Overview from "./Admin/overview";
 import MaterialReview from "./Admin/materialreview";
 import { useState, useEffect } from "react";
+import ConfirmEmail from "./components/confirmemal";
 // import ProtectedRouteAdmin from "./components/ProtectedRouteAdmin";
 export default function App() {
 const [theme, setTheme] = useState("light");
+const [isPublic, setIsPublic] = useState(false); // false = toggle off, true = toggle on
+
 useEffect(() => {
-    const saved = localStorage.getItem("theme");
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const initial = saved || (prefersDark ? "dark" : "light");
-    setTheme(initial);
-    document.body.classList.add(initial);
-  }, []);
+  const saved = localStorage.getItem("theme");
+  const prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
+  const initial = saved || (prefersLight ? "light" : "dark");
+
+  setTheme(initial);
+  document.body.classList.add(initial);
+
+  // Sync toggle with theme
+  setIsPublic(initial === "dark"); // on if dark mode
+}, []);
+
 const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
-    setTheme(newTheme);
-    document.body.classList.remove("light", "dark");
-    document.body.classList.add(newTheme);
-    localStorage.setItem("theme", newTheme);
-  }
+  const newTheme = theme === "light" ? "dark" : "light";
+  setTheme(newTheme);
+  document.body.classList.remove("light", "dark");
+  document.body.classList.add(newTheme);
+  localStorage.setItem("theme", newTheme);
+
+  // Flip the toggle state
+  setIsPublic(newTheme === "dark");
+};
+
   return (
     <>
-
-    
+    <ToastContainer/>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={
           <Layout 
         toggleTheme={toggleTheme}
         theme={theme}
-        
+        setIsPublic = {setIsPublic}
+        isPublic = {isPublic}
         />}>
           <Route index element={<Dashboard />} />
           <Route path="/profile" element={<Profile />}>
@@ -79,6 +92,7 @@ const toggleTheme = () => {
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/confirm-email" element={<ConfirmEmail />} />
       </Routes>
     </BrowserRouter>
     </>
