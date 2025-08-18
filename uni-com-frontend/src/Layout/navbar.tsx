@@ -25,8 +25,8 @@ export default function NavBar({theme:_theme,toggleTheme,setIsPublic:_setIsPubli
         </div>
             <div className="nav-links">
               <Link to="/">Home</Link>
-              <Link to="studymaterial">Study Materials</Link>
-              <Link to="profile">My Profile</Link>
+              <Link to="/studymaterial">Study Materials</Link>
+              <Link to="/profile">My Profile</Link>
               <div className="nav-auth-links">
               <Link to="/login">Login</Link>
               <span>/</span>
