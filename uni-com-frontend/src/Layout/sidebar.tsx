@@ -5,6 +5,7 @@ export default function SideBar() {
   const location = useLocation();
   const [ismobile, setIsMobile] = useState(true);
   const [_sidebar, _SetSideBar] = useState(true)
+  const isLoggedIn =  (sessionStorage.getItem("Adtoken"));
   const sidebarItems = [
     { label: "Home", icon: "bi bi-house-door", path: "/" },
     {
@@ -82,7 +83,9 @@ export default function SideBar() {
                 </li>
               ))}
             </ul>
-            <ul>
+
+           {isLoggedIn ? 
+           (  <ul>
               <p
                 style={{
                   padding: "0.5rem 1rem",
@@ -111,7 +114,14 @@ export default function SideBar() {
                   </Link>
                 </li>
               ))}
-            </ul>
+            </ul>)
+           :
+           (
+            <>
+            </>
+           )
+           }
+          
           </div>
           <div className="agent-sidebar__bottom">
             <Link
@@ -157,11 +167,11 @@ export default function SideBar() {
                 </li>
               ))}
             </ul>
-            <ul>
-              
-              {AdminPropsI.map((item) => (
-                <li key={item.path} className="agent-sidebar__nav-item">
-                  <Link
+            {isLoggedIn ? (
+              <ul>
+                {AdminPropsI.map((item) => (
+                  <li key={item.path} className="agent-sidebar__nav-item">
+                    <Link
                     to={item.path}
                     className={[
                       "agent-sidebar__link",
@@ -178,7 +188,10 @@ export default function SideBar() {
                   </Link>
                 </li>
               ))}
-            </ul>
+            </ul>)
+            :
+            (<>
+            </>)}
           </div>
   </div>
     </div>

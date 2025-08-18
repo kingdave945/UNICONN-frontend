@@ -3,7 +3,6 @@ import api from "./API/Interceptor";
 import { register } from "./API";
 import { toast } from "react-toastify";
 import { useState, useEffect } from "react";
-import NavBar from "./Layout/navbar";
 import { Link } from "react-router-dom";
 import RegisterImage from "./assets/efc8d6e8-84b4-45e5-8404-322950f1088b.png";
 //  type PasswordError = {
@@ -122,12 +121,7 @@ const handlePasswordChange = (e: string) => {
 
   return (
     <div className="layout-register">
-      <NavBar
-        theme="light"
-        toggleTheme={() => {}}
-        setIsPublic={() => {}}
-        isPublic={false}
-      />
+  
       <div className="register-content">
         <div className="register-container">
           <div className="register-header">
@@ -171,7 +165,7 @@ const handlePasswordChange = (e: string) => {
                   />
                 </div>
 
-                <div>
+                <div id="register-select">
                   <select
                     id="role"
                     name="role"
@@ -237,7 +231,10 @@ const handlePasswordChange = (e: string) => {
                   </div>
                 </div>
 
-                <div className="select-display-register">
+                <div
+                  id="register-select"
+                  className="select-display-register"
+                >
                   <select
                     id="department"
                     name="department"

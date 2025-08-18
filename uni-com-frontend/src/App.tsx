@@ -16,7 +16,9 @@ import UserMan from "./Admin/usermanagement";
 import Overview from "./Admin/overview";
 import MaterialReview from "./Admin/materialreview";
 import { useState, useEffect } from "react";
+import ForgetPassword from "./components/forgotpassword";
 import ConfirmEmail from "./components/confirmemal";
+import NavBar from "./Layout/navbar";
 // import ProtectedRouteAdmin from "./components/ProtectedRouteAdmin";
 export default function App() {
 const [theme, setTheme] = useState("light");
@@ -49,13 +51,16 @@ const toggleTheme = () => {
     <>
     <ToastContainer/>
     <BrowserRouter>
+           <NavBar
+          theme={theme}
+          toggleTheme={toggleTheme}
+          setIsPublic={setIsPublic}
+          isPublic={isPublic}
+        />
       <Routes>
         <Route path="/" element={
           <Layout 
-        toggleTheme={toggleTheme}
-        theme={theme}
-        setIsPublic = {setIsPublic}
-        isPublic = {isPublic}
+      
         />}>
           <Route index element={<Dashboard />} />
           <Route path="/profile" element={<Profile />}>
@@ -93,6 +98,7 @@ const toggleTheme = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/confirm-email" element={<ConfirmEmail />} />
+        <Route path="/forgot-password" element={<ForgetPassword />} />
       </Routes>
     </BrowserRouter>
     </>

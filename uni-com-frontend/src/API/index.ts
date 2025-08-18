@@ -38,43 +38,46 @@ export const register = async (formData:registerData) => {
 export const loginStudent = async (formData: formData) => {
   try {
     const response = await api.post(`/api/Auth/login-student`, formData);
-    //console.log(response)
+
+    if (response.data?.token) {
+      sessionStorage.setItem("Ustoken", response.data.token);
+    }
+
     return response.data;
-  } catch (error:any) {
-    // console.log();
-    saveUserDetails("notconfirmed",error.response?.data.message)
-    // if (error.response?.data === "2FA Required") {
-    //   throw new Error("2FA Required");
-    // }
-    throw error;
-  }
-};
-export const loginAdmin = async (formData: formData) => {
-  try {
-    const response = await api.post(
-      `api/Auth/login-admin`,
-      formData
-    );
-    return response.data;
-  } catch (error:any) {
-    saveUserDetails("notconfirmed",error.response?.data.message)
-    // if (error.response?.data === "2FA Required") {
-    //   throw new Error("2FA Required");
-    // }
+  } catch (error: any) {
+    saveUserDetails("notconfirmed", error.response?.data.message);
     throw error;
   }
 };
 
+export const loginAdmin = async (formData: formData) => {
+  try {
+    const response = await api.post(`/api/Auth/login-admin`, formData);
+
+    if (response.data?.token) {
+      sessionStorage.setItem("Adtoken", response.data.token);
+    }
+
+    return response.data;
+  } catch (error: any) {
+    saveUserDetails("notconfirmed", error.response?.data.message);
+    throw error;
+  }
+  
+};
+console.log('Session Storage for STUDENT:', sessionStorage);
+
 export const resendconfirmemail = async (email:string) => {
   try {
-    const response = await api.post(`/api/Auth/resend-confirmation`, { email });
-    //saveUserDetails("Adtoken", response.data.token);
+    const response = await api.post(`/api/Auth/resend-email-confirmation`,{ email });
     return response.data;
   } catch (error) {
     throw error;
   }
 };
-
+console.log('Session Storage for ADMIN:', sessionStorage);
+// POST
+// /api/Auth/resend-email-confirmation
 
 // export const disableAccount = async (password: string) => {
 //   try {

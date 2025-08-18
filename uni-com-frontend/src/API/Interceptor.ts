@@ -13,20 +13,21 @@ api.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     const token = getUserDetails("Ustoken") || getUserDetails("Adtoken");
 
-    if (token) {
-      config.headers.set("Authorization", `Bearer ${token}`);
+    if (!(token === null)) {
+      console.log("token is not null");
+      console.log("Authenticated");
+      config.headers["Authorization"] = "Bearer " + token;
+      console.log(config);
     }
-
-    // Auto-clear session after 30 minutes
     setTimeout(() => {
       sessionStorage.clear();
     }, 30 * 60000);
-
     return config;
   },
-  (error: AxiosError) => Promise.reject(error)
+  (error) => {
+    return Promise.reject(error);
+  },
 );
-
 // RESPONSE INTERCEPTOR
 api.interceptors.response.use(
   (response: AxiosResponse) => response,

@@ -109,7 +109,7 @@ scrollbar-width: none;
   text-align: left;
   border-bottom: 1px solid #eee;
 }
-
+/* 
 .light select {
   margin-top: 0.5rem;
   padding: 0.6rem;
@@ -117,7 +117,7 @@ scrollbar-width: none;
   max-width: 300px;
   border-radius: 6px;
   border: 1px solid #ccc;
-}
+} */
 
 .view-all {
   margin-top: 1rem;

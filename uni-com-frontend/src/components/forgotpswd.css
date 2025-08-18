@@ -1,0 +1,15 @@
+.forgotpassword-container{
+    display: flex;
+    justify-content: center;   /* Centers horizontally */
+    align-items: center;       /* Centers vertically */
+    height: 90vh;             /* Full screen height */
+    background-color: #f1f1f1; /* optional light background */
+      
+}
+.forgotpassword-container .forgotpassword {
+    background-color: white;
+    padding: 2rem;
+    width: 400px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
