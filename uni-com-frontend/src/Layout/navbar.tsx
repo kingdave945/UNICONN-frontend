@@ -1,4 +1,4 @@
-import "./navBar.css";
+import './navbar.css'
 import { Link, useNavigate,  } from "react-router-dom";
 
  interface NavbarProps {
