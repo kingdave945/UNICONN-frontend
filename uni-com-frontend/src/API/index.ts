@@ -76,19 +76,19 @@ export const resendconfirmemail = async (email:string) => {
 };
 
 
-export const disableAccount = async (password: string) => {
-  try {
-    const response = await api.delete(`/api/Auth/disable-account`, {
-      data: { password },
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
-};
+// export const disableAccount = async (password: string) => {
+//   try {
+//     const response = await api.delete(`/api/Auth/disable-account`, {
+//       data: { password },
+//       headers: {
+//         "Content-Type": "application/json"
+//       }
+//     });
+//     return response.data;
+//   } catch (error) {
+//     throw error;
+//   }
+// };
 
 
 

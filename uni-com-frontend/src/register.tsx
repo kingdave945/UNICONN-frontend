@@ -4,6 +4,7 @@ import { register } from "./API";
 import { toast } from "react-toastify";
 import { useState, useEffect } from "react";
 import NavBar from "./Layout/navbar";
+import { Link } from "react-router-dom";
 import RegisterImage from "./assets/efc8d6e8-84b4-45e5-8404-322950f1088b.png";
 //  type PasswordError = {
 //   id: string;
@@ -51,7 +52,7 @@ export default function Register() {
     if (!selectedUniversity) return;
     const fetchDepartments = async () => {
       try {
-        const response = await api.get(
+        const response = await api.get<{ id: string; name: string }[]>(
           `/api/Departments/${Number(selectedUniversity)}`
         );
         setDepartments(response.data);
@@ -135,10 +136,12 @@ const handlePasswordChange = (e: string) => {
             </div>
             <div className="register-form">
               <div className="register-form-header">
-                <h1>
+                <h2>
                   Create Your <br /> UniConnect Account
-                </h1>
-                <p>Join UniConnect to access a wealth of academic resources</p>
+                </h2>
+                <p
+                style={{ textAlign:"center",fontSize: "0.9rem" }}
+                >Join UniConnect to access a wealth of academic resources</p>
               </div>
 
               <form className="register-form-content" onSubmit={handleSubmit}>
@@ -283,6 +286,9 @@ const handlePasswordChange = (e: string) => {
                 <button className="register-btn" disabled={loading}>
                   {loading ? <span className="loader"></span> : "Sign Up"}
                 </button>
+                <div className="register-footer" style={{ textAlign: "center" , fontSize: "0.8rem" }}>
+                  <p>Already have an account? <Link to="/login">Log in here!</Link></p>
+                </div>
               </form>
             </div>
           </div>

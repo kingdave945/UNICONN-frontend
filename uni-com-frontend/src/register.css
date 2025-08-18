@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;   /* Centers horizontally */
   align-items: center;       /* Centers vertically */
-  height: 100vh;             /* Full screen height */
+  height: 90vh;             /* Full screen height */
    background-color: #f9fafb;
    margin-top: 0.1rem;
 }
@@ -16,7 +16,7 @@
 
 .register-img img{
     background-color: #f3f3f3;
-    height:95.5vh;
+    height:85.5vh;
     margin-bottom: -0.25rem;
 }
 .register-form {
@@ -36,9 +36,10 @@
 .register-input label{
     margin-bottom: 5px;
     font-weight: bold;
+    font-size: 0.8rem;
 }
 .register-input input{
-    padding: 10px;
+    padding: 6px;
     border: 1px solid #ccc;
     border-radius: 4px;
     background-color: white;
@@ -146,4 +147,8 @@ background-color: cornflowerblue;
 @keyframes slideIn {
   from { transform: translateX(150%); opacity: 0; }
   to { transform: translateX(0); opacity: 1; }
+}
+.register-footer a{
+  text-decoration: none;
+  color: cornflowerblue;
 }
