@@ -20,16 +20,18 @@ const ConfirmEmail = () => {
   const userId = searchParams.get("userId");
   const token = searchParams.get("token");
 
+const email = searchParams.get("email"); // get email from URL
+
 const confirmEmail = async () => {
-  if (!userId || !token || hasConfirmed) return;
+  if (!userId || !token || !email || hasConfirmed) return;
   setHasConfirmed(true);
 
   try {
     await api.get(`/api/Auth/confirm-email`, {
       params: {
         userId,
-        token,
-        email: searchParams.get("email"), // 👈 add this line
+        token, 
+        email,  // ✅ include email
       },
     });
 
@@ -41,7 +43,7 @@ const confirmEmail = async () => {
     console.error("Confirm email error:", error.response?.data);
     setMessage(
       error.response?.data?.message ||
-        "An error occurred while confirming."
+      "An error occurred while confirming."
     );
     setStatus("error");
   }
