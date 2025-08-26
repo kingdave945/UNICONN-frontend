@@ -115,8 +115,8 @@ export default function StudyMaterial() {
         
      
         {/* Submit */}
-        <div className="form-group">
-          <button type="submit" disabled={loading}>
+        <div >
+          <button type="submit" disabled={loading} className="submit-btn">
             {loading ? "Uploading..." : "Submit Material"}
           </button>
         </div>

@@ -264,7 +264,7 @@ export default function NavBar({
                           <div className="popup-user-profile">
                             <div className="user-profile-info">
                               <h3>{GetFullName()}</h3>
-                              <h2>{GetEmail()}</h2>
+                              <h4>{GetEmail()}</h4>
                             </div>
                             <div className="user-profile-actions">
                               <div
@@ -279,6 +279,16 @@ export default function NavBar({
                                 <i className="bi bi-door-open"></i>
                                 <p onClick={handleLogout}>Log Out</p>
                               </div>
+                              <div className="nav-logout">
+                             <ul>
+                              <li style={{display: "flex", alignItems: "center", gap:'5px'}}><i className="bi bi-palette"></i> <p>Theme</p></li>
+                              {/* <li><ul>
+                                <li >Light</li>
+                                <li >Dark</li>
+                              </ul></li> */}
+                             </ul>
+                              </div>
+                            
                             </div>
                           </div>
                         </div>

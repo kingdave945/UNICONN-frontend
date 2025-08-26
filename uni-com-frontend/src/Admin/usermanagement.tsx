@@ -2,7 +2,16 @@ import AdminActions from "./adminactions";
 import { useState } from "react";
 import api from "../API/Interceptor";
 import Status from "./status";
-export default function UserMan() {
+
+interface UserManProps {
+  userStats: {
+    totalUsers: number;
+    activeUsers: number;
+    disabledUsers: number;
+  };
+}
+
+export default function UserMan({ userStats }: UserManProps) {
   const defaultUsers = [
     {
       id: 1,
@@ -93,7 +102,9 @@ export default function UserMan() {
                       <span>{item.email}</span>
                     </td>
                     <td>
-                      <Status />
+                      <Status 
+                        userStats={userStats}
+                      />
                     </td>
                     <td>
                       <span>{item.joinedDate}</span>
@@ -111,7 +122,9 @@ export default function UserMan() {
                       <span>{item.email}</span>
                     </td>
                     <td>
-                      <Status />
+                      <Status 
+                        userStats={userStats}
+                      />
                     </td>
                     <td>
                       <span>{item.joinedDate}</span>

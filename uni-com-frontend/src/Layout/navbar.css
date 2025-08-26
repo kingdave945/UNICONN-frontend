@@ -279,13 +279,15 @@ font-size: 1.5rem;
   text-align: center;
 } */
 
-.popup-user-profile h2 ,
-.popup-user-profile h3 {
+.popup-user-profile h4 ,
+.popup-user-profile h3 
+{
   margin: 0;
-  font-size: 1rem;
+  font-size: 0.8rem;
   font-weight: 600;
   text-align: center;
 }
+
 .user-profile-info {
   margin-top: 8px;
   background-color: #eeeeee;

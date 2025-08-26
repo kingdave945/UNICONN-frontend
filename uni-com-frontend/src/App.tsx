@@ -111,7 +111,13 @@ const handleLogout = () => {
             element={
               // <ProtectedRouteAdmin>
               // </ProtectedRouteAdmin>
-                <UserMan />
+                <UserMan
+                  userStats={{
+                    totalUsers: 0,
+                    activeUsers: 0,
+                    disabledUsers: 0
+                  }}
+                />
             }
           />
         </Route>
