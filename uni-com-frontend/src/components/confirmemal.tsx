@@ -7,8 +7,9 @@ const statusIcons: Record<string, React.ReactElement> = {
   success: <span style={{ fontSize: 40, color: "#4BB543" }}>✔️</span>,
   error: <span style={{ fontSize: 40, color: "#D8000C" }}>❌</span>,
 };
-const navigate = useNavigate();
+
 const ConfirmEmail = () => {
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [message, setMessage] = useState("Confirming your email...");
   const [status, setStatus] = useState<"loading" | "success" | "error">(
