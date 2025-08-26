@@ -36,10 +36,13 @@ const confirmEmail = async () => {
       },
     });
 
-    setMessage("Email confirmed successfully! You can now log in.");
-    navigate('/login')
+    setMessage("Email confirmed successfully! Redirecting you to login....");
+
     setStatus("success");
     setTimer(5);
+    setTimeout(() => {
+      navigate("/login");
+    }, 8000);
 
   } catch (error: any) {
     console.error("Confirm email error:", error.response?.data);
