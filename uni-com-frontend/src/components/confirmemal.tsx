@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import api from "../API/Interceptor";
-
+import { useNavigate } from "react-router-dom";
 const statusIcons: Record<string, React.ReactElement> = {
   loading: <span style={{ fontSize: 40 }}>⏳</span>,
   success: <span style={{ fontSize: 40, color: "#4BB543" }}>✔️</span>,
   error: <span style={{ fontSize: 40, color: "#D8000C" }}>❌</span>,
 };
-
+const navigate = useNavigate();
 const ConfirmEmail = () => {
   const [searchParams] = useSearchParams();
   const [message, setMessage] = useState("Confirming your email...");
@@ -36,6 +36,7 @@ const confirmEmail = async () => {
     });
 
     setMessage("Email confirmed successfully! You can now log in.");
+    navigate('/login')
     setStatus("success");
     setTimer(5);
 
