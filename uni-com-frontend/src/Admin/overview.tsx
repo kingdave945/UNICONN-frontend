@@ -15,38 +15,38 @@ export default function Overview() {
     disabledUsers: 0,
   });
 const [materialStats, setMaterialStats] = useState(0)
+useEffect(() => {
+  const fetchUsers = async () => {
+    try {
+      const response = await api.get("/api/Admin/users?page=1&pageSize=100");
+      const users = response.data.data || []; // ✅ extract array
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await api.get("/api/Admin/users?page=1&pageSize=100"); // adjust pageSize if needed
-        const users = response.data.users;
+      setUserStats({
+        totalUsers: response.data.totalCount,
+        activeUsers: users.filter((u: any) => u.isActive).length,
+        disabledUsers: users.filter((u: any) => !u.isActive).length,
+      });
+    } catch (error) {
+      console.error("❌ Failed to fetch users:", error);
+    }
+  };
 
-        setUserStats({
-          totalUsers: response.data.totalCount,
-          activeUsers: users.filter((u: any) => u.isActive).length,
-          disabledUsers: users.filter((u: any) => !u.isActive).length,
-        });
-      } catch (error) {
-        console.error("❌ Failed to fetch users:", error);
-      }
-    };
+  fetchUsers();
+}, []);
 
-    fetchUsers();
-  }, []);
-  useEffect(() => {
-    const fetchMaterials = async () => {
-      try {
-        const response = await api.get("/api/Admin/materials?page=1&pageSize=100"); // adjust pageSize if needed
-        const materials = response.data.data;
-        setMaterialStats(materials)
-      } catch (error) {
-        console.error("❌ Failed to fetch materials:", error);
-      }
-    };
+useEffect(() => {
+  const fetchMaterials = async () => {
+    try {
+      const response = await api.get("/api/Admin/materials?page=1&pageSize=100");
+      // const materials = response.data.data || [];
+     setMaterialStats(response.data.data.totalCount);; // ✅ store count, not array
+    } catch (error) {
+      console.error("❌ Failed to fetch materials:", error);
+    }
+  };
 
-    fetchMaterials();
-  }, []);
+  fetchMaterials();
+}, []);
 
   return (
     <div className='overview-container'>
@@ -70,11 +70,11 @@ const [materialStats, setMaterialStats] = useState(0)
             <h1>{userStats.disabledUsers}</h1>
             <p>Disabled Users</p>
           </li>
-          <li className="cards">
-            <h1>{materialStats}</h1>
-            <p>Disabled Users</p>
-          </li>
-          
+         <li className="cards">
+  <h1>{materialStats}</h1>
+  <p>Total Materials</p>
+</li>
+
         </ul>
       </section>
 

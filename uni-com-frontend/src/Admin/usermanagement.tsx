@@ -3,10 +3,25 @@ import { useState } from "react";
 import api from "../API/Interceptor";
 import Status from "./status";
 export default function UserMan() {
-   const defaultUsers = [
-    {id: 1, fullName: "John Doe", email: "john@example.com", joinedDate: "2025-01-01" },
-    {id: 2, fullName: "Jane Smith", email: "jane@example.com", joinedDate: "2025-02-15" },
-    {id: 3, fullName: "Bob Johnson", email: "bob@example.com", joinedDate: "2025-03-20" },
+  const defaultUsers = [
+    {
+      id: 1,
+      fullName: "John Doe",
+      email: "john@example.com",
+      joinedDate: "2025-01-01",
+    },
+    {
+      id: 2,
+      fullName: "Jane Smith",
+      email: "jane@example.com",
+      joinedDate: "2025-02-15",
+    },
+    {
+      id: 3,
+      fullName: "Bob Johnson",
+      email: "bob@example.com",
+      joinedDate: "2025-03-20",
+    },
   ];
   const [loading, setLoading] = useState(false);
   const [query, setQuery] = useState("");
@@ -21,9 +36,9 @@ export default function UserMan() {
     try {
       setLoading(true);
       const response = await api.get(`/api/Admin/users/search?query=${value}`);
-      const data = response.data.data || response.data;
-      console.log("LET US SEE DATA", data);
-      setSuggestions(data || []);
+      const usersArray = response.data.data || [];
+      console.log("LET US SEE DATA", usersArray);
+      setSuggestions(usersArray);
     } catch (err) {
       console.error("Error fetching data:", err);
       setSuggestions([]);
@@ -50,43 +65,46 @@ export default function UserMan() {
             />
           </div>
           <table>
-          <thead style={{backgroundColor: '#fff'}}>
-            <tr>
-              <th>User info</th>
-              <th>Status</th>
-              <th>Joined</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {loading ? (
+            <thead style={{ backgroundColor: "#fff" }}>
               <tr>
-                <td colSpan={3} style={{ textAlign: "center", color: "gray" }}>
-                  Loading...
-                </td>
+                <th>User info</th>
+                <th>Status</th>
+                <th>Joined</th>
+                <th>Actions</th>
               </tr>
-            ) : suggestions.length > 0 ? (
-              suggestions.map((item, index) => (
-                <tr key={index}>
-                  <td className="td-userman1">
-                    <span>
-                      {item.fullName || `${item.firstName} ${item.lastName}`}
-                    </span>
-                    <span>{item.email}</span>
-                  </td>
-                  <td>
-                    <Status />
-                  </td>
-                  <td>
-                    <span>{item.joinedDate}</span>
-                  </td>
-                  <td>
-                    <AdminActions user={item} />
+            </thead>
+            <tbody>
+              {loading ? (
+                <tr>
+                  <td
+                    colSpan={3}
+                    style={{ textAlign: "center", color: "gray" }}
+                  >
+                    Loading...
                   </td>
                 </tr>
-              ))
-            ) : suggestions.length === 0  ? (
-              defaultUsers.map((item, index) => (
+              ) : suggestions.length > 0 ? (
+                suggestions.map((item, index) => (
+                  <tr key={index}>
+                    <td className="td-userman1">
+                      <span>
+                        {item.fullName || `${item.firstName} ${item.lastName}`}
+                      </span>
+                      <span>{item.email}</span>
+                    </td>
+                    <td>
+                      <Status />
+                    </td>
+                    <td>
+                      <span>{item.joinedDate}</span>
+                    </td>
+                    <td>
+                      <AdminActions user={item} />
+                    </td>
+                  </tr>
+                ))
+              ) : suggestions.length === 0 ? (
+                defaultUsers.map((item, index) => (
                   <tr key={index}>
                     <td className="td-userman1">
                       <span>{item.fullName}</span>
@@ -103,11 +121,10 @@ export default function UserMan() {
                     </td>
                   </tr>
                 ))
-            ) : null}
-          </tbody>
-        </table>
+              ) : null}
+            </tbody>
+          </table>
         </div>
-       
       </section>
     </div>
   );
