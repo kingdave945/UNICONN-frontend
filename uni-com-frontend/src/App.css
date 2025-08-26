@@ -1,12 +1,16 @@
+
 body.light {
   background-color: #fff;
   color: #000;
-
 }
 body.dark {
   background-color: #000000;
   color: #f9f9f9;
 }
+.dark .nav-links a{
+  color: white;
+}
+
 .dark div,
 .dark select {
   color: white;

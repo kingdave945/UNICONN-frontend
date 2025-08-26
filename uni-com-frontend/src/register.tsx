@@ -5,10 +5,19 @@ import { toast } from "react-toastify";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import RegisterImage from "./assets/efc8d6e8-84b4-45e5-8404-322950f1088b.png";
-//  type PasswordError = {
-//   id: string;
-//   message: string;
-// };
+import { useNavigate } from "react-router-dom";
+interface Department {
+  id: number;
+  name: string;
+  universityId: number;
+  university: string | null;
+}
+
+interface DepartmentResponse {
+  successful: boolean;
+  message: string;
+  data: Department[];
+}
 
 
 
@@ -22,16 +31,15 @@ export default function Register() {
   const [department, setDepartment] = useState<string>("");
   const [level, setLevel] = useState(100);
   const [courseOfStudy, setCourseOfStudy] = useState("");
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [passwordErrors, setPasswordErrors] = useState<string[]>([]);
 
   // University & Departments
 
   const [selectedUniversity, setSelectedUniversity] = useState<string>("");
-  const [departments, setDepartments] = useState<
-    { id: string; name: string }[]
-  >([]);
+
+const [departments, setDepartments] = useState<{ id: string; name: string }[]>([]);
 
   // Fetch universities when page loads
 
@@ -47,53 +55,70 @@ export default function Register() {
   ];
 
   // Fetch departments when a university is selected
-  useEffect(() => {
-    if (!selectedUniversity) return;
-    const fetchDepartments = async () => {
-      try {
-        const response = await api.get<{ id: string; name: string }[]>(
-          `/api/Departments/${Number(selectedUniversity)}`
-        );
-        setDepartments(response.data);
-        console.log("Departments:", response.data);
-      } catch (error) {
-        console.error("Error fetching departments:", error);
-      }
-    };
-    fetchDepartments();
-  }, [selectedUniversity]);
+useEffect(() => {
+  if (!selectedUniversity) return;
+
+  const fetchDepartments = async () => {
+    try {
+      const response = await api.get<DepartmentResponse>(
+        `/api/Departments/${Number(selectedUniversity)}`
+      );
+
+      setDepartments(
+        response.data.data.map((dept) => ({
+          id: dept.id.toString(),
+          name: dept.name,
+        }))
+      );
+      console.log("Departments:", response.data);
+    } catch (error) {
+      console.error("Error fetching departments:", error);
+    }
+  };
+
+  fetchDepartments();
+}, [selectedUniversity]);
 
   // Handle form submit
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const form = {
-      email,
-      password,
-      fullName,
-      userName,
-      role,
-      department,
-      level,
-      courseOfStudy,
-      universityId: Number(selectedUniversity),
-    };
+  e.preventDefault();
 
-    try {
-      setLoading(true);
-      await register(form);
-      toast.success("Account Registered! Please confirm your email.");
-      // navigate("/login");
-    } catch (error: any) {
-      console.log("error", error);
-      toast.error(
-        error.response?.data?.message ||
-          error.response?.data?.[0]?.description ||
-          "Registration failed."
-      );
-    } finally {
-      setLoading(false);
-    }
+  const form = {
+    email,
+    password,
+    fullName,
+    userName,
+    role,
+    department,
+    level,
+    courseOfStudy,
+    universityId: Number(selectedUniversity),
   };
+
+  try {
+    setLoading(true);
+    await register(form);
+    toast.success("Account Registered! Please confirm your email.");
+    navigate("/login");
+  } catch (error: any) {
+    console.log("error", error);
+    const errors = error.response?.data?.data;
+    if (Array.isArray(errors)) {
+      const duplicateUser = errors.find((e: any) => e.code === "DuplicateUserName");
+      if (duplicateUser) {
+        toast.error("That username is already taken, please choose another.");
+        return;
+      }
+    }
+    toast.error(
+      error.response?.data?.message ||
+        error.response?.data?.[0]?.description ||
+        "Registration failed."
+    );
+  } finally {
+    setLoading(false);
+  }
+};
 
   // Toggle password visibility
   const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
@@ -121,7 +146,6 @@ const handlePasswordChange = (e: string) => {
 
   return (
     <div className="layout-register">
-  
       <div className="register-content">
         <div className="register-container">
           <div className="register-header">
@@ -279,12 +303,13 @@ const handlePasswordChange = (e: string) => {
                     required
                   />
                 </div>
-
+                <div>
                 <button className="register-btn" disabled={loading}>
                   {loading ? <span className="loader"></span> : "Sign Up"}
                 </button>
                 <div className="register-footer" style={{ textAlign: "center" , fontSize: "0.8rem" }}>
                   <p>Already have an account? <Link to="/login">Log in here!</Link></p>
+                </div>
                 </div>
               </form>
             </div>

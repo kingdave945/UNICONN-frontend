@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {  Routes, Route } from "react-router-dom";
+import ProtectedRouteUsers from "./components/ProtectedRouteUsers";
 import Login from "./login";
 import { Navigate } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
@@ -19,19 +20,18 @@ import { useState, useEffect } from "react";
 import ForgetPassword from "./components/forgotpassword";
 import ConfirmEmail from "./components/confirmemal";
 import NavBar from "./Layout/navbar";
-// import ProtectedRouteAdmin from "./components/ProtectedRouteAdmin";
+import { useNavigate } from "react-router-dom";
+ 
 export default function App() {
 const [theme, setTheme] = useState("light");
 const [isPublic, setIsPublic] = useState(false); // false = toggle off, true = toggle on
-
+const navigate = useNavigate();
 useEffect(() => {
   const saved = localStorage.getItem("theme");
   const prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
   const initial = saved || (prefersLight ? "light" : "dark");
-
   setTheme(initial);
   document.body.classList.add(initial);
-
   // Sync toggle with theme
   setIsPublic(initial === "dark"); // on if dark mode
 }, []);
@@ -47,21 +47,41 @@ const toggleTheme = () => {
   setIsPublic(newTheme === "dark");
 };
 
+const [role, setRole] = useState<string | null>(
+  sessionStorage.getItem("role")
+);
+
+const handleLogin = (newRole: string) => {
+  sessionStorage.setItem("role", newRole);
+  setRole(newRole); // updates all children instantly
+};
+
+const handleLogout = () => {
+  sessionStorage.clear();
+  navigate("/");
+  setRole(null);
+};
+
   return (
     <>
     <ToastContainer/>
-    <BrowserRouter>
-           <NavBar
-          theme={theme}
-          toggleTheme={toggleTheme}
-          setIsPublic={setIsPublic}
-          isPublic={isPublic}
-        />
+ 
+    <div className='applayout'>
+    <NavBar
+     theme={theme}
+     toggleTheme={toggleTheme}
+     setIsPublic={setIsPublic}
+     isPublic={isPublic}
+     role={role}
+     handleLogout={handleLogout}
+      />
       <Routes>
-        <Route path="/" element={
-          <Layout 
       
-        />}>
+  <Route path="/"     element={
+      <ProtectedRouteUsers>
+        <Layout role={role} />
+      </ProtectedRouteUsers>
+    }>
           <Route index element={<Dashboard />} />
           <Route path="/profile" element={<Profile />}>
             <Route index element={<Navigate to="materials" />} />
@@ -95,12 +115,17 @@ const toggleTheme = () => {
             }
           />
         </Route>
-        <Route path="/login" element={<Login />} />
+      
+      
+        <Route path="/login" element={<Login
+         handleLogin={handleLogin}       />} />
         <Route path="/register" element={<Register />} />
         <Route path="/confirm-email" element={<ConfirmEmail />} />
         <Route path="/forgot-password" element={<ForgetPassword />} />
       </Routes>
-    </BrowserRouter>
+    
+      </div>
+   
     </>
   );
 }

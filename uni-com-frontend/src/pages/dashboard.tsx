@@ -1,27 +1,34 @@
-
 import './dashboard.css';
-
+import {GetFullName} from '../UserInfo/fullname';
+import myImg1 from '../assets/Selection.png'
+import myImg2 from '../assets/Selection (1).png'
+import myImg3 from '../assets/Selection (2).png'
+import myImg4 from '../assets/Selection (3).png'
 export default function Dashboard() {
-  const suggested = [
+const suggested = [
     {
       title: "Advanced Calculus Lecture Notes",
       uploader: "Dr. Emily White",
       tags: ["Calculus", "Math", "Lecture"],
+      img: myImg1
     },
     {
       title: "Introduction to Python for Engineers",
       uploader: "Prof. Alex Kim",
       tags: ["Python", "Programming", "Engineering"],
+      img: myImg2
     },
     {
       title: "Organic Chemistry Lab Manual",
       uploader: "Dr. Sophia Lee",
       tags: ["Chemistry", "Lab", "Organic"],
+      img: myImg3
     },
     {
       title: "Linear Algebra Problem Set Solutions",
       uploader: "TA John Doe",
       tags: ["Linear Algebra", "Math", "Solutions"],
+      img: myImg4
     },
   ];
 
@@ -60,31 +67,27 @@ export default function Dashboard() {
 
   return (
     <div className="dashboard">
-      <h2>Welcome back, Sarah Chen!</h2>
-
-      {/* Suggested Materials */}
+      <h2>Welcome back, {GetFullName()}</h2>
       <div className="section">
         <h3>My Department: Suggested Materials</h3>
-        <div className="card-container">
-          {suggested.map((item, index) => (
-            <div className="material-card" key={index}>
-              <div className="thumbnail"></div>
-              <div className="info">
-                <strong>{item.title}</strong>
-                <p className="uploader">Uploaded by {item.uploader}</p>
-                <div className="tags">
-                  {item.tags.map((tag, i) => (
-                    <span key={i} className="tag">{tag}</span>
-                  ))}
-                </div>
-                <div className="card-buttons">
-                  <button>View Details</button>
-                  <button>Download</button>
-                </div>
-              </div>
+     <div className="card-container">
+        {suggested.map((item, index) => (
+          <div key={index} className="card">
+            <img src={item.img} alt={item.title} />
+            <h4>{item.title}</h4>
+            <p className="uploader">Uploaded by {item.uploader}</p>
+            <div className="tags">
+              {item.tags.map((tag, idx) => (
+                <span key={idx} className="tag">{tag}</span>
+              ))}
             </div>
-          ))}
-        </div>
+            <div className="buttons">
+              <button className="btn">View Details</button>
+              <button className="btn primary">Download</button>
+            </div>
+          </div>
+        ))}
+      </div>
       </div>
 
       {/* Top Materials Table */}
@@ -108,7 +111,7 @@ export default function Dashboard() {
                 <td>{material.title}</td>
                 <td>{material.uploader}</td>
                 <td>{material.date}</td>
-                <td className='tags'>
+                <td className='tags-table'>
                   {material.tags.map((tag, index) => (
                     <span key={index} className="tag">{tag}</span>
                   ))}

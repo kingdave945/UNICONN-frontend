@@ -13,11 +13,14 @@
     
     box-shadow: 0 2px 4px rgba(54, 44, 44, 0.199);
 }
+.dark .register-header {
+ border: 2px solid rgba(128, 128, 128, 0.293)
+}
 
 .register-img img{
     background-color: #f3f3f3;
-    height:85.5vh;
-    margin-bottom: -0.25rem;
+    height:86vh;
+    margin-bottom: -1rem;
 }
 .register-form {
  background-color: #fff;
@@ -25,21 +28,22 @@
   width: 320px;
   display: flex;
   flex-direction: column;
-  height: 70vh;
+  height: 80vh;
 }
 .register-input{
     display: flex;
     flex-direction: column;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
     
 }
+
 .register-input label{
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     font-weight: bold;
-    font-size: 0.8rem;
+    font-size: 1rem;
 }
 .register-input input{
-    padding: 6px;
+    padding: 11px;
     border: 1px solid #ccc;
     border-radius: 4px;
     background-color: white;
@@ -57,16 +61,16 @@
 .password-input input{ 
  
     border: none;
- width: 100%;
+  width: 100%;
     background-color: white;
     outline: none;
     
 }
-.register-form-content{
-
-    justify-content: center;
-    align-items: center;
-    height: 100%;
+.register-form-content {
+  flex: 1;                
+  overflow-y: auto;      
+  padding-right: 5px;     /* small gap so scrollbar doesn’t overlap */
+  border-radius: 4px;
 }
 .register-form-header{
     text-align: center;
@@ -92,7 +96,7 @@ background-color: cornflowerblue;
     margin-bottom: 40px;
 }
 .user-info select{
-    padding: 5px;
+    padding: 10px;
 }
 .select-display-register{
     display: flex;
@@ -154,9 +158,9 @@ background-color: cornflowerblue;
   color: cornflowerblue;
 }
 #register-select  select{
-
   margin-top: 0.5rem;
-  padding: 0.6rem;
+  margin-bottom: 0.5rem;
+  padding: 10px;
   width: 100%;
   max-width: 400px;
   border-radius: 6px;

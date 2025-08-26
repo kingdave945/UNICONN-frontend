@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { toast } from 'react-toastify';
 import api from "../API/Interceptor";
-import NavBar from "../Layout/navbar";
 import './forgotpswd.css';
 export default function ForgetPassword() {
   const [loading, setLoading] = useState(false);
@@ -27,12 +26,7 @@ export default function ForgetPassword() {
 
   return (
     <>
-    <NavBar
-      theme="light"
-      toggleTheme={() => {}}
-      setIsPublic={() => {}}
-      isPublic={true}
-    />
+ 
     <div className="forgotpassword-container">
       <div className="forgotpassword">
         <form

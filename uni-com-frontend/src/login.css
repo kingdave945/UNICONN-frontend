@@ -7,16 +7,19 @@
 margin-top: 0.1rem;}
 
 .login-header{
- background-color: #fff; /* optional light background */
+    background-color: #fff; 
     display: flex;
     border: 1px solid transparent;
     margin-top: -1rem;
     box-shadow: 0 2px 4px rgba(54, 44, 44, 0.199);
 }
-
+.dark .login-header {
+ border: 2px solid rgba(128, 128, 128, 0.293)
+}
 .login-img img{
     margin-bottom: -0.25rem;
     background-color: #b9b9b9;
+    height: 78vh;
 }
 .login-form {
  
@@ -83,6 +86,10 @@ background-color: cornflowerblue;
   max-width: 400px;
   border-radius: 6px;
   border: 1px solid #ccc;
+}
+.dark .login-role select {
+  width: 500px;
+  max-width: 400px;
 }
 .login-links a{
   text-decoration: none;

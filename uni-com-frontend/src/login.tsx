@@ -1,12 +1,15 @@
 import './login.css'
 import { Link, useNavigate } from 'react-router-dom';
 import LoginImage from './assets/b0f745d9-368d-4e8a-b2e0-b936c574a9e4.png';
-import { useState } from 'react';
-import { loginStudent, loginAdmin, resendconfirmemail } from './API'; // 👈 add resend API
+import { useState} from 'react';
+import { resendconfirmemail } from './API'; 
 import { toast } from 'react-toastify';
+import { loginUser } from './API';
+interface LoginProps {
+  handleLogin: (role: string) => void;
+}
 
-
-export default function Login() {
+export default function Login({ handleLogin }: LoginProps) {
   const [role, setRole] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,13 +17,10 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [resending, setResending] = useState(false);
   const navigate = useNavigate();
-
-  const form = { email: `${email}`, password: `${password}` };
-
+  
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
   };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!role) {
@@ -28,26 +28,31 @@ export default function Login() {
       return;
     }
     setLoading(true);
+    
     try {
+      const form = { email, password };
       sessionStorage.setItem("role", role);
       sessionStorage.setItem("email", email);
+
       switch (role) {
-        case "user":
-          await loginStudent(form);
+        case "Student":
+          await loginUser(role, form);
           navigate("/");
           break;
-        case "admin":
-          await loginAdmin(form);
+        case "Admin":
+          await loginUser(role, form);
           navigate("/Admin/Overview");
           break;
         default:
           break;
       }
+      handleLogin(role);
     } catch (error: any) {
       console.log("error", error);
       toast.error(error.response?.data?.message || "An error occurred while logging in.");
     }
     setLoading(false);
+
   };
 
   const inputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -92,8 +97,8 @@ export default function Login() {
                   required
                 >
                   <option value="">Select Role</option>
-                  <option value="admin">Admin</option>
-                  <option value="user">Student</option>
+                  <option value="Admin">Admin</option>
+                  <option value="Student">Student</option>
                 </select>
               </div>
               <div className="login-input">

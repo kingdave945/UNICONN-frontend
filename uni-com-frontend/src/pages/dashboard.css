@@ -1,80 +1,96 @@
 .dashboard {
-scrollbar-width: none;
   font-family: 'Segoe UI', sans-serif;
   color: #333;
+  padding: 20px;
 }
 
-.dashboard h2 {
-  margin-bottom: 2rem;
+ .dashboard h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
 }
 
-.section {
-  margin-bottom: 2.5rem;
+.dashboard h3 {
+  font-size: 20px;
+  margin-bottom: 15px;
 }
 
 .card-container {
   display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
 }
 
-.material-card {
-  background: #fff;
-  padding: 1rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
-}
-
-.thumbnail {
-  height: 120px;
-  background: #f3f3f3;
-  border-radius: 8px;
-  margin-bottom: 0.75rem;
-}
-
-.info {
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  justify-content: space-between;
+   height: 290px; 
+}
+.card img {
+  width: 100%;
+  height: 120px; /* same height for all images */
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
 }
 
-.uploader {
-  font-size: 0.85rem;
+.card h4 {
+  font-size: 14.5px;
+  margin-bottom: 5px;
+  flex-grow: 0;
+}
+
+.card .uploader {
+  font-size: 13px;
   color: #666;
+  margin-bottom: 10px;
+  flex-grow: 0;
 }
 
 .tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
+  gap: 6px;
+ margin-bottom: 5px;
 }
+.tags span {
+  font-size: 0.9rem;
+  background: #e0e0e0;
 
-.tag {
-  background: #e4e4e4;
-  padding: 0.25rem 0.6rem;
-  border-radius: 6px;
-  font-size: 0.75rem;
+  padding: 0.2rem;
+  border-radius: 5px;
 }
-
-.card-buttons {
-  margin-top: 0.75rem;
+.buttons {
   display: flex;
-  gap: 0.5rem;
+  gap: 8px;
 }
 
-.card-buttons button {
-  padding: 0.4rem 0.8rem;
+.btn {
+  padding: 6px 12px;
+  font-size: 13px;
   border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: #e0e0e0;
+}
+
+.btn:hover {
+  background: #d0d0d0;
+}
+
+.btn.primary {
   background: #2563eb;
   color: white;
-  border-radius: 4px;
-  font-size: 0.8rem;
-  cursor: pointer;
 }
 
-.card-buttons button:hover {
-  background: #1e4fcc;
+.btn.primary:hover {
+  background: #1e4fc9;
 }
+
 
 .table-header {
   display: flex;
@@ -82,6 +98,12 @@ scrollbar-width: none;
   align-items: center;
 }
 
+.tags-table {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+ 
+}
 .browse-btn {
   background: transparent;
   border: 1px solid #ddd;
@@ -109,15 +131,7 @@ scrollbar-width: none;
   text-align: left;
   border-bottom: 1px solid #eee;
 }
-/* 
-.light select {
-  margin-top: 0.5rem;
-  padding: 0.6rem;
-  width: 100%;
-  max-width: 300px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-} */
+
 
 .view-all {
   margin-top: 1rem;
@@ -127,4 +141,7 @@ scrollbar-width: none;
   color: white;
   border-radius: 4px;
   cursor: pointer;
+}
+.section .table-header h3{
+  margin-top: 1.5rem;
 }

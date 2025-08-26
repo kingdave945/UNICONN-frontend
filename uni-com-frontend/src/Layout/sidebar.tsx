@@ -1,11 +1,14 @@
 import "./sidebar.css";
 import { Link, useLocation } from "react-router-dom";
-import { useState } from "react";
-export default function SideBar() {
+import { useState} from "react";
+
+interface SideBarProps {
+  role: string | null;
+}
+export default function SideBar({ role }: SideBarProps) {
   const location = useLocation();
   const [ismobile, setIsMobile] = useState(true);
-  const [_sidebar, _SetSideBar] = useState(true)
-  const isLoggedIn =  (sessionStorage.getItem("Adtoken"));
+  const [_sidebar, _SetSideBar] = useState(true);
   const sidebarItems = [
     { label: "Home", icon: "bi bi-house-door", path: "/" },
     {
@@ -26,12 +29,7 @@ export default function SideBar() {
        path: "/profile" },
   ];
    const AdminProps = [
-    { label: "Overview", icon: "bi bi-house-door", path: "/Admin/Overview" },
-    {
-      label: "User Management",
-      icon: "bi bi-people",
-      path: "/Admin/User-Management",
-    },
+    { label: "User Management",   icon: "bi bi-people", path: "/Admin/Overview" },
     {
       label: "Material Review",
       icon: "bi bi-file-earmark-spreadsheet",
@@ -39,12 +37,7 @@ export default function SideBar() {
     },
   ];
    const AdminPropsI = [
-    {  icon: "bi bi-house-door", path: "/Admin/Overview" },
-    {
-      
-      icon: "bi bi-people",
-      path: "/Admin/User-Management",
-    },
+    {  icon: "bi bi-people", path: "/Admin/Overview" },
     {
    
       icon: "bi bi-file-earmark-spreadsheet",
@@ -52,6 +45,7 @@ export default function SideBar() {
     },
   ];
 
+const isLoggedIn = role === "Admin";
   return (
     <>
   <div className="agent-sidebar-toggle">   

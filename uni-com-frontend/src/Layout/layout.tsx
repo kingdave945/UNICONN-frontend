@@ -5,9 +5,11 @@ import Footer from "./footer";
 import { Outlet } from "react-router-dom";
 // import { useState, useEffect } from "react";
 // import SkeletonCard from "../components/SkeletonCard";
+interface SideBarProps {
+  role: string | null;
+}
 
- 
-export default function Layout() {
+export default function Layout({ role }: SideBarProps) {
   //   const [outletloading, setOutletLoading] = useState(true);
   //    useEffect(() => {
   //   const timer = setTimeout(() => {
@@ -21,7 +23,9 @@ export default function Layout() {
     <div className="layout">
    
       <div className="layout__content">
-        <SideBar />
+        <SideBar
+          role={role}
+        />
         <main className="layout__main">
         {/* {outletloading ? <SkeletonCard /> : <Outlet />} */}
         <Outlet/>

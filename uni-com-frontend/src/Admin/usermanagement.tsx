@@ -1,46 +1,114 @@
 import AdminActions from "./adminactions";
+import { useState } from "react";
+import api from "../API/Interceptor";
+import Status from "./status";
 export default function UserMan() {
-  const Users = [
-    {
-      username: "Grace",
-      useremail: "grace@gmail.com",
-    },
+   const defaultUsers = [
+    {id: 1, fullName: "John Doe", email: "john@example.com", joinedDate: "2025-01-01" },
+    {id: 2, fullName: "Jane Smith", email: "jane@example.com", joinedDate: "2025-02-15" },
+    {id: 3, fullName: "Bob Johnson", email: "bob@example.com", joinedDate: "2025-03-20" },
   ];
+  const [loading, setLoading] = useState(false);
+  const [query, setQuery] = useState("");
+  const [suggestions, setSuggestions] = useState<any[]>([]);
+  const handleInput = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.trim();
+    setQuery(value);
+    if (!value) {
+      setSuggestions([]);
+      return;
+    }
+    try {
+      setLoading(true);
+      const response = await api.get(`/api/Admin/users/search?query=${value}`);
+      const data = response.data.data || response.data;
+      console.log("LET US SEE DATA", data);
+      setSuggestions(data || []);
+    } catch (err) {
+      console.error("Error fetching data:", err);
+      setSuggestions([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <>
-      <div className="admin-dashboard">
-        <section id="Overview-sec2">
-          <h3>User Management</h3>
-          <div className="recent-uploads">
-            <div className="Uploads-recent">
-              <h4>User Management</h4>
-              <p>Search and manage platform users.</p>
-            </div>
-            <div className="user-man-holder-cont">
-            <div className="user-man-input">
-              <input
-               type="text"
-               placeholder="Search by name or email" />
-            </div>
-            <div className="user-man-container">
-              <div className="user-man">
-                {Users.map((item, index) => (
-                  <ul key={index}>
-                    <li className="user-man">
-                      <span> {item.username}</span>
-                      <span>{item.useremail}</span>
-                    </li>
-                  </ul>
-                ))}
-              </div>
-              <div>
-                <AdminActions />
-              </div>
-            </div>
-            </div>
+    <div className="admin-dashboard">
+      <section id="Overview-sec2">
+        <div className="user-man-holder-cont"></div>
+      </section>
+      <section id="Overview-sec2">
+        <div className="recent-uploads">
+          <div className="user-man-input">
+            <i className="bi bi-search"></i>
+            <input
+              type="text"
+              value={query}
+              onChange={handleInput}
+              style={{ padding: "10px" }}
+              placeholder="Search user by name or email"
+            />
           </div>
-        </section>
-      </div>
-    </>
+          <table>
+          <thead style={{backgroundColor: '#fff'}}>
+            <tr>
+              <th>User info</th>
+              <th>Status</th>
+              <th>Joined</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {loading ? (
+              <tr>
+                <td colSpan={3} style={{ textAlign: "center", color: "gray" }}>
+                  Loading...
+                </td>
+              </tr>
+            ) : suggestions.length > 0 ? (
+              suggestions.map((item, index) => (
+                <tr key={index}>
+                  <td className="td-userman1">
+                    <span>
+                      {item.fullName || `${item.firstName} ${item.lastName}`}
+                    </span>
+                    <span>{item.email}</span>
+                  </td>
+                  <td>
+                    <Status />
+                  </td>
+                  <td>
+                    <span>{item.joinedDate}</span>
+                  </td>
+                  <td>
+                    <AdminActions user={item} />
+                  </td>
+                </tr>
+              ))
+            ) : suggestions.length === 0  ? (
+              defaultUsers.map((item, index) => (
+                  <tr key={index}>
+                    <td className="td-userman1">
+                      <span>{item.fullName}</span>
+                      <span>{item.email}</span>
+                    </td>
+                    <td>
+                      <Status />
+                    </td>
+                    <td>
+                      <span>{item.joinedDate}</span>
+                    </td>
+                    <td>
+                      <AdminActions user={item} />
+                    </td>
+                  </tr>
+                ))
+            ) : null}
+          </tbody>
+        </table>
+        </div>
+       
+      </section>
+    </div>
   );
 }

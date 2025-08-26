@@ -1,5 +1,6 @@
 
 import './profile.css';
+import {GetFullName, GetDepartment, GetLevel} from '../../UserInfo/fullname';
 import { Outlet } from 'react-router-dom';
 import { useNavigate, useLocation } from 'react-router-dom';
 export default function Profile() {
@@ -16,19 +17,11 @@ const location = useLocation();
           </div>
         </div>
         <div className="profile-info">
-          <h2>Aisha Adeniyi</h2>
-          <p className="level">Computer Science - 400 Level</p>
+          <h2>{GetFullName()}</h2>
+          <p className="level">{GetDepartment()} - {GetLevel()} Level</p>
           <p className="joined">Joined: January 15, 2022</p>
-          <p className="bio">
-            Passionate computer science student with a keen interest in artificial intelligence and data structures. Always eager to learn and share knowledge with peers. Committed to building a strong academic community.
-          </p>
         </div>
-        <button className="edit-btn">
-          <i className="bi bi-gear"></i> Edit Profile
-        </button>
       </div>
-
-      {/* Tabs */}
       <div className="profile-tabs">
         <button className={location.pathname === '/profile/materials' ? 'active' : location.pathname !== "/profile/materials" && location.pathname.startsWith("/profile/materials")
         ? "active"

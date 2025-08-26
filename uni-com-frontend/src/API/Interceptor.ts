@@ -1,6 +1,5 @@
 import axios from "axios";
 import type { InternalAxiosRequestConfig, AxiosError, AxiosResponse } from "axios";
-import { getUserDetails } from "./saveDetails";
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 
@@ -8,32 +7,39 @@ const api = axios.create({
   baseURL: baseUrl,
 });
 
-// REQUEST INTERCEPTOR
+
 api.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    const token = getUserDetails("Ustoken") || getUserDetails("Adtoken");
 
-    if (!(token === null)) {
-      console.log("token is not null");
-      console.log("Authenticated");
-      config.headers["Authorization"] = "Bearer " + token;
-      console.log(config);
+    const rawUser = sessionStorage.getItem("user");
+    const userData = rawUser ? JSON.parse(rawUser) : null;
+    const token = userData?.data?.token;
+
+    if (token) {
+      config.headers["Authorization"] = `Bearer ${token}`;
+      console.log("🔑 Attached token to request:", token);
+    } else {
+      console.log("⚠️ No token found in sessionStorage");
     }
-    setTimeout(() => {
-      sessionStorage.clear();
-    }, 30 * 60000);
+
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  },
+  (error) => Promise.reject(error)
 );
+
 // RESPONSE INTERCEPTOR
 api.interceptors.response.use(
   (response: AxiosResponse) => response,
   (error: AxiosError) => {
-    console.error("Error in request interceptor:", error);
-    console.log(error.response);
+    console.error("❌ Error in response interceptor:", error.response);
+
+    // If unauthorized, you could auto-logout
+    if (error.response?.status === 401) {
+      console.log("⚠️ Token expired/invalid. Clearing session.");
+      sessionStorage.clear();
+      // optional: redirect to login page
+    }
+
     return Promise.reject(error);
   }
 );

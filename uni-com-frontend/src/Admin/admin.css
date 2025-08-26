@@ -45,17 +45,38 @@
    margin-bottom: 1rem; 
 }
 .user-man-input input{
-width: 98.8%;
-padding: 5px;
+width: 100%;
 outline: none;
-border: 1px solid #ccc;
-margin-bottom: 15px;
+border: 0;
+}
+.user-man-input{
+  display: flex;
+  width: 30%;
+  
+  align-items: center;
+border: 1px solid #ccc; 
+}
+.user-man-input .bi-search{
+font-size: 15px;
+margin-left: 0.5rem;
 }
 .user-man-container{
  border: 1px solid #ccc;
  padding: 10px;   
 }
 .user-man{
+    display: flex;
+    gap:0.1rem;
+    flex-direction: column;
+}
+.user-man-container-manage{
+ border: 1px solid #ccc;
+ padding: 10px;   
+}
+.ul-management li{
+margin-bottom: 1px;
+}
+.user-man-manage{
     display: flex;
     gap:0.1rem;
     flex-direction: column;
@@ -70,25 +91,22 @@ margin-bottom: 15px;
 .admin-action-features{
   display: flex;
 align-items: center;
-gap: 0.5rem;
+gap: 1rem;
 }
 .admin-action-features > div:nth-child(1){
-border: 1px solid red ;
 border-radius:5px;
-padding: 0.4rem;
-color: red;
+color: rgb(235, 99, 8);
 }
 .admin-action-features > div:nth-child(2){
-border: 1px solid #ccc ;
 border-radius:5px;
-padding: 0.4rem;
+
 
 }
 .admin-action-features > div:nth-child(3){
-background-color: rgb(180, 29, 29);
-color: white;
+
+color: rgb(255, 0, 0);
 border-radius:5px;
-padding: 0.4rem;
+
 
 }
 .user-man-container{
@@ -99,6 +117,7 @@ padding: 0.4rem;
 .features-admin{
   display: flex;
   gap: 0.5rem;
+  cursor: pointer;
 }
 .user-man-holder-cont{
   width: 100%;
@@ -136,4 +155,15 @@ background-color:  rgb(180, 29, 29);
 display: flex;
 align-items: center;
 gap: 0.5rem;
+}
+.td-userman1 {
+  display: flex;
+  flex-direction: column;
+}
+.td-userman1 > span:nth-child(1) {
+  font-size: 16px;
+}
+.td-userman1 > span:nth-child(2) {
+  color: #858484;
+    font-size: 15px;
 }
