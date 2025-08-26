@@ -20,33 +20,33 @@ const ConfirmEmail = () => {
   const userId = searchParams.get("userId");
   const token = searchParams.get("token");
 
-  const confirmEmail = async () => {
-    if (!userId || !token || hasConfirmed) return;
-    setHasConfirmed(true);
+const confirmEmail = async () => {
+  if (!userId || !token || hasConfirmed) return;
+  setHasConfirmed(true);
 
-    try {
-      // ✅ Pass token directly, Axios will encode it properly
-      await api.get(`/api/Auth/confirm-email`, {
-        params: {
-          userId,
-          token,
-        },
-      });
+  try {
+    await api.get(`/api/Auth/confirm-email`, {
+      params: {
+        userId,
+        token,
+        email: searchParams.get("email"), // 👈 add this line
+      },
+    });
 
-      setMessage("Email confirmed successfully! You can now log in.");
-      setStatus("success");
+    setMessage("Email confirmed successfully! You can now log in.");
+    setStatus("success");
+    setTimer(5);
 
-      // Optional: redirect to login after 5 seconds
-      setTimer(5);
+  } catch (error: any) {
+    console.error("Confirm email error:", error.response?.data);
+    setMessage(
+      error.response?.data?.message ||
+        "An error occurred while confirming."
+    );
+    setStatus("error");
+  }
+};
 
-    } catch (error: any) {
-      console.error("Confirm email error:", error.response?.data);
-      setMessage(
-        error.response?.data?.message || "An error occurred while confirming."
-      );
-      setStatus("error");
-    }
-  };
 
   // 👇 call confirmEmail when userId+token exist
   useEffect(() => {
