@@ -24,19 +24,23 @@ const ConfirmEmail = () => {
     if (!userId || !token || hasConfirmed) return;
     setHasConfirmed(true);
 
-    const fixedToken = encodeURIComponent(token.replace(/ /g, "+"));
-
     try {
+      // ✅ Pass token directly, Axios will encode it properly
       await api.get(`/api/Auth/confirm-email`, {
         params: {
           userId,
-          token: fixedToken,
+          token,
         },
       });
 
       setMessage("Email confirmed successfully! You can now log in.");
       setStatus("success");
+
+      // Optional: redirect to login after 5 seconds
+      setTimer(5);
+
     } catch (error: any) {
+      console.error("Confirm email error:", error.response?.data);
       setMessage(
         error.response?.data?.message || "An error occurred while confirming."
       );
@@ -51,6 +55,7 @@ const ConfirmEmail = () => {
     }
   }, [userId, token, hasConfirmed]);
 
+  // Countdown timer for optional redirect
   useEffect(() => {
     let interval: number;
     if (timer > 0) {
@@ -91,6 +96,11 @@ const ConfirmEmail = () => {
       >
         {message}
       </h2>
+      {status === "success" && timer > 0 && (
+        <p style={{ textAlign: "center", marginTop: 8 }}>
+          Redirecting to login in {timer} second{timer > 1 ? "s" : ""}...
+        </p>
+      )}
     </div>
   );
 };
