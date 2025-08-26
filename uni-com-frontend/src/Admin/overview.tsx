@@ -14,8 +14,7 @@ export default function Overview() {
     activeUsers: 0,
     disabledUsers: 0,
   });
-
- 
+const [materialStats, setMaterialStats] = useState(0)
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -34,6 +33,19 @@ export default function Overview() {
     };
 
     fetchUsers();
+  }, []);
+  useEffect(() => {
+    const fetchMaterials = async () => {
+      try {
+        const response = await api.get("/api/Admin/materials?page=1&pageSize=100"); // adjust pageSize if needed
+        const materials = response.data.data;
+        setMaterialStats(materials)
+      } catch (error) {
+        console.error("❌ Failed to fetch materials:", error);
+      }
+    };
+
+    fetchMaterials();
   }, []);
 
   return (
@@ -56,6 +68,10 @@ export default function Overview() {
           </li>
           <li className="cards">
             <h1>{userStats.disabledUsers}</h1>
+            <p>Disabled Users</p>
+          </li>
+          <li className="cards">
+            <h1>{materialStats}</h1>
             <p>Disabled Users</p>
           </li>
           
