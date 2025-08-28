@@ -23,14 +23,15 @@ const navigate = useNavigate();
   const rawUser = sessionStorage.getItem("user");
   const userData = rawUser ? JSON.parse(rawUser) : null;
   const tokenKey = userData?.data?.token;
-  const passwordChecker = () => {
-    if (newPassword !== confirmPassword) {
-      setMatchPassword(false);
-      return;
-    } else {
-      setMatchPassword(true);
-    }
-  };
+const passwordChecker = (): boolean => {
+  if (newPassword !== confirmPassword) {
+    setMatchPassword(false);
+    return false;
+  } else {
+    setMatchPassword(true);
+    return true;
+  }
+};
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     // if (!tokenKey) {
@@ -38,7 +39,10 @@ const navigate = useNavigate();
     //   return;
     // }
       
-     passwordChecker();
+      if (!passwordChecker()) {
+    toast.error("Passwords do not match");
+    return;
+  }
     if (tokenKey) {
 
 
@@ -116,7 +120,7 @@ const handlePasswordChange = (e: string) => {
             <label>New Password</label>
             <input
              type={showPassword ? "text" : "password"}
-    checked={showPassword}
+  
               placeholder="New Password"
               name="newPassword"
               required
@@ -129,7 +133,7 @@ const handlePasswordChange = (e: string) => {
             <label>Confirm New Password</label>
             <input
                type={showPassword ? "text" : "password"}
-    checked={showPassword}
+    
               placeholder="Confirm New Password"
               name="confirmPassword"
               required
