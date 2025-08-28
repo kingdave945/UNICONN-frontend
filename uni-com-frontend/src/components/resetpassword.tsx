@@ -9,9 +9,42 @@ export default function ResetPassword() {
   const email = searchParams.get("email") || "";
   const token = tokenKey ? tokenKey : "";
   const [newPassword, setNewPassword] = useState("");
+   const [showPassword, setShowPassword] = useState(false);
+   const [passwordErrors, setPasswordErrors] = useState<string[]>([]);
+  const [confirmPassword, setConfirmPassword] = useState("");
+    const [matchPassword, setMatchPassword] = useState(true);
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
+  const handlePasswordChange = (e: string) => {
+  const value = e;
+  const errors = [];
+
+  if (value.length < 8) errors.push("Password must be at least 8 characters");
+  if (!/[A-Z]/.test(value)) errors.push("Must contain an uppercase letter");
+  if (!/[a-z]/.test(value)) errors.push("Must contain a lowercase letter");
+  if (!/[0-9]/.test(value)) errors.push("Must contain a number");
+  if (!/[^A-Za-z0-9]/.test(value)) errors.push("Must contain a special character");
+
+  setPasswordErrors(errors);
+};
+ const passwordChecker = () => {
+    if (newPassword !== confirmPassword) {
+      setMatchPassword(false);
+      return;
+    } else {
+      setMatchPassword(true);
+    }
+  };
+  const inputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newPassword = event.target.value;
+    setNewPassword(newPassword);
+    handlePasswordChange(newPassword);
+  };
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    passwordChecker()
     if (!email.trim()) {
       toast.error("Email is required.");
       return;
@@ -42,32 +75,69 @@ export default function ResetPassword() {
     <>
       <div className="forgotpassword-container">
         <div className="forgotpassword">
+          <h4>Reset Password</h4>
           <form onSubmit={handleSubmit}>
             <div className="login-input">
               <input
                 type="text"
-                placeholder="Enter your email"
+                placeholder="Email not found"
                 name="email"
                 value={email}
+                disabled
                 required
               />
             </div>
             <div className="login-input">
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
+                checked={showPassword}  
                 placeholder="Enter your new password"
                 name="newPassword"
                 value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
+                onChange={inputChange}
                 required
               />
             </div>
+            <div className="login-input">
+              <input
+                type={showPassword ? "text" : "password"}
+                checked={showPassword}  
+                placeholder="Confirm new password"
+                name="confirmPassword"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+              />
+            </div>
+              {!matchPassword && (
+                <span style={{ color: "red" }}>Passwords do not match</span>
+              )}
+               <div
+                    onClick={togglePasswordVisibility}
+                    style={{ cursor: "pointer" , marginBottom:'1rem'}}
+                  >
+                    {showPassword ? (
+                     <span>Show Password</span>
+                    ) : (
+                       <span>Hide Password</span>
+                    )}
+                  </div>
             <button type="submit" className="login-btn" disabled={loading}>
               {loading ? <span className="loader"></span> : "Reset Password"}
             </button>
           </form>
         </div>
       </div>
+  <div className="password-error-panel">
+<div className="error-toast-container">
+  {passwordErrors.map((error, index) => (
+    <div key={index} className="error-toast">
+      {error}
+    </div>
+  ))}
+</div>
+
+</div>
     </>
   );
 }
