@@ -46,6 +46,11 @@ export default function ResetPassword() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+  console.log("Reset payload:", {
+  email,
+  token,
+  newPassword,
+});
     if (!passwordChecker()) {
       toast.error("Passwords do not match");
       return;
@@ -64,8 +69,8 @@ export default function ResetPassword() {
     }
     try {
       await resetPassword({
-        email,
-        token,
+        email: decodeURIComponent(email),
+        token: decodeURIComponent(token),
         newPassword,
       });
       toast.success("Password Has Been Reset Successfully");
