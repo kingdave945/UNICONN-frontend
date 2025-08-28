@@ -75,9 +75,9 @@ export default function StudyMaterial() {
             required
           />
         </div>
-
-        {/* Level */}
-        <div className="form-group">
+ 
+ <section className="section-level-upload">
+ <div className="form-group">
           <label>Level</label>
           <select value={level} onChange={(e) => setLevel(e.target.value)} required>
             <option value="">Select Level</option>
@@ -99,6 +99,9 @@ export default function StudyMaterial() {
             required
           />
         </div>
+ </section>
+        {/* Level */}
+       
 
         {/* Tags */}
         <div className="form-group">

@@ -16,7 +16,7 @@ export default function ForgetPassword() {
       await api.post("/api/Auth/forgot-password", {
         email
       });
-      toast.success("A Reset Link has been Sent")
+      toast.success("Your Reset Link has been Sent to your Email");
     }
     catch (error: any) {
       toast.error(error.response?.data?.message || "Failed to send reset link.");
@@ -48,7 +48,7 @@ export default function ForgetPassword() {
           </div>
           <button type="submit" className='login-btn' disabled={loading}>
 
-            {loading ? <span className="loader"></span> : "Reset Password"}
+            {loading ? <span className="loader"></span> : "Send   My Reset"}
           </button>
         </form>
       </div>

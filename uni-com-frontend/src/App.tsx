@@ -21,7 +21,7 @@ import ForgetPassword from "./components/forgotpassword";
 import ConfirmEmail from "./components/confirmemal";
 import NavBar from "./Layout/navbar";
 import { useNavigate } from "react-router-dom";
- 
+import ResetPassword from "./components/resetpassword"; 
 export default function App() {
 const [theme, setTheme] = useState("light");
 const [isPublic, setIsPublic] = useState(false); // false = toggle off, true = toggle on
@@ -128,6 +128,7 @@ const handleLogout = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/confirm-email" element={<ConfirmEmail />} />
         <Route path="/forgot-password" element={<ForgetPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
       </Routes>
     
       </div>

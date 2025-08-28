@@ -14,10 +14,10 @@ interface NavbarProps {
 }
 export default function NavBar({
   theme: _theme,
-  toggleTheme,
+  toggleTheme: _toggleTheme,
   setIsPublic: _setIsPublic,
-  isPublic,
-  role : _role,
+  isPublic: _isPublic,
+  role: _role,
   handleLogout,
 }: NavbarProps) {
   const navigate = useNavigate();
@@ -241,12 +241,12 @@ export default function NavBar({
         </AnimatePresence> */}
 
         <div className="nav-search">
-          <div
+          {/* <div
             className={`toggle-switch ${isPublic ? "on" : "off"}`}
             onClick={toggleTheme}
           >
             <div className="toggle-thumb"></div>
-          </div>
+          </div> */}
           {tokenKey && (
             <ul className="nav-user-settings">
               <li

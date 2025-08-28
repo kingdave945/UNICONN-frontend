@@ -1,108 +1,66 @@
-import './dashboard.css';
-import {GetFullName} from '../UserInfo/fullname';
-import myImg1 from '../assets/Selection.png'
-import myImg2 from '../assets/Selection (1).png'
-import myImg3 from '../assets/Selection (2).png'
-import myImg4 from '../assets/Selection (3).png'
+import "./dashboard.css";
+import Actions from "./actions";
+import { GetFullName } from "../UserInfo/fullname";
+import BrowserMaterials from "./browsermaterials";
+import SuggestedMaterials from "./suggestedmaterials";
 export default function Dashboard() {
-const suggested = [
-    {
-      title: "Advanced Calculus Lecture Notes",
-      uploader: "Dr. Emily White",
-      tags: ["Calculus", "Math", "Lecture"],
-      img: myImg1
-    },
-    {
-      title: "Introduction to Python for Engineers",
-      uploader: "Prof. Alex Kim",
-      tags: ["Python", "Programming", "Engineering"],
-      img: myImg2
-    },
-    {
-      title: "Organic Chemistry Lab Manual",
-      uploader: "Dr. Sophia Lee",
-      tags: ["Chemistry", "Lab", "Organic"],
-      img: myImg3
-    },
-    {
-      title: "Linear Algebra Problem Set Solutions",
-      uploader: "TA John Doe",
-      tags: ["Linear Algebra", "Math", "Solutions"],
-      img: myImg4
-    },
-  ];
 
   const topMaterials = [
     {
       title: "Discrete Mathematics Study Guide",
       uploader: "Alice Johnson",
       date: "2024-03-10",
-      tags: ["Math", "Computer Science", "Study Guide"],
+      tags: [, "Study Guide"],
     },
     {
       title: "Thermodynamics Final Exam Prep",
       uploader: "Bob Williams",
       date: "2024-03-08",
-      tags: ["Physics", "Engineering", "Exam Prep"],
+      tags: ["Exam Prep"],
     },
     {
       title: "Macroeconomics Current Events Analysis",
       uploader: "Charlie Brown",
       date: "2024-03-05",
-      tags: ["Economics", "Current Affairs"],
+      tags: [ "Note"],
     },
     {
       title: "Object-Oriented Programming Concepts",
       uploader: "Diana Miller",
       date: "2024-03-02",
-      tags: ["Computer Science", "Programming", "OOP"],
+      tags: ["Programming"],
     },
     {
       title: "World History: Renaissance Period Overview",
       uploader: "Eve Davis",
       date: "2024-02-28",
-      tags: ["History", "Arts", "Lecture Notes"],
+      tags: ["Lecture Notes"],
     },
   ];
 
   return (
     <div className="dashboard">
       <h2>Welcome back, {GetFullName()}</h2>
-      <div className="section">
-        <h3>My Department: Suggested Materials</h3>
-     <div className="card-container">
-        {suggested.map((item, index) => (
-          <div key={index} className="card">
-            <img src={item.img} alt={item.title} />
-            <h4>{item.title}</h4>
-            <p className="uploader">Uploaded by {item.uploader}</p>
-            <div className="tags">
-              {item.tags.map((tag, idx) => (
-                <span key={idx} className="tag">{tag}</span>
-              ))}
-            </div>
-            <div className="buttons">
-              <button className="btn">View Details</button>
-              <button className="btn primary">Download</button>
-            </div>
-          </div>
-        ))}
+      <div className="container__content">
+      <SuggestedMaterials/>
+      <main className="container__main">
+      <BrowserMaterials />
+      </main>
       </div>
-      </div>
-
+     
       {/* Top Materials Table */}
       <div className="section">
         <div className="table-header">
           <h3>Top Study Materials</h3>
-          <button className="browse-btn">Browse All Materials</button>
         </div>
-        <table>
+        <table className="table-study-materials">
           <thead>
             <tr>
-              <th>Material Name</th>
+              <th>Title</th>
               <th>Uploader</th>
-              <th>Date Uploaded</th>
+              <th>Date</th>
               <th>Tags</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -111,10 +69,15 @@ const suggested = [
                 <td>{material.title}</td>
                 <td>{material.uploader}</td>
                 <td>{material.date}</td>
-                <td className='tags-table'>
+                <td className="tags-table">
                   {material.tags.map((tag, index) => (
-                    <span key={index} className="tag">{tag}</span>
+                    <span key={index} className="tag">
+                      {tag}
+                    </span>
                   ))}
+                </td>
+                <td>
+                  <Actions />
                 </td>
               </tr>
             ))}
@@ -123,7 +86,7 @@ const suggested = [
       </div>
 
       {/* Browse by Department */}
-      <div className="section">
+      {/* <div className="section">
         <h3>Browse by Department</h3>
         <select>
           <option>Select a Department</option>
@@ -133,7 +96,7 @@ const suggested = [
         </select>
         <p>Select a department to explore relevant study materials.</p>
         <button className="view-all">View All Departments</button>
-      </div>
+      </div> */}
     </div>
   );
 }

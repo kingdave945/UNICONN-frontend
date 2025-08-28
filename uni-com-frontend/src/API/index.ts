@@ -24,10 +24,14 @@ interface uploadMaterials {
   level: string;
   Tags: string[];
 }
-interface ResetPassword{
+interface ChangePassword{
   oldPassword: string;
   newPassword: string;
+}
+interface ResetPassword{
   email: string;
+  token: string;
+  newPassword: string;
 }
 const rawUser = sessionStorage.getItem("user");
 const userData = rawUser ? JSON.parse(rawUser) : null;
@@ -206,11 +210,22 @@ export const disableAccount = async (password: string) => {
     throw error;
   }
 };
+export const changePassword = async (data: ChangePassword) => {
+  try {
+    const response = await api.post(`/api/Auth/change-password`, 
+      data);
+    console.log("Change Password Response:", response.data);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
 export const resetPassword = async (data: ResetPassword) => {
   try {
-    const response = await api.post(`/api/Auth/reset-password`, 
-      data);
-    console.log("Reset Response:", response.data);
+    const response = await api.post(`/api/Auth/reset-password`, {
+      data
+    });
+    console.log("Reset Password Response:", response.data);
     return response.data;
   } catch (error) {
     throw error;
