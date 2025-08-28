@@ -222,9 +222,8 @@ export const changePassword = async (data: ChangePassword) => {
 };
 export const resetPassword = async (data: ResetPassword) => {
   try {
-    const response = await api.post(`/api/Auth/reset-password`, {
-      data
-    });
+    const response = await api.post(`/api/Auth/reset-password`,
+      data);
     console.log("Reset Password Response:", response.data);
     return response.data;
   } catch (error) {

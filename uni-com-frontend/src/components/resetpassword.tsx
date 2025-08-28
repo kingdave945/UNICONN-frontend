@@ -6,6 +6,7 @@ export default function ResetPassword() {
   const [loading, setLoading] = useState(false);
   const [searchParams] = useSearchParams();
   const tokenKey = searchParams.get("token");
+
   const email = searchParams.get("email") || "";
   const token = tokenKey ? tokenKey : "";
   const [newPassword, setNewPassword] = useState("");
@@ -46,9 +47,11 @@ export default function ResetPassword() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    
+    const encodedToken = encodeURIComponent(token);
   console.log("Reset payload:", {
   email,
-  token,
+  token: encodedToken,
   newPassword,
 });
     if (!passwordChecker()) {
