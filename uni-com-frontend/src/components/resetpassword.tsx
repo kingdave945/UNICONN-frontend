@@ -2,11 +2,12 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { useSearchParams } from "react-router-dom";
 import { resetPassword } from "../API";
+import { useNavigate } from "react-router-dom";
 export default function ResetPassword() {
   const [loading, setLoading] = useState(false);
   const [searchParams] = useSearchParams();
   const tokenKey = searchParams.get("token");
-
+  const navigate = useNavigate();
   const email = searchParams.get("email") || "";
   const token = tokenKey ? tokenKey : "";
   const [newPassword, setNewPassword] = useState("");
@@ -47,13 +48,13 @@ export default function ResetPassword() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    
+
     const encodedToken = encodeURIComponent(token);
-  console.log("Reset payload:", {
-  email,
-  token: encodedToken,
-  newPassword,
-});
+    console.log("Reset payload:", {
+      email,
+      token: encodedToken,
+      newPassword,
+    });
     if (!passwordChecker()) {
       toast.error("Passwords do not match");
       return;
@@ -77,6 +78,9 @@ export default function ResetPassword() {
         newPassword,
       });
       toast.success("Password Has Been Reset Successfully");
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
     } catch (error: any) {
       toast.error(error.response?.data?.message || "Failed to reset password.");
     } finally {
