@@ -2,7 +2,6 @@ import { changePassword } from "../../../API";
 import { toast } from "react-toastify";
 import { useState,  } from "react";
 // import { GetEmail } from "../../../UserInfo/fullname";
-import { useNavigate } from "react-router-dom";
 export default function ChangePassword() {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -10,7 +9,7 @@ export default function ChangePassword() {
   // const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
    const [showPassword, setShowPassword] = useState(false);
-const navigate = useNavigate();
+
   // useEffect(() => {
   //   const emailFromStorage = GetEmail();
   //   setEmail(emailFromStorage);
@@ -23,6 +22,7 @@ const navigate = useNavigate();
   const rawUser = sessionStorage.getItem("user");
   const userData = rawUser ? JSON.parse(rawUser) : null;
   const tokenKey = userData?.data?.token;
+  console.log(tokenKey)
 const passwordChecker = (): boolean => {
   if (newPassword !== confirmPassword) {
     setMatchPassword(false);
