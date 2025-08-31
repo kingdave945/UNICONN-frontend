@@ -23,8 +23,9 @@ export default function SuggestedMaterials() {
   ];
 
   return (
+    <div >
+    
     <div className="suggested-materials">
-      <h3>My Department - Suggested Materials</h3>
       <p>Dive into curated resources for your field of study.</p>
       <div className="cards-container">
         {materials.map((item, index) => (
@@ -43,6 +44,7 @@ export default function SuggestedMaterials() {
           </div>
         ))}
       </div>
+    </div>
     </div>
   );
 }

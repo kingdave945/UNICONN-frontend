@@ -1,13 +1,11 @@
-
-.nav-link{
-box-shadow: 1px 1px 1px 1px rgba(128, 128, 128, 0.293);
-  padding: 15px;
+.nav-link {
+  padding: 5px;
   display: flex;
-    align-items: center;
-    justify-content: space-between;
-    
+  align-items: center;
+  justify-content: space-between;
+
 }
-.nav-links{
+.nav-links {
   display: flex;
   gap: 60px;
   align-items: center;
@@ -16,39 +14,38 @@ box-shadow: 1px 1px 1px 1px rgba(128, 128, 128, 0.293);
   text-decoration: none;
   color: #1e1e46;
   padding: 5px;
-  border: 1px solid transparent; 
+  border: 1px solid transparent;
   transition: all 0.2s ease;
 }
 .nav-auth-links a {
   text-decoration: none;
   color: #1e1e46;
   padding: 5px;
-  border: 1px solid transparent; 
+  border: 1px solid transparent;
   transition: all 0.2s ease;
 }
 .nav-links a:hover {
   text-decoration: underline;
-  border: 1px solid transparent; 
+  border: 1px solid transparent;
 }
 
-
-.project{
-  border-right: 1px solid rgba(133, 124, 124, 0.586) ;
+.project {
+  border-right: 1px solid rgba(133, 124, 124, 0.586);
   padding-right: 10px;
 }
 .dream-home {
-  color: rgb(30, 30, 70);
+  color: rgb(100, 100, 134);
   font-weight: 800;
   font-style: italic;
+  font-size: 2rem;
   text-shadow: 3px 3px #403f3f19;
 }
-.post-property{
-  border:1px solid ;
-    background-color: rgb(30, 30, 70);
-    color: white;
-    padding: 5px;
+.post-property {
+  border: 1px solid;
+  background-color: rgb(30, 30, 70);
+  color: white;
+  padding: 5px;
 }
-
 
 ul {
   list-style: none;
@@ -58,16 +55,15 @@ ul {
 .nav-ul {
   position: relative;
   display: inline-block;
-     color: rgb(30, 30, 70);
+  color: rgb(30, 30, 70);
 }
 .nav-ul-dropdown {
   display: none;
-  position:  absolute;
+  position: absolute;
   background-color: white;
   min-width: 160px;
-  box-shadow: 0px 10px 16px rgba(0,0,0,0.2);
+  box-shadow: 0px 10px 16px rgba(0, 0, 0, 0.2);
   z-index: 100px;
-
 }
 .nav-ul-dropdown li {
   padding: 12px 16px;
@@ -76,11 +72,10 @@ ul {
 }
 
 .nav-ul-dropdown li:hover {
-  background-color:  rgb(30, 30, 70);
-    transition: all 0.2s ease;
+  background-color: rgb(30, 30, 70);
+  transition: all 0.2s ease;
   color: white;
 }
-
 
 .nav-ul:hover .nav-ul-dropdown {
   display: block;
@@ -96,8 +91,6 @@ ul {
   font-size: 1.5rem;
 }
 .nav-auth-links a {
-
-
   text-decoration: none;
 
   transition: background-color 0.2s ease;
@@ -120,7 +113,6 @@ ul {
 } */
 /* Make sure the navbar stays above content */
 
-
 /* Search icon button reset */
 .nav-search-icon {
   background: transparent;
@@ -135,7 +127,7 @@ ul {
 .search-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.25);
+  background: rgba(0, 0, 0, 0.25);
   z-index: 998;
 }
 
@@ -143,21 +135,20 @@ ul {
 .search-popup {
   position: fixed;
   z-index: 999;
- 
+
   width: 480px;
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.18);
-padding: 20px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+  padding: 20px;
   display: flex;
   gap: 8px;
 }
-.search-popup-content{
+.search-popup-content {
   display: flex;
   flex-direction: column;
-  
 }
-.search-popup-content .suggestions li{
+.search-popup-content .suggestions li {
   padding: 8px 12px;
   cursor: pointer;
   border-bottom: 1px solid #ddd;
@@ -205,7 +196,6 @@ padding: 20px;
   padding: 2px;
   border-radius: 5px;
   border: 1px solid hsl(0, 0%, 87%);
-  
 }
 .search-input input {
   width: 100%;
@@ -215,48 +205,45 @@ padding: 20px;
   outline: none;
   background-color: transparent;
 }
-.bi-x{
-font-size: 1.5rem;
+.bi-x {
+  font-size: 1.5rem;
 }
-.bi-search{
+.bi-search {
   font-size: 1.2rem;
   color: rgb(30, 30, 70);
 }
 .search-input button {
-
   background: transparent;
   color: rgb(255, 0, 0);
   border: none;
-   
+
   cursor: pointer;
 }
-.nav-search{
+.nav-search {
   display: flex;
   gap: 2rem;
   align-items: center;
 }
 .nav-avatar-circle {
-    width: 30px;
-    height: 30px;
-    border-radius: 999px;
-    background: #f0f0f0;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.5rem;
-    color: #888;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px ;
+  background:   rgba(100, 100, 134, 0.705);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  color: rgb(231, 231, 255);
 }
 .nav-avatar-circle i {
-    font-size: 1.5rem;
- 
+  font-size: 1.5rem;
 }
-.nav-user-settings{
+.nav-user-settings {
   display: flex;
   flex-direction: column;
- 
 }
-.user-profile-popup{
+.user-profile-popup {
   position: relative;
 }
 .user-profile-popup .popup-user-profile {
@@ -279,9 +266,8 @@ font-size: 1.5rem;
   text-align: center;
 } */
 
-.popup-user-profile h4 ,
-.popup-user-profile h3 
-{
+.popup-user-profile h4,
+.popup-user-profile h3 {
   margin: 0;
   font-size: 0.8rem;
   font-weight: 600;
@@ -292,14 +278,24 @@ font-size: 1.5rem;
   margin-top: 8px;
   background-color: #eeeeee;
   padding: 20px;
-  border-radius: 5px ;
+  border-radius: 5px;
 }
 .user-profile-info p {
   margin: 4px 0;
   font-size: 0.875rem;
   color: #666;
 }
-.nav-logout{
+.bi-gear{
+    color: rgb(100, 100, 134);
+    font-size: 1.5rem;
+    padding: 5px;
+}
+.bi-gear:hover{
+ background-color: #f2f4f8;
+ padding: 5px;
+}
+ 
+.nav-logout {
   display: flex;
   align-items: center;
   gap: 5px;

@@ -1,0 +1,15 @@
+.border-act{
+      background-color: #fff;
+      padding: 1rem;
+      border-radius: 20px;
+}
+.quick-set{
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      color: rgb(100, 100, 134);
+      border-bottom: 2px solid rgb(100, 100, 134);
+}
+.border-act ul li{
+      margin-bottom: 1rem;
+       color: rgb(100, 100, 134);
+}

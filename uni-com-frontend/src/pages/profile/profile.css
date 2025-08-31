@@ -6,7 +6,7 @@
 }
 
 .profile-card {
-  background: white;
+ background-color:  #f3f4f5;
   border-radius: 12px;
   padding: 2rem;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
@@ -48,16 +48,17 @@
 .profile-info h2 {
   font-size: 1.4rem;
   margin: 0;
+  color: rgb(100, 100, 134);
 }
 
 .profile-info .level {
   font-weight: 500;
-  color: #555;
+color: rgb(63, 63, 85);
   margin-top: 5px;
 }
 
 .profile-info .joined {
-  color: gray;
+ color: rgb(126, 126, 161);
   font-size: 0.9rem;
 }
 
@@ -103,9 +104,9 @@
 
 .light .profile-tabs .active {
   transition: ease-in-out 0.3s;
-  background: white;
-  border-bottom: 2px solid #2563eb;
-  color: #2563eb;
+  background-color:  #fcfdff;
+  border-bottom: 2px solid rgb(100, 100, 134);
+  color:rgb(100, 100, 134)
 }
 
 .table-section h3 {

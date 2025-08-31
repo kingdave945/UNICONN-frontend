@@ -70,6 +70,7 @@ export default function Login({ handleLogin }: LoginProps) {
       toast.success("Confirmation email resent successfully!");
     } catch (err: any) {
       toast.error(err.response?.data?.message || "Failed to resend confirmation email.");
+      console.error("Resend email error:", err.response);
     }
     setResending(false);
   };

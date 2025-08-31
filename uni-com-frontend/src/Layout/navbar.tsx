@@ -1,4 +1,4 @@
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useRef, useState, useEffect } from "react";
 // import { motion, AnimatePresence } from "framer-motion";
 import { GetFullName } from "../UserInfo/fullname";
@@ -6,35 +6,31 @@ import { GetEmail } from "../UserInfo/fullname";
 import "../Layout/navbar.css";
 interface NavbarProps {
   theme: string;
+  setIsCollapsed: (value: boolean) => void;
   handleLogout: () => void;
   toggleTheme: () => void;
   setIsPublic: (value: boolean) => void;
+  setIsCleared: (value: boolean) => void;
   isPublic: boolean;
+  isCollapsed: boolean;
   role: string | null; // Optional role prop for conditional rendering
 }
 export default function NavBar({
+  isCollapsed,
+  setIsCollapsed,
   theme: _theme,
   toggleTheme: _toggleTheme,
   setIsPublic: _setIsPublic,
   isPublic: _isPublic,
   role: _role,
   handleLogout,
+  setIsCleared
 }: NavbarProps) {
   const navigate = useNavigate();
-  // const [searchOpen, setSearchOpen] = useState(false);
-  // const iconRef = useRef<HTMLDivElement | null>(null);
-  // const popupRef = useRef<HTMLDivElement | null>(null);
-
-  // const [query, setQuery] = useState("");
-  // const [suggestions, setSuggestions] = useState<any[]>([]);
-  // const [iconPos, setIconPos] = useState<{ x: number; y: number }>({
-  //   x: 0,
-  //   y: 0,
-  // });
-    const popupRefII = useRef<HTMLUListElement | null>(null);
+  const popupRefII = useRef<HTMLUListElement | null>(null);
   const rawUser = sessionStorage.getItem("user");
   const userData = rawUser ? JSON.parse(rawUser) : null;
-  const tokenKey = userData?.data?.token;
+  const tokenKey = userData?.token;
   const [popup, setPopup] = useState(false);
   // const openSearch = () => {
   //   if (iconRef.current) {
@@ -114,13 +110,23 @@ export default function NavBar({
   return (
     <nav className="nav">
       <div className="nav-link">
-        <h3
-          className="dream-home"
-          onClick={() => navigate("/")}
-          style={{ cursor: "pointer" }}
-        >
-          <span>U.C</span>
-        </h3>
+        <div  style={{display:'flex', alignItems:'center', gap:'20px'}}>
+          <div
+            className="sidebar-toggle"
+            onClick={() => setIsCollapsed(!isCollapsed)}
+          >
+            <i
+              className={`bi ${isCollapsed ? "bi bi-list" : "bi bi-list"}`}
+            ></i>
+          </div>
+          <h3
+            className="dream-home"
+            onClick={() => navigate("/")}
+            style={{ cursor: "pointer" }}
+          >
+            <span>Uniconnect</span>
+          </h3>
+        </div>
 
         {/* <div className="nav-links">
           <div>
@@ -248,6 +254,12 @@ export default function NavBar({
             <div className="toggle-thumb"></div>
           </div> */}
           {tokenKey && (
+            <>
+           <div>
+            <span  onClick={() => setIsCleared(true) }>
+              <i className='bi bi-gear'></i>
+            </span>
+           </div>
             <ul className="nav-user-settings">
               <li
                 className="nav-avatar-circle"
@@ -280,15 +292,23 @@ export default function NavBar({
                                 <p onClick={handleLogout}>Log Out</p>
                               </div>
                               <div className="nav-logout">
-                             <ul>
-                              <li style={{display: "flex", alignItems: "center", gap:'5px'}}><i className="bi bi-palette"></i> <p>Theme</p></li>
-                              {/* <li><ul>
+                                <ul>
+                                  <li
+                                    style={{
+                                      display: "flex",
+                                      alignItems: "center",
+                                      gap: "5px",
+                                    }}
+                                  >
+                                    <i className="bi bi-palette"></i>{" "}
+                                    <p>Theme</p>
+                                  </li>
+                                  {/* <li><ul>
                                 <li >Light</li>
                                 <li >Dark</li>
                               </ul></li> */}
-                             </ul>
+                                </ul>
                               </div>
-                            
                             </div>
                           </div>
                         </div>
@@ -299,7 +319,8 @@ export default function NavBar({
                   </li>
                 </ul>
               </li>
-            </ul>
+            </ul> 
+            </>
           )}
         </div>
       </div>

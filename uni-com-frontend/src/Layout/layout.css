@@ -1,21 +1,24 @@
 .layout {
   display: flex;
   flex-direction: column;
-  height: 90vh;
+  height: 100vh;
+ 
 }
 
 .layout__content {
   display: flex;
+gap: 0.5rem;
   flex: 1;
   overflow: hidden;
 }
 
 .layout__main {
   flex: 1;
-  padding: 1.5rem;
-  margin-top: 0.1rem;
+
+margin-bottom: 25px;
+border-radius: 20px;
   overflow-y: auto;
-  background-color: #f7f6f6;
+  background-color: #fff;
 }
 .dark .layout__main{
 background-color: #000000;

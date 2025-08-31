@@ -7,11 +7,13 @@
 .dashboard h2 {
   font-size: 24px;
   margin-bottom: 20px;
+  color: rgb(100, 100, 134);;
 }
 
 .dashboard h3 {
   font-size: 20px;
   margin-bottom: 15px;
+   color: rgb(100, 100, 134);;
 }
 
 .container__content {
@@ -27,7 +29,7 @@
 
 
 .table-study-materials tr:nth-child(odd){
-  background-color: white;
+  background-color: #eaecee;
   color: black; 
 }
 .table-study-materials tbody tr:nth-child(odd){
@@ -35,7 +37,7 @@
   color: black; 
 }
 .table-study-materials tbody tr:nth-child(even){
-  background-color: #f1f1f1;;
+  background-color: #eaecee;
   color: black; 
 }
 
@@ -93,7 +95,7 @@ td {
   margin-top: 1.5rem;
 }
 .section{
-background-color:#f1f1f1;;
+background-color:transparent;;
 
  border-radius: 12px;
  padding: 15px;
@@ -102,7 +104,8 @@ background-color:#f1f1f1;;
 .browser-materials-suggested,
 .suggested-materials {
   flex: 1; /* Equal width */
-  background-color:  #f1f1f1;
+  background-color:  #f3f4f5;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   padding: 20px;
   border-radius: 12px;
   display: flex;
@@ -214,3 +217,30 @@ justify-content: center;
 .material-card a:hover {
   text-decoration: underline;
 }
+.dashboard-card-platform {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+}
+
+.dashboard-cards {
+  background: #fff;
+  padding: 2rem;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.04);
+}
+.dashboard-card-platform li:nth-child(odd){
+  background-color:  rgb(140, 140, 173);
+  color: #eaecee; 
+  font-weight: 900;
+}
+.dashboard-card-platform li:nth-child(even){
+  background-color:  rgb(71, 71, 92);
+  color: #eaecee; 
+  font-weight: 900;
+}
+

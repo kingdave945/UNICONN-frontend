@@ -5,9 +5,8 @@ type ProtectedRouteProps = {
 };
 export default function ProtectedRouteUsers({ children }: ProtectedRouteProps) {
     const rawUser = sessionStorage.getItem("user");
-  const userData = rawUser ? JSON.parse(rawUser) : null;
-  const tokenKey = userData?.data?.token;
-
+    const userData = rawUser ? JSON.parse(rawUser) : null;
+    const tokenKey = userData?.token;
 console.log('MY TOKEN KEY:',tokenKey )
   const token = tokenKey;
   const location = useLocation();

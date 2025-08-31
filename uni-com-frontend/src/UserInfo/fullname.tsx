@@ -4,7 +4,7 @@ export function GetFullName() {
   if (!rawUser) return "Guest";
   try {
     const userData = JSON.parse(rawUser);
-    return userData.data.user.fullName;
+    return userData.user.fullName;
   } catch {
     return "Guest";
   }
@@ -15,7 +15,7 @@ export function GetEmail() {
   if (!rawUser) return "Guest";
   try {
     const userData = JSON.parse(rawUser);
-    return userData.data.user.email;
+    return userData.user.email;
   } catch {
     return "Guest";
   }
@@ -34,7 +34,7 @@ export function GetLevel() {
   try {
     const userData = rawUser ? JSON.parse(rawUser) : null;
     console.log(userData.data.user.level)
-    return userData.data.user.level;
+    return userData.user.level;
   } catch {
     return "Guest";
   }
@@ -44,7 +44,7 @@ export function GetDepartment() {
   if (!rawUser) return "Guest";
   try {
     const userData = JSON.parse(rawUser);
-    return userData.data.user.department;
+    return userData.user.department;
   } catch {
     return "Guest";
   }

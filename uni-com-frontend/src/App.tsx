@@ -19,7 +19,6 @@ import MaterialReview from "./Admin/materialreview";
 import { useState, useEffect } from "react";
 import ForgetPassword from "./components/forgotpassword";
 import ConfirmEmail from "./components/confirmemal";
-import NavBar from "./Layout/navbar";
 import { useNavigate } from "react-router-dom";
 import ResetPassword from "./components/resetpassword"; 
 export default function App() {
@@ -57,29 +56,31 @@ const handleLogin = (newRole: string) => {
 };
 
 const handleLogout = () => {
-  sessionStorage.clear();
-  navigate("/");
+  sessionStorage.removeItem("user");
+  sessionStorage.removeItem("email");
   setRole(null);
+  navigate("/login");
 };
+
 
   return (
     <>
     <ToastContainer/>
  
     <div className='applayout'>
-    <NavBar
-     theme={theme}
-     toggleTheme={toggleTheme}
-     setIsPublic={setIsPublic}
-     isPublic={isPublic}
-     role={role}
-     handleLogout={handleLogout}
-      />
+ 
       <Routes>
       
   <Route path="/"     element={
       <ProtectedRouteUsers>
-        <Layout role={role} />
+        <Layout 
+     role={role}
+     theme={theme}
+     toggleTheme={toggleTheme}
+     setIsPublic={setIsPublic}
+     isPublic={isPublic}
+     handleLogout={handleLogout}
+         />
       </ProtectedRouteUsers>
     }>
           <Route index element={<Dashboard />} />

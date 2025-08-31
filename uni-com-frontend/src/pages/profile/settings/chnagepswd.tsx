@@ -43,7 +43,7 @@ const passwordChecker = (): boolean => {
     toast.error("Passwords do not match");
     return;
   }
-    if (tokenKey) {
+    // if (tokenKey) {
 
 
       try {
@@ -67,11 +67,11 @@ const passwordChecker = (): boolean => {
       } finally {
         setLoading(false);
       }
-    }
-     else{
-      navigate('/login')
-      toast.error("Session expired. Please log in again.");
-    }
+    
+    //  else{
+    //   navigate('/login')
+    //   toast.error("Session expired. Please log in again.");
+    // }
   };
 const handlePasswordChange = (e: string) => {
   const value = e;

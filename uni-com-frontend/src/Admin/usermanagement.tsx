@@ -1,5 +1,5 @@
 import AdminActions from "./adminactions";
-import { useState } from "react";
+import { useState} from "react";
 import api from "../API/Interceptor";
 import Status from "./status";
 
@@ -103,7 +103,7 @@ export default function UserMan({ userStats }: UserManProps) {
                     </td>
                     <td>
                       <Status 
-                        userStats={userStats}
+                    userStats={userStats}
                       />
                     </td>
                     <td>

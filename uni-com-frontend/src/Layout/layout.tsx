@@ -1,16 +1,30 @@
-
+import NavBar from "./navbar";
 import SideBar from "./sidebar";
-import './layout.css';
-import { useLocation } from "react-router-dom";
 import Footer from "./footer";
+import ActSettings from "./actionssettings";
+import "./layout.css";
+import { useState } from "react";
 import { Outlet } from "react-router-dom";
 // import { useState, useEffect } from "react";
 // import SkeletonCard from "../components/SkeletonCard";
 interface SideBarProps {
   role: string | null;
+  theme: string;
+  handleLogout: () => void;
+  toggleTheme: () => void;
+  setIsPublic: (value: boolean) => void;
+  isPublic: boolean;
 }
 
-export default function Layout({ role }: SideBarProps) {
+export default function Layout({
+  role,
+  theme: _theme,
+  toggleTheme: _toggleTheme,
+  setIsPublic: _setIsPublic,
+  isPublic: _isPublic,
+  role: _role,
+  handleLogout,
+}: SideBarProps) {
   //   const [outletloading, setOutletLoading] = useState(true);
   //    useEffect(() => {
   //   const timer = setTimeout(() => {
@@ -19,33 +33,39 @@ export default function Layout({ role }: SideBarProps) {
 
   //   return () => clearTimeout(timer);
   // }, []);
- const location = useLocation();
 
-  const backgroundColors: Record<string, string> = {
-    "/dashboard": "#f5f5f5",
-    "/profile/favorites": "#fafafaff",
-    "/profile/materials": "#fafafaff",
-    "/profile/settings": "#fafafaff",
-    "/studymaterial": "#fafafaff",
-    '/Admin/Overview': '#fafafaff',
-    '/Admin/MaterialReview': '#fafafaff'
-  }
-    const bgColor = backgroundColors[location.pathname] || "#ffffff";
+  const [isCleared, setIsCleared] = useState(false);
+
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
   return (
     <div className="layout">
-   
-      <div className="layout__content">
-        <SideBar
-          role={role}
-        />
-        <main className="layout__main"  style={{ backgroundColor: bgColor }}>
-        {/* {outletloading ? <SkeletonCard /> : <Outlet />} */}
-        <Outlet/>
-        </main>
+      <NavBar
+        setIsCleared={setIsCleared}
+        isCollapsed={isCollapsed}
+        setIsCollapsed={setIsCollapsed}
+        theme={_theme}
+        handleLogout={handleLogout}
+        toggleTheme={_toggleTheme}
+        setIsPublic={_setIsPublic}
+        isPublic={_isPublic}
+        role={_role}
+      />
 
+      <div className="layout__content">
+        <SideBar isCollapsed={isCollapsed} role={role} />
+        <main className="layout__main">
+          <Outlet />
+        </main>
+        {isCleared && (
+          <ActSettings
+            handleLogout={handleLogout}
+            setIsCleared={setIsCleared}
+          />
+        )}
+
+        <Footer />
       </div>
-      <Footer/>
     </div>
   );
 }
-

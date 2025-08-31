@@ -4,7 +4,6 @@ import { GetFullName } from "../UserInfo/fullname";
 import BrowserMaterials from "./browsermaterials";
 import SuggestedMaterials from "./suggestedmaterials";
 export default function Dashboard() {
-
   const topMaterials = [
     {
       title: "Discrete Mathematics Study Guide",
@@ -22,7 +21,7 @@ export default function Dashboard() {
       title: "Macroeconomics Current Events Analysis",
       uploader: "Charlie Brown",
       date: "2024-03-05",
-      tags: [ "Note"],
+      tags: ["Note"],
     },
     {
       title: "Object-Oriented Programming Concepts",
@@ -37,17 +36,46 @@ export default function Dashboard() {
       tags: ["Lecture Notes"],
     },
   ];
+  const getGreeting = () => {
+    const hour = new Date().getHours();
+    if (hour >= 6 && hour < 12) return "Good morning";
+    if (hour >= 12 && hour < 17) return "Good afternoon";
+    if (hour >= 17 && hour < 24) return "Good evening";
+    return "Hello";
+  };
 
   return (
     <div className="dashboard">
-      <h2>Welcome back, {GetFullName()}</h2>
-      <div className="container__content">
-      <SuggestedMaterials/>
-      <main className="container__main">
-      <BrowserMaterials />
-      </main>
+      <h2>
+        {" "}
+        {getGreeting()}, {GetFullName()}
+      </h2>
+
+      <h3>Your Stats</h3>
+      <section id="Overview-sec1">
+        <ul className="dashboard-card-platform">
+          <li className="dashboard-cards">
+            <h1>0</h1>
+            <p>Total Materials Uploaded</p>
+          </li>
+          <li className="dashboard-cards">
+            <h1>0</h1>
+            <p>Favourites Saved</p>
+          </li>
+          <li className="dashboard-cards">
+            <h1>0</h1>
+            <p>Department Materials</p>
+          </li>
+        </ul>
+         <h3 style={{marginTop:'1rem'}}> Suggested Materials</h3>
+      </section>
+      <div className="container__content" >
+          <SuggestedMaterials />
+          <main className="container__main">
+            <BrowserMaterials />
+          </main>
       </div>
-     
+
       {/* Top Materials Table */}
       <div className="section">
         <div className="table-header">

@@ -1,6 +1,4 @@
-;
 import api from "./Interceptor";
-import { saveUserDetails } from "./saveDetails";
 interface formData {
   email: string;
   password: string;
@@ -24,11 +22,11 @@ interface uploadMaterials {
   level: string;
   Tags: string[];
 }
-interface ChangePassword{
+interface ChangePassword {
   oldPassword: string;
   newPassword: string;
 }
-interface ResetPassword{
+interface ResetPassword {
   email: string;
   token: string;
   newPassword: string;
@@ -36,11 +34,8 @@ interface ResetPassword{
 const rawUser = sessionStorage.getItem("user");
 const userData = rawUser ? JSON.parse(rawUser) : null;
 const userDate = userData?.data;
-const tokenKey = userData?.data?.token;
-console.log("MY TOKEN KEY:", tokenKey);
-console.log("USER DATA:", userDate);
-console.log("Session Storage for ADMIN:", sessionStorage);
-console.log(" NIGGER:", sessionStorage);
+console.log("USERDATA:", userDate);
+
 export const register = async (formData: registerData) => {
   try {
     console.log("Payload being sent:", formData);
@@ -73,12 +68,7 @@ export const uploadMaterials = async (uploadMat: uploadMaterials) => {
     formData.append("level", uploadMat.level);
     uploadMat.Tags.forEach((tag: string) => formData.append("Tags", tag));
 
-    const response = await api.post(`/api/StudyMaterials/upload`, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${tokenKey}`,
-      },
-    });
+    const response = await api.post(`/api/StudyMaterials/upload`, formData);
 
     return response.data;
   } catch (error: any) {
@@ -100,20 +90,26 @@ export const loginUser = async (role: string, form: formData) => {
   try {
     const response = await api.post(`/api/Auth/login/${role}`, form);
 
-    if (response.data?.token) {
-      sessionStorage.setItem("Ustoken", response.data.token);
-      console.log("Session Storage for ADMIN:", sessionStorage);
+    // ✅ Check if backend returned the token inside response.data.data
+    const token = response.data?.data?.token;
+    const user = response.data?.data?.user;
+
+    if (token) {
+      // Save only what you need, clean structure
+      const sessionData = { token, user };
+      sessionStorage.setItem("user", JSON.stringify(sessionData));
+
+      console.log("✅ User logged in. Session storage updated:", sessionData);
+    } else {
+      console.warn("⚠️ Login succeeded but no token found in response");
     }
-    console.log("Response data:", response.data);
-    saveUserDetails("user", response.data);
-    console.log("Saved user data:", response.data);
+
     return response.data;
   } catch (error: any) {
-    saveUserDetails("notconfirmed", error.response?.data?.message);
+    console.error("❌ Login error:", error.response?.data || error.message);
     throw error;
   }
 };
-
 
 export const resendconfirmemail = async (email: string) => {
   try {
@@ -140,13 +136,14 @@ export const forgotPassword = async (email: string) => {
 };
 export const deleteMaterial = async (materialId: number) => {
   try {
-    const response = await api.delete(
-      `/api/StudyMaterials/${materialId}`
-    );
+    const response = await api.delete(`/api/StudyMaterials/${materialId}`);
     console.log("Deleted Successfully:", response.data);
     return response.data;
   } catch (error: any) {
-    console.error("❌ Failed to delete material:", error.response?.data || error.message);
+    console.error(
+      "❌ Failed to delete material:",
+      error.response?.data || error.message
+    );
     throw error;
   }
 };
@@ -179,20 +176,24 @@ export const downloadMaterial = async (materialId: number) => {
 
     console.log("✅ Downloaded Successfully");
   } catch (error: any) {
-    console.error("❌ Failed to download material:", error.response?.data || error.message);
+    console.error(
+      "❌ Failed to download material:",
+      error.response?.data || error.message
+    );
     throw error;
   }
 };
 
 export const getUsers = async () => {
   try {
-    const response = await api.get(
-      `/api/Admin/users`
-    );
+    const response = await api.get(`/api/Admin/users`);
     console.log("users:", response.data);
     return response.data;
   } catch (error: any) {
-    console.error("❌ Failed to get users:", error.response?.data || error.message);
+    console.error(
+      "❌ Failed to get users:",
+      error.response?.data || error.message
+    );
     throw error;
   }
 };
@@ -202,28 +203,51 @@ export const disableAccount = async (password: string) => {
     const response = await api.delete(`/api/Auth/disable-account`, {
       data: { password },
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     });
     return response.data;
   } catch (error) {
     throw error;
   }
 };
+
+// export const changePassword = async (data: ChangePassword) => {
+//   try {
+//     // Get token from sessionStorage
+//     const token = sessionStorage.getItem("token");
+//   console.log('CHANGEPASSWORD:', token)
+//     const response = await axios.post(
+//       "https://yimikadavid-001-site1.mtempurl.com/api/Auth/change-password",
+//       data,
+//       {
+//         headers: {
+//           Authorization: `Bearer ${token}`, // Attach token
+//           "Content-Type": "application/json",
+//         },
+//       }
+//     );
+
+//     console.log("Change Password Response:", response.data);
+//     return response.data;
+//   } catch (error) {
+//     console.error("Change Password Error:", error);
+//     throw error;
+//   }
+// };
 export const changePassword = async (data: ChangePassword) => {
   try {
-    const response = await api.post(`/api/Auth/change-password`, 
-      data);
-    console.log("Change Password Response:", response.data);
+    const response = await api.post(`/api/Auth/change-password`, data);
+    console.log("✅ Change Password Response:", response.data);
     return response.data;
   } catch (error) {
+    console.error("❌ Change Password Error:", error);
     throw error;
   }
 };
 export const resetPassword = async (data: ResetPassword) => {
   try {
-    const response = await api.post(`/api/Auth/reset-password`,
-      data);
+    const response = await api.post(`/api/Auth/reset-password`, data);
     console.log("Reset Password Response:", response.data);
     return response.data;
   } catch (error) {
