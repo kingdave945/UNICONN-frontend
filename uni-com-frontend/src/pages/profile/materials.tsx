@@ -48,6 +48,7 @@ const deleteYourMaterial = async (materialId: number) => {
     await deleteMaterial(materialId);
     toast.success("Removed successfully.");
     setMaterials((prev) => prev.filter((item) => item.id !== materialId));
+    
   } catch (error: any) {
     toast.error(error.response?.data?.message || "Failed to remove from materials.");
     console.error("Delete error:", error);

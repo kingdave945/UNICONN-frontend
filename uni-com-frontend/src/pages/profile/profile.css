@@ -6,7 +6,7 @@
 }
 
 .profile-card {
- background-color:  #f3f4f5;
+ background-color:  #f5f8fa;
   border-radius: 12px;
   padding: 2rem;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
@@ -48,12 +48,12 @@
 .profile-info h2 {
   font-size: 1.4rem;
   margin: 0;
-  color: rgb(100, 100, 134);
+  color: #2f5199;
 }
 
 .profile-info .level {
   font-weight: 500;
-color: rgb(63, 63, 85);
+color: #1a2d57;
   margin-top: 5px;
 }
 
@@ -105,8 +105,8 @@ color: rgb(63, 63, 85);
 .light .profile-tabs .active {
   transition: ease-in-out 0.3s;
   background-color:  #fcfdff;
-  border-bottom: 2px solid rgb(100, 100, 134);
-  color:rgb(100, 100, 134)
+  border-bottom: 2px solid #2f5199;
+  color:#2f5199;
 }
 
 .table-section h3 {
@@ -131,9 +131,23 @@ color: rgb(63, 63, 85);
 }
 
 .light .materials-table th {
-  background: #f9f9f9;
+
   font-weight: 600;
 }
+
+.materials-table tr:nth-child(odd){
+  background-color: #f5f8fa;
+  color: black; 
+}
+.materials-table tbody tr:nth-child(odd){
+  background-color: rgb(255, 255, 255);
+  color: black; 
+}
+.materials-table tbody tr:nth-child(even){
+  background-color: #f5f8fa;
+  color: black; 
+}
+
 
 .action-icon {
   margin-right: 10px;

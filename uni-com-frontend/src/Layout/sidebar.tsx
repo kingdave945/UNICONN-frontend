@@ -9,7 +9,7 @@ export default function SideBar({ role, isCollapsed }: SideBarProps) {
   const location = useLocation();
   const commonItems = [
     { label: "Home", icon: "bi bi-house-door", path: "/" },
-    { label: "Study Materials", icon: "bi bi-journal-bookmark", path: "/studymaterial" },
+    { label: "Study Materials", icon: "bi bi-upload", path: "/studymaterial" },
     { label: "My Profile", icon: "bi bi-person-circle", path: "/profile" },
   ];
 
@@ -20,25 +20,33 @@ export default function SideBar({ role, isCollapsed }: SideBarProps) {
 
   const isAdmin = role === "Admin";
 
-  const renderNavItems = (items: any[]) =>
-    items.map((item) => (
+const renderNavItems = (items: any[]) =>
+  items.map((item) => {
+    const isProfileRoute = item.path === "/profile";
+    const isActive =
+      location.pathname === item.path ||
+      (isProfileRoute && location.pathname.startsWith("/profile"));
+
+    return (
       <li key={item.path} className="agent-sidebar__nav-item">
         <Link
           to={item.path}
           className={`agent-sidebar__link ${
-            location.pathname === item.path ? "agent-sidebar__link--active" : ""
+            isActive ? "agent-sidebar__link--active" : ""
           }`}
         >
           <i className={item.icon}></i>
-          {!isCollapsed && <span className="sidebar-label">{item.label}</span>}
+        
+        
+          {!isCollapsed &&   <span className="sidebar-label">{item.label}</span>  }
         </Link>
       </li>
-    ));
+    );
+  });
+
 
   return (
     <div className="toggler">
-   
-   
     <div className={`agent-sidebar ${isCollapsed ? "collapsed" : ""}`}>
       <ul className="agent-sidebar__nav-list">
         {renderNavItems(commonItems)}
@@ -46,7 +54,11 @@ export default function SideBar({ role, isCollapsed }: SideBarProps) {
 
       {isAdmin && (
         <>
-          {!isCollapsed && <p className="sidebar-section-title">Admin Dashboard</p>}
+             {isCollapsed ? (
+      <hr className="sidebar-divider" />
+    ) : (
+      <p className="sidebar-section-title">Admin Dashboard</p>
+    )}
           <ul className="agent-sidebar__nav-list">{renderNavItems(adminItems)}</ul>
         </>
       )}

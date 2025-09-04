@@ -27,6 +27,9 @@ export default function StudyMaterial() {
     try {
       await uploadMaterials(uploadData);
       toast.success("Upload successful ✅");
+       setTimeout(() => {
+         window.location.reload();
+      }, 2000);
     } catch (err) {
       console.error(err);
       toast.error("Upload failed ❌");

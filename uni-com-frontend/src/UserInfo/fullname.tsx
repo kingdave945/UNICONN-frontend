@@ -30,13 +30,12 @@ export function GetEmail() {
 // console.log(" NIGGER:", sessionStorage);
 export function GetLevel() {
   const rawUser = sessionStorage.getItem("user");
-  if (!rawUser) return "Guest";
-  try {
-    const userData = rawUser ? JSON.parse(rawUser) : null;
-    console.log(userData.data.user.level)
-    return userData.user.level;
-  } catch {
-    return "Guest";
+  const userData = rawUser ? JSON.parse(rawUser) : null;
+  if(rawUser){
+    return userData.user.level
+  }
+  else{
+    return 'Guest'
   }
 }
 export function GetDepartment() {

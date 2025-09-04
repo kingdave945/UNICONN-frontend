@@ -36,7 +36,7 @@ export default function Layout({
 
   const [isCleared, setIsCleared] = useState(false);
 
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
 
   return (
     <div className="layout">

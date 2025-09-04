@@ -1,12 +1,22 @@
-  .upload-container {
-  max-width: 700px;
-  margin: 5px auto;
-  padding: 2rem;
+.form-group label{
+   color: #2f5199;;
+font-weight: 900;
+}
+
+.form-group input{
   background-color: white;
+}
+.upload-container {
+  max-width: 700px;
+  margin: 15px auto;
+  padding: 2rem;
+  background-color: #f5f8fa;
   border-radius: 10px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
 }
-
+.upload-container h2{
+    color: #2f5199;
+}
 .upload-title {
   font-size: 1.8rem;
   font-weight: 600;
@@ -102,7 +112,7 @@
 }
 
 .submit-btn {
-  background-color: #2563eb;
+  background-color:   #2f5199;;
   color: white;
   padding: 0.75rem 1.5rem;
   border: none;
@@ -111,5 +121,5 @@
   cursor: pointer;
 }
 .submit-btn:hover {
-  background-color: #1e40af;
+ background-color: rgb(26, 26, 66);
 }

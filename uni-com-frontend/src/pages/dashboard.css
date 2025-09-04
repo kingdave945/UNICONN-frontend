@@ -6,14 +6,16 @@
 
 .dashboard h2 {
   font-size: 24px;
+  font-weight: 900;
   margin-bottom: 20px;
-  color: rgb(100, 100, 134);;
+  color: #2f5199;
 }
 
 .dashboard h3 {
   font-size: 20px;
+  font-weight: 900;
   margin-bottom: 15px;
-   color: rgb(100, 100, 134);;
+   color: #2f5199;;
 }
 
 .container__content {
@@ -29,15 +31,15 @@
 
 
 .table-study-materials tr:nth-child(odd){
-  background-color: #eaecee;
-  color: black; 
+  background-color: #2F5199;
+  color: rgb(255, 255, 255); 
 }
 .table-study-materials tbody tr:nth-child(odd){
   background-color: rgb(255, 255, 255);
   color: black; 
 }
 .table-study-materials tbody tr:nth-child(even){
-  background-color: #eaecee;
+  background-color: #f5f8fa;
   color: black; 
 }
 
@@ -104,7 +106,7 @@ background-color:transparent;;
 .browser-materials-suggested,
 .suggested-materials {
   flex: 1; /* Equal width */
-  background-color:  #f3f4f5;
+  background-color:  #f5f8fa;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   padding: 20px;
   border-radius: 12px;
@@ -139,7 +141,7 @@ justify-content: center;
 .browse-dept button {   
   margin: 0 auto;        
   padding: 8px 14px;
-  background-color: #007bff;
+  background-color:  rgb(140, 140, 173);
   color: #fff;
   font-weight: 600;
   border: none;
@@ -234,13 +236,36 @@ justify-content: center;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.04);
 }
 .dashboard-card-platform li:nth-child(odd){
-  background-color:  rgb(140, 140, 173);
-  color: #eaecee; 
+  background-color:  rgb(255, 255, 255);
+  color: #2F5199; 
   font-weight: 900;
+  border: 1px solid #E5E7EB;
+box-shadow: 0 1px 3px rgba(0,0,0,0.1), 
+            0 1px 2px rgba(0,0,0,0.06);
+
 }
 .dashboard-card-platform li:nth-child(even){
-  background-color:  rgb(71, 71, 92);
-  color: #eaecee; 
+ background-color:  rgba(231, 231, 255, 0.418);
+  color: #2F5199; 
   font-weight: 900;
+  border: 1px solid #E5E7EB;
+   box-shadow: 0 1px 3px rgba(0,0,0,0.1), 
+            0 1px 2px rgba(0,0,0,0.06);
+
+}
+.loader-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px; /* or 100vh if you want full screen center */
 }
 
+.Dashboardloader {
+  display: inline-block; 
+  width: 38px;
+  height: 38px;
+  border: 2px solid rgba(51, 92, 207, 0.4);
+  border-top-color: rgb(9, 3, 104);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}

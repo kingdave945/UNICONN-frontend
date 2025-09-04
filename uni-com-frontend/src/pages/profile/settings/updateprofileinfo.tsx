@@ -4,7 +4,6 @@ export default function ProfileInfo() {
 const fullName = GetFullName();
 const email = GetEmail();
 const level = GetLevel();
-
   return (
     <div className="user-profile-info-card">
       <div className="cp-card">
@@ -49,9 +48,6 @@ const level = GetLevel();
               required
               />
         </div>
-      </div>
-      <div className="btn-up">
-      <button >Save Changes</button>
       </div>
      </section>
     </div>

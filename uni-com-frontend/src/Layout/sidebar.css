@@ -1,5 +1,5 @@
 .agent-sidebar {
-  width: 200px;
+  width: 210px;
   transition: width 0.3s ease;
   padding: 0.3rem;
   display: flex;
@@ -25,27 +25,26 @@
 }
 .agent-sidebar__nav-list a span{
   font-size: 1.1rem;
-  color: rgb(100, 100, 134);
+  color: #2f5199;
 }
 
 .agent-sidebar__link {
   display: flex;
   align-items: center;
   padding: 10px;
-   color: rgb(100, 100, 134);
+   color: #2f5199;
   border-radius: 8px;
   font-weight: 500;
   gap: 10px;
   transition: background 0.2s ease, color 0.2s ease;
 }
 
-.active{
- background-color: rgb(100, 100, 134);
+.agent-sidebar__link--active{
+  background-color:  #2f5199;
   color: rgb(225, 225, 252);;
   font-weight: bold;
 }
-.agent-sidebar__link--active{
-  background-color: rgb(100, 100, 134);
+.agent-sidebar__link--active .sidebar-label{
   color: rgb(225, 225, 252);;
   font-weight: bold;
 }
@@ -55,10 +54,10 @@
 }
 
 .sidebar-section-title {
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 700;
   margin: 1rem 0 0.5rem;
-  color: #555;
+  color:#2f5199;;
 }
 
 .sidebar-toggle {
@@ -71,7 +70,7 @@
 }
 .sidebar-toggle .bi-list{
   font-size: 2rem;
-    color: rgb(100, 100, 134);
+    color:  #2f5199;
 }
 .sidebar-toggle:hover {
   background-color: #f2f4f8;
@@ -81,8 +80,13 @@
   flex-direction: column;
 
 }
+.sidebar-divider {
+  border: none;
+  border-top: 2px solid  #2f5199;
+  margin: 8px 0;
+}
 .bi-house-door,
-.bi-journal-bookmark,
+.bi-upload,
 .bi-person-circle,
 .bi-people,
 .bi-file-earmark-spreadsheet

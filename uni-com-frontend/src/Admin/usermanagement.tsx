@@ -9,9 +9,10 @@ interface UserManProps {
     activeUsers: number;
     disabledUsers: number;
   };
+
 }
 
-export default function UserMan({ userStats }: UserManProps) {
+export default function UserMan({ userStats}: UserManProps) {
   const defaultUsers = [
     {
       id: 1,
@@ -73,7 +74,7 @@ export default function UserMan({ userStats }: UserManProps) {
               placeholder="Search user by name or email"
             />
           </div>
-          <table>
+          <table  className="table-study-materials">
             <thead style={{ backgroundColor: "#fff" }}>
               <tr>
                 <th>User info</th>
@@ -110,7 +111,10 @@ export default function UserMan({ userStats }: UserManProps) {
                       <span>{item.joinedDate}</span>
                     </td>
                     <td>
-                      <AdminActions user={item} />
+                      <AdminActions 
+                      user={item} 
+                      
+                      />
                     </td>
                   </tr>
                 ))
@@ -130,7 +134,9 @@ export default function UserMan({ userStats }: UserManProps) {
                       <span>{item.joinedDate}</span>
                     </td>
                     <td>
-                      <AdminActions user={item} />
+                      <AdminActions 
+                      user={item} 
+                     />
                     </td>
                   </tr>
                 ))

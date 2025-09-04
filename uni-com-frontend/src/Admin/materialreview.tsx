@@ -9,13 +9,12 @@ export default function MaterialReview(){
     ]
     return(
         <>
-        <div>
-              <div >
+        <div className="overview-container">
+              <div className="review-material">
               <h3>Material Review</h3>
               </div>
-              <div className="recent-uploads">
+              <div className="recent-uploadsII">
               <div className="material-review">              
-              <h4>Material Review</h4>
               <p>Review and moderate new or flagged study materials</p>
               </div>
               <div className="user-man-container">

@@ -34,7 +34,7 @@
   padding-right: 10px;
 }
 .dream-home {
-  color: rgb(100, 100, 134);
+  color: #2f5199;
   font-weight: 800;
   font-style: italic;
   font-size: 2rem;
@@ -286,7 +286,7 @@ ul {
   color: #666;
 }
 .bi-gear{
-    color: rgb(100, 100, 134);
+    color: #2f5199;
     font-size: 1.5rem;
     padding: 5px;
 }

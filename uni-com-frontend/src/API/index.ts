@@ -31,6 +31,12 @@ interface ResetPassword {
   token: string;
   newPassword: string;
 }
+interface SuggestedMaterials {
+  level: string;
+  pageNumber?: number;
+  pageSize?: number;
+}
+
 const rawUser = sessionStorage.getItem("user");
 const userData = rawUser ? JSON.parse(rawUser) : null;
 const userDate = userData?.data;
@@ -249,8 +255,53 @@ export const resetPassword = async (data: ResetPassword) => {
   try {
     const response = await api.post(`/api/Auth/reset-password`, data);
     console.log("Reset Password Response:", response.data);
-    return response.data;
+    return response;
   } catch (error) {
     throw error;
   }
 };
+export const getSuggestedMaterials = async (params: SuggestedMaterials) => {
+  try {
+    const response = await api.get(
+      `/api/StudyMaterials/by-level/${params.level}`,
+      {
+        params: {
+          pageNumber: params.pageNumber ?? 1,
+          pageSize: params.pageSize ?? 10,
+        },
+      }
+    );
+    return response.data.data.data || [];
+  } catch (error: any) {
+    console.error(
+      "❌ Failed to get study materials:",
+      error.response?.data || error.message
+    );
+    throw error;
+  }
+};
+export const getSuggestedMaterialsResult = async (params: SuggestedMaterials) => {
+  try {
+    const response = await api.get(
+      `/api/StudyMaterials/by-level/${params.level}`,
+      {
+        params: {
+          pageNumber: params.pageNumber ?? 1,
+          pageSize: params.pageSize ?? 10,
+        },
+      }
+    );
+console.log('PARAMS',params)
+    return {
+      items: response.data.data.data || [],
+      totalItems: response.data.data.totalItems || 0,
+    };
+  } catch (error: any) {
+    console.error(
+      "❌ Failed to get study materials:",
+      error.response?.data || error.message
+    );
+    throw error;
+  }
+};
+

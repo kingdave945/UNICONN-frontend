@@ -1,70 +1,168 @@
- import api from "../API/Interceptor";
- import {toast} from 'react-toastify'
- interface AdminActionProps {
-    user: {
-      id: number;
-      email: string;
-      fullName: string;
-    };
-  }
+import api from "../API/Interceptor";
+import { useState } from "react";
+import { toast } from "react-toastify";
+
+interface AdminActionProps {
+  user: {
+    id: number;
+    email: string;
+    fullName: string;
+  };
+}
+
 export default function AdminActions({ user }: AdminActionProps) {
-const warn = async() =>{
-try{
-const response = await api.post(`/api/Admin/users/warn`, {
-search: user.email,
-message: "This is a warning message"
-});
-console.log("Warn Response:", response.data);
-toast.success('User Warned Successfully');
-return response.data;
-} catch (error) {
-  toast.error('Error warning user');
-console.error("Error warning user:", error);
-}
-}
-const suspend = async() =>{
-try{
-const response = await api.post(`/api/Admin/users/suspend`, {
-search: user.email,
-days: 10,
-reason: "Due to your recent post"
-});
-console.log("Suspend Response:", response.data);
-toast.success('User Suspended Successfully');
-return response.data;
-} catch (error) {
-  toast.error('Error suspending user');
-console.error("Error suspending user:", error);
-}
-}
-const ban = async() =>{
-try{
-const response = await api.post(`/api/Admin/users/ban`, {
-search: user.email,
-reason: "You've been banned!!"
-});
-console.log("Ban Response:", response.data);
-toast.success('User Banned Successfully');
-return response.data;
-} catch (error) {
-toast.error('Error banning user');
-console.error("Error banning user:", error);
-}
-}
+  const [isOpen, setIsOpen] = useState(false);
+  const [actionType, setActionType] = useState<"warn" | "suspend" | "ban" | null>(null);
+  const [message, setMessage] = useState("");
+  const [reason, setReason] = useState("");
+  const [days, setDays] = useState("");
+  const [loading, setLoading] = useState(false);
+  const handleSubmit = async () => {
+    setLoading(true);
+    try {
+      let endpoint = "";
+      let payload: any = { search: user.email };
+
+      switch (actionType) {
+        case "warn":
+          endpoint = "/api/Admin/users/warn";
+          payload.message = message;
+          break;
+        case "suspend":
+          endpoint = "/api/Admin/users/suspend";
+          payload.reason = reason;
+          payload.days = days;
+          break;
+        case "ban":
+          endpoint = "/api/Admin/users/ban";
+          payload.reason = message;
+          break;
+        default:
+          toast.error("Invalid action");
+          setLoading(false);
+          return;
+      }
+
+      const response = await api.post(endpoint, payload);
+      toast.success(`${actionType} successful`);
+      console.log(`${actionType} response:`, response.data);
+
+      // reset + close modal
+      setIsOpen(false);
+      setMessage("");
+      setReason("");
+      setDays("");
+    } catch (error) {
+      toast.error(`Error trying to ${actionType}`);
+      console.error(`Error ${actionType}:`, error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <div className="admin-action-features" style={{ fontSize: "14px" }}>
-        <div className="features-admin" onClick={warn} title="warn">
-     <i className="bi bi-exclamation-triangle"></i>
+        {/* Warn button */}
+        <div
+          className="features-admin"
+          onClick={() => {
+            setActionType("warn");
+            setIsOpen(true);
+          }}
+          title="warn"
+        >
+          <i className="bi bi-exclamation-triangle"></i>
         </div>
-        <div className="features-admin" onClick={suspend} title="suspend">
+
+        {/* Suspend button */}
+        <div
+          className="features-admin"
+          onClick={() => {
+            setActionType("suspend");
+            setIsOpen(true);
+          }}
+          title="suspend"
+        >
           <i className="bi bi-stop-fill"></i>
-          
         </div>
-        <div className="features-admin" onClick={ban} title="ban">
-           <i className="bi bi-ban"></i>
-      
+
+        {/* Ban button */}
+        <div
+          className="features-admin"
+          onClick={() => {
+            setActionType("ban");
+            setIsOpen(true);
+          }}
+          title="ban"
+        >
+          <i className="bi bi-ban"></i>
         </div>
+
+        {/* Modal */}
+        {isOpen && (
+          <div className="modal-overlay">
+            <div className="modal">
+              <button className="close-btn" onClick={() => setIsOpen(false)}>
+                &times;
+              </button>
+
+              {actionType === "warn" && (
+                <div className="action-input">
+                  <h3>Warn {user.email}</h3>
+                  <input
+                    type="text"
+                    placeholder="Enter warning message"
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                  />
+                </div>
+              )}
+
+              {actionType === "suspend" && (
+                <div className="action-input">
+                  <h3>Suspend {user.email}</h3>
+                  <input
+                    type="text"
+                    placeholder="Enter reason"
+                    value={reason}
+                    onChange={(e) => setReason(e.target.value)}
+                  />
+                  <input
+                    type="number"
+                    placeholder="Enter duration (days)"
+                    value={days}
+                    onChange={(e) => setDays(e.target.value)}
+                  />
+                </div>
+              )}
+
+              {actionType === "ban" && (
+                <div className="action-input">
+                  <h3>Ban {user.email}</h3>
+                  <input
+                    type="text"
+                    placeholder="Enter ban message"
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                  />
+                </div>
+              )}
+
+              <button
+                className="login-btn"
+                disabled={loading}
+                onClick={handleSubmit}
+              >
+                {loading ? (
+                  <span className="loginloader"></span>
+                ) : (
+                  "Send Message"
+                )}
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );

@@ -158,7 +158,7 @@ const handlePasswordChange = (e: string) => {
                   Create Your <br /> UniConnect Account
                 </h2>
                 <p
-                style={{ textAlign:"center",fontSize: "0.9rem" }}
+                style={{ textAlign:"center"}}
                 >Join UniConnect to access a wealth of academic resources</p>
               </div>
 
@@ -199,6 +199,7 @@ const handlePasswordChange = (e: string) => {
                   >
                     <option value="">Select Role</option>
                     <option value="Student">Student</option>
+                    <option value="Admin">Admin</option>
                   </select>
 
                   <select
