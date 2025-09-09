@@ -24,6 +24,8 @@ import ResetPassword from "./components/resetpassword";
 import RegisterReg from "./registerreg";
 import AgentSkeleton from "./components/AgentSkeleton";
 import BrowseDepartmentMaterials from "./pages/browsedepartmentmaterials";
+import Search from "./pages/search";
+import Loader from "./components/Loader";
 export default function App() {
   const [theme, setTheme] = useState("light");
   const [isPublic, setIsPublic] = useState(false); // false = toggle off, true = toggle on
@@ -66,7 +68,7 @@ export default function App() {
     setRole(null);
     navigate("/login");
   };
-
+  const [searchQuery, setSearchQuery] = useState("");
   return (
     <>
       <ToastContainer />
@@ -84,6 +86,8 @@ export default function App() {
                   setIsPublic={setIsPublic}
                   isPublic={isPublic}
                   handleLogout={handleLogout}
+                   searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
                 />
               </ProtectedRouteUsers>
             }
@@ -99,6 +103,9 @@ export default function App() {
               <Route path="favorites" element={<Favorites />} />
               <Route path="settings" element={<Settings />}></Route>
             </Route>
+            <Route path="/search" element={<Search
+             searchQuery={searchQuery}
+              />}/>
             <Route path="/studymaterial" element={<StudyMaterial />} />
             <Route
               path="/Admin/Overview"
@@ -139,6 +146,7 @@ export default function App() {
           <Route path="/confirm-email" element={<ConfirmEmail />} />
           <Route path="/forgot-password" element={<ForgetPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/diddy" element={<Loader/>}/>
         </Routes>
       </div>
     </>

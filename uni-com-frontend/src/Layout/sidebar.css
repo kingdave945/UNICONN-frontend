@@ -93,3 +93,13 @@
 {
 font-size: 1.5rem;
 }
+/* Expanded badge (next to text) */
+.sidebar-badge-expanded {
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 8px;
+  margin-left: 8px;
+  font-size: 0.75rem;
+  font-weight: bold;
+}

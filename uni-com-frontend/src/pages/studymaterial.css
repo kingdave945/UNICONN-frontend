@@ -6,6 +6,9 @@ font-weight: 900;
 .form-group input{
   background-color: white;
 }
+#form-group select{
+  width: 720px;
+}
 .upload-container {
   max-width: 700px;
   margin: 15px auto;
@@ -122,4 +125,21 @@ font-weight: 900;
 }
 .submit-btn:hover {
  background-color: rgb(26, 26, 66);
+}
+.file-preview {
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px dashed #aaa;
+  border-radius: 6px;
+  background: #f9f9f9;
+}
+
+.file-preview p {
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.preview-note {
+  color: #666;
+  font-style: italic;
 }

@@ -3,10 +3,9 @@ import SideBar from "./sidebar";
 import Footer from "./footer";
 import ActSettings from "./actionssettings";
 import "./layout.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
-// import { useState, useEffect } from "react";
-// import SkeletonCard from "../components/SkeletonCard";
+import { useNavigate } from "react-router-dom";
 interface SideBarProps {
   role: string | null;
   theme: string;
@@ -14,6 +13,8 @@ interface SideBarProps {
   toggleTheme: () => void;
   setIsPublic: (value: boolean) => void;
   isPublic: boolean;
+  searchQuery: string;
+  setSearchQuery: (value: string) => void;
 }
 
 export default function Layout({
@@ -24,19 +25,17 @@ export default function Layout({
   isPublic: _isPublic,
   role: _role,
   handleLogout,
+  searchQuery,
+  setSearchQuery,
 }: SideBarProps) {
-  //   const [outletloading, setOutletLoading] = useState(true);
-  //    useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     setOutletLoading(false);
-  //   },  20 * 60 * 1000)
-
-  //   return () => clearTimeout(timer);
-  // }, []);
-
   const [isCleared, setIsCleared] = useState(false);
-
+  const navigate = useNavigate();
   const [isCollapsed, setIsCollapsed] = useState(true);
+  useEffect(() => {
+    if (searchQuery.trim().length > 0) {
+      navigate("/search");
+    }
+  }, [searchQuery]);
 
   return (
     <div className="layout">
@@ -50,6 +49,8 @@ export default function Layout({
         setIsPublic={_setIsPublic}
         isPublic={_isPublic}
         role={_role}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
       />
 
       <div className="layout__content">

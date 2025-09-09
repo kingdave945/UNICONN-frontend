@@ -36,7 +36,41 @@ interface SuggestedMaterials {
   pageNumber?: number;
   pageSize?: number;
 }
+interface SearchItems{
+  query: string;
+  pageNumber?: number;
+  pageSize?: number;
+}
+export interface SearchResultItem {
+  id: number;
+  title: string;
+  description: string;
+  tags: string[];
+  filePath: string;
+  uploadedAt: string;
+  uploadedBy: string;
+  course: string;
+  level: string;
+}
 
+export interface SearchResponse {
+  successful: boolean;
+  message: string;
+  data: {
+    query: string;
+    page: number;
+    pageSize: number;
+    totalItems: number;
+    totalPages: number;
+    hasNextPage: boolean;
+    hasPreviousPage: boolean;
+    resultsCount: number;
+    results: SearchResultItem[];
+  };
+}
+interface AdminActions{
+  id:number;
+}
 const rawUser = sessionStorage.getItem("user");
 const userData = rawUser ? JSON.parse(rawUser) : null;
 const userDate = userData?.data;
@@ -95,7 +129,7 @@ export const uploadMaterials = async (uploadMat: uploadMaterials) => {
 export const loginUser = async (role: string, form: formData) => {
   try {
     const response = await api.post(`/api/Auth/login/${role}`, form);
-
+console.log('DIDDD', response.data)
     // ✅ Check if backend returned the token inside response.data.data
     const token = response.data?.data?.token;
     const user = response.data?.data?.user;
@@ -104,7 +138,7 @@ export const loginUser = async (role: string, form: formData) => {
       // Save only what you need, clean structure
       const sessionData = { token, user };
       sessionStorage.setItem("user", JSON.stringify(sessionData));
-
+        sessionStorage.setItem("roles", JSON.stringify(user.roles)); 
       console.log("✅ User logged in. Session storage updated:", sessionData);
     } else {
       console.warn("⚠️ Login succeeded but no token found in response");
@@ -280,6 +314,7 @@ export const getSuggestedMaterials = async (params: SuggestedMaterials) => {
     throw error;
   }
 };
+
 export const getSuggestedMaterialsResult = async (params: SuggestedMaterials) => {
   try {
     const response = await api.get(
@@ -304,4 +339,32 @@ console.log('PARAMS',params)
     throw error;
   }
 };
-
+export const fetchSearchResults = async (params: SearchItems) => {
+  const response = await api.get<SearchResponse>("/api/StudyMaterials/search", {
+    params: {
+      query: params.query,
+      page: params.pageNumber ?? 1,
+      pageSize: params.pageSize ?? 10,
+    },
+  });
+  console.log('MY ANSWER:', response.data)
+  return response.data;
+};
+export const Approve = async (data: AdminActions) => {
+  try {
+    const response = await api.post(`/api/Admin/${data.id}/approve`);
+    console.log("Approve Response:", response.data);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+export const Reject = async (data: AdminActions) => {
+  try {
+    const response = await api.post(`/api/Admin/${data.id}/reject`);
+    console.log("Reject Response:", response.data);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};

@@ -53,13 +53,13 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.1),
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);  
 }
 .recent-uploadsII{
-  background: #f5f8fa;
+  background: #fff;
   padding: 2rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);  
+  box-shadow: 0 6px 13px rgba(0, 0, 0, 0.04);  
 }
 .Uploads-recent{
     display: flex;
@@ -91,15 +91,7 @@ font-size: 20px;
 margin-left: 0.5rem;
 color: #2f5199;
 }
-.user-man-container{
- border: 1px solid #2f5199;
- padding: 10px;   
-}
-.user-man{
-    display: flex;
-    gap:0.1rem;
-    flex-direction: column;
-}
+
 .user-man-container-manage{
  border: 1px solid #ccc;
  padding: 10px;   
@@ -140,11 +132,7 @@ border-radius:5px;
 
 
 }
-.user-man-container{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+
 .features-admin{
   display: flex;
   gap: 0.5rem;
@@ -157,30 +145,22 @@ border-radius:5px;
   display: flex;
   gap: 1rem;
 } */
-.mat-review{
-    display: flex;
-    gap:0.1rem;
-    flex-direction: column;
-}
-.mat-review > span:nth-child(1){
- font-size: 20px;
-}
-.mat-review > span:nth-child(2){
-    color: #858484;
-}
-.mat-action-features > div:nth-child(1){
+
+
+.approve-btn{
 border: none;
 border-radius:5px;
 padding: 0.4rem;
-color: rgb(255, 255, 255);
-background-color: blue;
+color: blue;
+font-size: 1.8rem;
 }
-.mat-action-features > div:nth-child(2){
+.reject-btn{
 border: none;
 border-radius:5px;
 padding: 0.4rem;
-color: rgb(255, 255, 255);
-background-color:  rgb(180, 29, 29);
+font-size: 1.8rem;
+color: rgb(180, 29, 29);
+
 }
 .mat-action-features{
 display: flex;
@@ -258,7 +238,16 @@ margin-bottom: 1rem;
 padding: 5px;
 }
 /* Animation */
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
+.AdminMaterialloader {
+ display: inline-block; 
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(51, 92, 207, 0.4);
+  border-top-color: rgb(9, 3, 104);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  margin-right: 2rem;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }

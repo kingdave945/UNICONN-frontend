@@ -76,7 +76,6 @@ const handleGetter = async () => {
       </div>
       </div>
       )}
-
     </div>
   );
 }

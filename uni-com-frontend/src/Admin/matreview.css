@@ -1,0 +1,33 @@
+.user-man-container {
+  padding: 10px;
+}
+.user-man-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.mat-review {
+display:flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.4rem;
+    border: 1px solid #2f5199;
+    padding: 1rem;
+
+}
+.mat-review > div:nth-child(1) {
+display: flex;
+flex-direction: column;
+}
+.mat-review > span:nth-child(1) {
+  font-size: 20px;
+}
+.mat-review > span:nth-child(2) {
+  color: #858484;
+}
+ .container-mat-review{
+  display: flex;
+  flex-direction: column;
+
+ }
+

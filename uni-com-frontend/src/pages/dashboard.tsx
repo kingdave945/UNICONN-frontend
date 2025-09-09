@@ -2,7 +2,6 @@ import "./dashboard.css";
 import Actions from "./actions";
 import { useState, useEffect } from "react";
 import { GetFullName } from "../UserInfo/fullname";
-import BrowserMaterials from "./browsermaterials";
 import SuggestedMaterials from "./suggestedmaterials";
 import Skeleton from "../components/Skeleton";
 // import { getUserStats } from "../API/dashboard"; // 👉 Example future API
@@ -114,9 +113,7 @@ export default function Dashboard() {
 
           <div className="container__content">
             <SuggestedMaterials />
-            <main className="container__main">
-              <BrowserMaterials />
-            </main>
+           
           </div>
 
           {/* Top Materials Table */}

@@ -108,7 +108,7 @@ export default function UserMan({ userStats}: UserManProps) {
                       />
                     </td>
                     <td>
-                      <span>{item.joinedDate}</span>
+                      <span>{new Date(item.registeredAt).toLocaleDateString()}</span>
                     </td>
                     <td>
                       <AdminActions 

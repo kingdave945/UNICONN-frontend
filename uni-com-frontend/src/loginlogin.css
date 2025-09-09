@@ -101,6 +101,9 @@ background-color:  rgb(197, 197, 202);;
   border: none;
 
 }
+.password-input{
+  width: 103%
+}
 
 /* Scoped login button */
 .login-btn {

@@ -158,3 +158,9 @@ color: #1a2d57;
 .action-icon.danger {
   color: red;
 }
+.removing {
+  opacity: 0.5;
+  transform: scale(0.95);
+  transition: all 0.3s ease;
+  color: red;
+}

@@ -1,7 +1,6 @@
 import api from "../API/Interceptor";
 import { useState } from "react";
 import { toast } from "react-toastify";
-
 interface AdminActionProps {
   user: {
     id: number;
@@ -9,7 +8,6 @@ interface AdminActionProps {
     fullName: string;
   };
 }
-
 export default function AdminActions({ user }: AdminActionProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [actionType, setActionType] = useState<"warn" | "suspend" | "ban" | null>(null);
@@ -22,7 +20,6 @@ export default function AdminActions({ user }: AdminActionProps) {
     try {
       let endpoint = "";
       let payload: any = { search: user.email };
-
       switch (actionType) {
         case "warn":
           endpoint = "/api/Admin/users/warn";
@@ -42,12 +39,9 @@ export default function AdminActions({ user }: AdminActionProps) {
           setLoading(false);
           return;
       }
-
       const response = await api.post(endpoint, payload);
       toast.success(`${actionType} successful`);
       console.log(`${actionType} response:`, response.data);
-
-      // reset + close modal
       setIsOpen(false);
       setMessage("");
       setReason("");
@@ -109,7 +103,7 @@ export default function AdminActions({ user }: AdminActionProps) {
 
               {actionType === "warn" && (
                 <div className="action-input">
-                  <h3>Warn {user.email}</h3>
+                  <h3>Warn {user.fullName.toUpperCase()}</h3>
                   <input
                     type="text"
                     placeholder="Enter warning message"
