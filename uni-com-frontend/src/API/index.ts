@@ -70,6 +70,12 @@ export interface SearchResponse {
 }
 interface AdminActions{
   id:number;
+  reason: string;
+  deleteFile: boolean;
+}
+interface AdminActionsApprove{
+  id:number;
+ 
 }
 const rawUser = sessionStorage.getItem("user");
 const userData = rawUser ? JSON.parse(rawUser) : null;
@@ -350,7 +356,7 @@ export const fetchSearchResults = async (params: SearchItems) => {
   console.log('MY ANSWER:', response.data)
   return response.data;
 };
-export const Approve = async (data: AdminActions) => {
+export const Approve = async (data: AdminActionsApprove) => {
   try {
     const response = await api.post(`/api/Admin/${data.id}/approve`);
     console.log("Approve Response:", response.data);
@@ -361,10 +367,31 @@ export const Approve = async (data: AdminActions) => {
 };
 export const Reject = async (data: AdminActions) => {
   try {
-    const response = await api.post(`/api/Admin/${data.id}/reject`);
+    const payload = {
+      reason: data.reason ?? "Rejected by admin",
+      deleteFile: data.deleteFile ?? false
+    };
+
+    const response = await api.post(
+      `/api/Admin/${data.id}/reject`,
+      payload,
+      { headers: { "Content-Type": "application/json" } }
+    );
+
     console.log("Reject Response:", response.data);
     return response;
-  } catch (error) {
-    throw error;
+  } catch (error: any) {
+    // 👇 Add these logs
+    if (error.response) {
+      console.error(
+        "Reject API Error:",
+        error.response.status,
+        error.response.data
+      );
+    } else {
+      console.error("Reject Network/Error:", error.message);
+    }
+
+    throw error; // rethrow so caller can still handle it
   }
 };
