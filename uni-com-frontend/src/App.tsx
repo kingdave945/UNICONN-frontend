@@ -15,7 +15,7 @@ import Favorites from "./pages/profile/favorites";
 import UserMan from "./Admin/usermanagement";
 import Overview from "./Admin/overview";
 import MaterialReview from "./Admin/materialreview";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import ForgetPassword from "./components/forgotpassword";
 import ConfirmEmail from "./components/confirmemal";
 import { useNavigate } from "react-router-dom";
@@ -27,31 +27,9 @@ import BrowseDepartmentMaterials from "./pages/browsedepartmentmaterials";
 import Search from "./pages/search";
 import Loader from "./components/Loader";
 export default function App() {
-  const [theme, setTheme] = useState("light");
-  const [isPublic, setIsPublic] = useState(false); // false = toggle off, true = toggle on
+
   const navigate = useNavigate();
-  useEffect(() => {
-    const saved = localStorage.getItem("theme");
-    const prefersLight = window.matchMedia(
-      "(prefers-color-scheme: light)"
-    ).matches;
-    const initial = saved || (prefersLight ? "light" : "dark");
-    setTheme(initial);
-    document.body.classList.add(initial);
-    // Sync toggle with theme
-    setIsPublic(initial === "dark"); // on if dark mode
-  }, []);
-
-  const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
-    setTheme(newTheme);
-    document.body.classList.remove("light", "dark");
-    document.body.classList.add(newTheme);
-    localStorage.setItem("theme", newTheme);
-
-    // Flip the toggle state
-    setIsPublic(newTheme === "dark");
-  };
+ 
 
   const [role, setRole] = useState<string | null>(
     sessionStorage.getItem("role")
@@ -81,10 +59,7 @@ export default function App() {
               <ProtectedRouteUsers>
                 <Layout
                   role={role}
-                  theme={theme}
-                  toggleTheme={toggleTheme}
-                  setIsPublic={setIsPublic}
-                  isPublic={isPublic}
+                 
                   handleLogout={handleLogout}
                    searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}

@@ -8,21 +8,15 @@ import { Outlet } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 interface SideBarProps {
   role: string | null;
-  theme: string;
+
   handleLogout: () => void;
-  toggleTheme: () => void;
-  setIsPublic: (value: boolean) => void;
-  isPublic: boolean;
   searchQuery: string;
   setSearchQuery: (value: string) => void;
 }
 
 export default function Layout({
   role,
-  theme: _theme,
-  toggleTheme: _toggleTheme,
-  setIsPublic: _setIsPublic,
-  isPublic: _isPublic,
+
   role: _role,
   handleLogout,
   searchQuery,
@@ -43,11 +37,7 @@ export default function Layout({
         setIsCleared={setIsCleared}
         isCollapsed={isCollapsed}
         setIsCollapsed={setIsCollapsed}
-        theme={_theme}
         handleLogout={handleLogout}
-        toggleTheme={_toggleTheme}
-        setIsPublic={_setIsPublic}
-        isPublic={_isPublic}
         role={_role}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}

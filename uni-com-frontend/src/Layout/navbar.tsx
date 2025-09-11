@@ -5,13 +5,13 @@ import { GetFullName } from "../UserInfo/fullname";
 import { GetEmail } from "../UserInfo/fullname";
 import "../Layout/navbar.css";
 interface NavbarProps {
-  theme: string;
+
   setIsCollapsed: (value: boolean) => void;
   handleLogout: () => void;
-  toggleTheme: () => void;
-  setIsPublic: (value: boolean) => void;
+
+ 
   setIsCleared: (value: boolean) => void;
-  isPublic: boolean;
+
   isCollapsed: boolean;
   role: string | null;
   searchQuery: string;
@@ -20,10 +20,6 @@ interface NavbarProps {
 export default function NavBar({
   isCollapsed,
   setIsCollapsed,
-  theme: _theme,
-  toggleTheme: _toggleTheme,
-  setIsPublic: _setIsPublic,
-  isPublic: _isPublic,
   role: _role,
   handleLogout,
   searchQuery,
