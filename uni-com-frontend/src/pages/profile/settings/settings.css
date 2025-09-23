@@ -55,6 +55,10 @@ gap: 2rem;
     border: none;
     outline: none;
 }
+.my-input-fields input.editable{
+    background-color: #ffffff;
+ 
+}
 .my-input-fields2{
      gap: 0.5rem;
     display: flex;

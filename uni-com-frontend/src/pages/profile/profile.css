@@ -102,9 +102,9 @@ color: #1a2d57;
   
 }
 
-.light .profile-tabs .active {
+ .profile-tabs .active {
   transition: ease-in-out 0.3s;
-  background-color:  #fcfdff;
+  background-color:  #ffffff;
   border-bottom: 2px solid #2f5199;
   color:#2f5199;
 }
@@ -114,7 +114,7 @@ color: #1a2d57;
   font-size: 1.2rem;
 }
 
-.light .materials-table {
+ .materials-table {
   width: 100%;
   border-collapse: collapse;
   border-radius: 10px;
@@ -122,15 +122,15 @@ color: #1a2d57;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
 }
 
-.light .materials-table th,
-.light .materials-table td {
+ .materials-table th,
+ .materials-table td {
   padding: 1rem;
   text-align: left;
   font-size: 0.95rem;
   border-bottom: 1px solid #eee;
 }
 
-.light .materials-table th {
+ .materials-table th {
 
   font-weight: 600;
 }

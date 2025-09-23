@@ -87,7 +87,7 @@ export default function UserMan({ userStats}: UserManProps) {
               {loading ? (
                 <tr>
                   <td
-                    colSpan={3}
+                    colSpan={6}
                     style={{ textAlign: "center", color: "gray" }}
                   >
                     Loading...

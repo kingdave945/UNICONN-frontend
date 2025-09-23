@@ -1,5 +1,5 @@
 .form-group label{
-   color: #2f5199;;
+   color: #2f5199;
 font-weight: 900;
 }
 
@@ -8,6 +8,18 @@ font-weight: 900;
 }
 #form-group select{
   width: 720px;
+}
+.section-level-upload{
+border: 2px dashed #ccc;
+padding: 20px;  
+width: 97%;
+}
+.form-group-select {
+  width: 102%;
+  padding: 0.6rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  outline: none;
 }
 .upload-container {
   max-width: 700px;
@@ -142,4 +154,17 @@ font-weight: 900;
 .preview-note {
   color: #666;
   font-style: italic;
+}
+
+@media (max-width: 915px) {
+ .upload-container {
+  max-width: 500px;
+
+}
+}
+@media (max-width: 715px) {
+ .upload-container {
+  max-width: 300px;
+
+}
 }

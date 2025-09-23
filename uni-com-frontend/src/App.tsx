@@ -26,6 +26,7 @@ import AgentSkeleton from "./components/AgentSkeleton";
 import BrowseDepartmentMaterials from "./pages/browsedepartmentmaterials";
 import Search from "./pages/search";
 import Loader from "./components/Loader";
+import MatSkeleton from "./components/matreviewskeleton";
 export default function App() {
 
   const navigate = useNavigate();
@@ -115,6 +116,7 @@ export default function App() {
           </Route>
 
           <Route path="/skeleton" element={<AgentSkeleton />} />
+          <Route path="/mat-skeleton" element={<MatSkeleton />} />
           <Route path="/login" element={<Login handleLogin={handleLogin} />} />
           <Route path="/registerreg" element={<RegisterReg />} />
           <Route path="/register" element={<Register />} />

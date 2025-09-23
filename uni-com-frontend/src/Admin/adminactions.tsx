@@ -10,11 +10,15 @@ interface AdminActionProps {
 }
 export default function AdminActions({ user }: AdminActionProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [actionType, setActionType] = useState<"warn" | "suspend" | "ban" | null>(null);
+  const [actionType, setActionType] = useState<
+    "warn" | "suspend" | "ban" | null
+  >(null);
   const [message, setMessage] = useState("");
   const [reason, setReason] = useState("");
   const [days, setDays] = useState("");
   const [loading, setLoading] = useState(false);
+  const [promotePrompt, setPromotePrompt] = useState(false);
+  const[buttonLoading,setButtonLoading]=useState(false);
   const handleSubmit = async () => {
     setLoading(true);
     try {
@@ -54,6 +58,29 @@ export default function AdminActions({ user }: AdminActionProps) {
     }
   };
 
+const handlePromote = async () => {
+  setLoading(true);
+  const newRoleName = "Admin";
+  try {
+    const endpoint = `/api/Admin/users/${user.id}/role`;
+    const payload = { newRoleName };
+    const response = await api.put(endpoint, payload);
+    const successMsg = response?.data?.message ?? `User promoted to ${newRoleName}`;
+    toast.success(successMsg);
+    console.log("Promote response:", response.data);
+    setPromotePrompt(false);
+     setButtonLoading(false);
+  } catch (err: any) {
+    const serverMsg = err?.response?.data?.message;
+    toast.error(serverMsg ?? "Error trying to promote");
+    console.error("Error promote:", err);
+    setPromotePrompt(false);
+    setButtonLoading(false);
+  } finally {
+ setButtonLoading(false);
+  }
+};
+
   return (
     <>
       <div className="admin-action-features" style={{ fontSize: "14px" }}>
@@ -92,7 +119,14 @@ export default function AdminActions({ user }: AdminActionProps) {
         >
           <i className="bi bi-ban"></i>
         </div>
-
+        {/* Promote button */}
+        <div
+          className="features-admin"
+          onClick={() => setPromotePrompt(true)}
+          title="promote"
+        >
+          <i className="bi bi-chevron-double-up"></i>
+        </div>
         {/* Modal */}
         {isOpen && (
           <div className="modal-overlay">
@@ -157,6 +191,37 @@ export default function AdminActions({ user }: AdminActionProps) {
             </div>
           </div>
         )}
+      {promotePrompt && (
+  <div className="modal-overlay">
+    <div className="modal">
+      <h3 style={{textAlign: "center"}}>Do you want to promote {user.fullName.toUpperCase()}?</h3>
+      <div className="promote-buttons">
+        {buttonLoading ? (
+          <button disabled className="login-btn">
+            <span className="loginloader"></span> 
+          </button>
+        ) : (
+          <div className="promote-buttons">
+            <button
+              onClick={() => {
+                setButtonLoading(true);
+                handlePromote();
+              }}
+              style={{backgroundColor:'green', color:'white'}}
+            >
+              Yes
+            </button>
+            <button onClick={() => setPromotePrompt(false)}
+               style={{backgroundColor:'red', color:'white'}}>
+              No
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+)}
+
       </div>
     </>
   );

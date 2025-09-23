@@ -210,8 +210,8 @@
 .register-header {
     flex-direction: column;
     box-shadow: none;
-      width: 70%;
-  max-width: 800px;
+      width: 90%;
+  max-width: 1000px;
   }
   .register-img {
     display: none; /* hide image for small screens */
@@ -230,5 +230,6 @@
   }
   .register-form-header{
     font-size: 0.8rem;
+    margin-left: -2.5rem;
   }
 }

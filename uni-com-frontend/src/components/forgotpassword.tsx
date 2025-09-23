@@ -36,7 +36,7 @@ export default function ForgetPassword() {
           }}
         >
       
-        <div className='login-input'>
+        <div className='forgot-password-header'>
             <input
               type="text"
               placeholder="Enter your email"

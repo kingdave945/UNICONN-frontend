@@ -36,7 +36,7 @@ interface SuggestedMaterials {
   pageNumber?: number;
   pageSize?: number;
 }
-interface SearchItems{
+interface SearchItems {
   query: string;
   pageNumber?: number;
   pageSize?: number;
@@ -68,14 +68,32 @@ export interface SearchResponse {
     results: SearchResultItem[];
   };
 }
-interface AdminActions{
-  id:number;
+interface AdminActions {
+  id: number;
   reason: string;
   deleteFile: boolean;
 }
-interface AdminActionsApprove{
-  id:number;
- 
+interface AdminActionsApprove {
+  id: number;
+}
+interface UpdateProfile {
+  username: string;
+  level: number;
+}
+export interface StudentProfile {
+  successful: boolean;
+  message: string;
+  data: {
+    id: number;
+    fullName: string;
+    department: string;
+    courseOfStudy: string;
+    username: string;
+    level: number;
+    email: string;
+    dateJoined: string;
+    registeredAt: string;
+  };
 }
 const rawUser = sessionStorage.getItem("user");
 const userData = rawUser ? JSON.parse(rawUser) : null;
@@ -135,7 +153,7 @@ export const uploadMaterials = async (uploadMat: uploadMaterials) => {
 export const loginUser = async (role: string, form: formData) => {
   try {
     const response = await api.post(`/api/Auth/login/${role}`, form);
-console.log('DIDDD', response.data)
+    console.log("DIDDD", response.data);
     // ✅ Check if backend returned the token inside response.data.data
     const token = response.data?.data?.token;
     const user = response.data?.data?.user;
@@ -144,7 +162,7 @@ console.log('DIDDD', response.data)
       // Save only what you need, clean structure
       const sessionData = { token, user };
       sessionStorage.setItem("user", JSON.stringify(sessionData));
-        sessionStorage.setItem("roles", JSON.stringify(user.roles)); 
+      sessionStorage.setItem("roles", JSON.stringify(user.roles));
       console.log("✅ User logged in. Session storage updated:", sessionData);
     } else {
       console.warn("⚠️ Login succeeded but no token found in response");
@@ -321,7 +339,9 @@ export const getSuggestedMaterials = async (params: SuggestedMaterials) => {
   }
 };
 
-export const getSuggestedMaterialsResult = async (params: SuggestedMaterials) => {
+export const getSuggestedMaterialsResult = async (
+  params: SuggestedMaterials
+) => {
   try {
     const response = await api.get(
       `/api/StudyMaterials/by-level/${params.level}`,
@@ -332,7 +352,7 @@ export const getSuggestedMaterialsResult = async (params: SuggestedMaterials) =>
         },
       }
     );
-console.log('PARAMS',params)
+    console.log("PARAMS", params);
     return {
       items: response.data.data.data || [],
       totalItems: response.data.data.totalItems || 0,
@@ -353,7 +373,7 @@ export const fetchSearchResults = async (params: SearchItems) => {
       pageSize: params.pageSize ?? 10,
     },
   });
-  console.log('MY ANSWER:', response.data)
+  console.log("MY ANSWER:", response.data);
   return response.data;
 };
 export const Approve = async (data: AdminActionsApprove) => {
@@ -365,18 +385,18 @@ export const Approve = async (data: AdminActionsApprove) => {
     throw error;
   }
 };
+console.log("USER SESSION OBJECT:", sessionStorage.getItem("user"));
+
 export const Reject = async (data: AdminActions) => {
   try {
     const payload = {
       reason: data.reason ?? "Rejected by admin",
-      deleteFile: data.deleteFile ?? false
+      deleteFile: data.deleteFile ?? false,
     };
 
-    const response = await api.post(
-      `/api/Admin/${data.id}/reject`,
-      payload,
-      { headers: { "Content-Type": "application/json" } }
-    );
+    const response = await api.post(`/api/Admin/${data.id}/reject`, payload, {
+      headers: { "Content-Type": "application/json" },
+    });
 
     console.log("Reject Response:", response.data);
     return response;
@@ -393,5 +413,72 @@ export const Reject = async (data: AdminActions) => {
     }
 
     throw error; // rethrow so caller can still handle it
+  }
+};
+export const UpdateProfile = async (data: UpdateProfile) => {
+  try {
+    const payload = {
+      username: data.username ?? "Guest",
+      level: data.level ?? null,
+    };
+    const response = await api.put(`/api/Student/update-profile`, payload, {
+      headers: { "Content-Type": "application/json" },
+    });
+    console.log("Update Profile Response:", response.data);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+export const UpdateProfileAdmin = async (data: UpdateProfile) => {
+  try {
+    const payload = {
+      username: data.username ?? "Guest",
+      level: data.level ?? null,
+    };
+    const response = await api.put(`/api/Admin/profile`, payload, {
+      headers: { "Content-Type": "application/json" },
+    });
+    console.log("Update Profile Response:", response.data);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+export const getStudentProfile = async ()=> {
+  try {
+    const response = await api.get(`/api/Student/profile`);
+    console.log("Get Student Profile Response:", response.data);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+export const getAdminProfile = async ()=> {
+  try {
+    const response = await api.get(`/api/Admin/profile`);
+    console.log("Get Admin Profile Response:", response.data);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getStudentMaterials = async ()=> {
+  try {
+    const response = await api.get(`/api/Student/my-materials`);
+    console.log("Get Student Materials Response:", response.data);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+export const getAdminMaterials = async ()=> {
+  try {
+    const response = await api.get(`/api/Admin/my-materials`);
+    console.log("Get Admin Materials Response:", response.data);
+    return response.data;
+  } catch (error) {
+    throw error;
   }
 };

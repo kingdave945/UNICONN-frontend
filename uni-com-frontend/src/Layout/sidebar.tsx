@@ -15,7 +15,7 @@ export default function SideBar({ role, isCollapsed }: SideBarProps) {
   useEffect(() => {
     const fetchPendingCount = async () => {
       try {
-        const response = await api.get("/api/Admin/pending?page=1&pageSize=1");
+        const response = await api.get("/api/Admin/waiting?page=1&pageSize=1");
         setPendingCount(response.data.data.totalItems);
       } catch (error) {
         console.error("❌ Failed to fetch pending count:", error);

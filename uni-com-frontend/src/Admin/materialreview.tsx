@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import MaterialReviewActions from "./materialreviewactions"
 import api from "../API/Interceptor"
 import './matreview.css'
+import MatSkeleton from "../components/matreviewskeleton"
 export interface Material {
   id: number;
   title: string;
@@ -14,26 +15,35 @@ export interface Material {
   // add whatever other fields your API returns
 }
 export default function MaterialReview(){
-
+const [loading, setLoading] = useState(false);
 const [materials, setMaterials] = useState<Material[]>([]);
       useEffect(() => {
     const fetchMaterials = async () => {
+      setLoading(true);
       try {
         const response = await api.get(
-          "/api/Admin/pending?page=1&pageSize=100"
+          "/api/Admin/waiting?page=1&pageSize=100"
         );
         setMaterials(response.data.data.items);
       } catch (error) {
         console.error("❌ Failed to fetch Pending matrerials:", error);
+      }
+      finally{
+        setLoading(false);
       }
     };
     fetchMaterials();
   }, []);
     return(
         <>
+        {loading ? 
+        (
+<MatSkeleton />
+        ) :
+        (
         <div className="overview-container">
               <div className="review-material">
-              <h3>Material Review</h3>
+       
               </div>
               <div className="recent-uploadsII">
               <div className="material-review">              
@@ -59,6 +69,8 @@ const [materials, setMaterials] = useState<Material[]>([]);
               </div>
               </div>
         </div>
+        )}
+
         </>
     )
 }

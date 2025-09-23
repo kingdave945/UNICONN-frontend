@@ -157,10 +157,7 @@ const handlePasswordChange = (e: string) => {
                 <h2>
                   Create Your <br /> UniConnect Account
                 </h2>
-                <p
-                style={{ textAlign:"center"}}
-                >Join UniConnect to access a wealth of academic resources</p>
-              </div>
+                             </div>
 
               <form className="register-form-content" onSubmit={handleSubmit}>
                 <div className="register-input">

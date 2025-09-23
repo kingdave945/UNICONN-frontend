@@ -103,10 +103,11 @@ export default function StudyMaterial() {
         </div>
 
         {/* Drag-and-drop uploader */}
+        <div className="section-level-upload"   {...getRootProps()}>        
         <div className="form-group">
           <label>Upload File (PDF, DOC, PPT)</label>
           <div
-            {...getRootProps()}
+          
             className="dropzone"
           >
             <input {...getInputProps()} />
@@ -148,7 +149,7 @@ export default function StudyMaterial() {
             </div>
           )}
         </div>
-
+         </div>
         {/* Description */}
         <div className="form-group">
           <label>Description</label>
@@ -161,8 +162,8 @@ export default function StudyMaterial() {
         </div>
 
         {/* Level + Course */}
-        <section className="section-level-upload">
-          <div className="form-group">
+        <section >
+          <div className="form-group-select">
             <label>Level</label>
             <select
               value={level}

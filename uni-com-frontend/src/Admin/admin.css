@@ -251,3 +251,13 @@ padding: 5px;
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+.promote-buttons{
+  display: flex;
+  gap: 0.5rem;
+
+ justify-content: center;
+}
+.promote-buttons button{
+border: none;
+ padding: 0.7rem;
+}

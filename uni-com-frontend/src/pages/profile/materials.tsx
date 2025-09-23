@@ -1,55 +1,51 @@
 import { useEffect, useState } from "react";
-import api from "../../API/Interceptor";
+import {
+  getStudentMaterials,
+  getAdminMaterials,
+  deleteMaterial,
+} from "../../API";
 import { toast } from "react-toastify";
-import { deleteMaterial } from "../../API";
+
 interface Material {
   id: number;
   title: string;
-  description: string;
   course: string;
   level: string;
-  tags: string[];
+  approvedByAdmin: boolean;
+  uploadedAt: string;
 }
 
 export default function Messages() {
   const [materials, setMaterials] = useState<Material[]>([]);
   const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
   const [removingIds, setRemovingIds] = useState<number[]>([]);
 
   useEffect(() => {
-    const fetchMaterials = async () => {
-      setLoading(true);
+    const fetchProfile = async () => {
       try {
-        const response = await api.get(
-          `/api/StudyMaterials?pageNumber=${page}&pageSize=10`
-        );
-        setMaterials(
-          response.data.data.items.map((material: any) => ({
-            id: material.id,
-            title: material.title,
-            description: material.description,
-            course: material.course,
-            level: material.level,
-            tags: material.tags,
-          }))
-        );
-        setTotalPages(response.data.data.totalPages);
-      } catch (error) {
-        console.error("Error fetching materials:", error);
+        setLoading(true);
+        const role = sessionStorage.getItem("role");
+        let data;
+        if (role === "Admin") {
+          data = await getAdminMaterials();
+        } else if (role === "Student") {
+          data = await getStudentMaterials();
+        } else {
+          throw new Error("Unknown role");
+        }
+        setMaterials(data.data);
+      } catch (err: any) {
+        console.error("Error fetching materials:", err);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchMaterials();
-  }, [page]);
-  const deleteYourMaterial = async (materialId: number) => {
-    // mark as removing
-    setRemovingIds((prev) => [...prev, materialId]);
+    fetchProfile();
+  }, []);
 
-    // optional: wait a short moment for animation to show
+  const deleteYourMaterial = async (materialId: number) => {
+    setRemovingIds((prev) => [...prev, materialId]);
     await new Promise((resolve) => setTimeout(resolve, 300));
 
     try {
@@ -60,9 +56,7 @@ export default function Messages() {
       toast.error(
         error.response?.data?.message || "Failed to remove from materials."
       );
-      console.error("Delete error:", error);
     } finally {
-      // remove from removing state
       setRemovingIds((prev) => prev.filter((id) => id !== materialId));
     }
   };
@@ -75,36 +69,65 @@ export default function Messages() {
             <thead>
               <tr>
                 <th>Title</th>
-                <th>Description</th>
+
                 <th>Course Code</th>
                 <th>Level</th>
-                <th>Tags</th>
+                <th>Status</th>
+                <th>Uploaded At</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan={4} style={{ textAlign: "center" }}>
+                  <td colSpan={6} style={{ textAlign: "center" }}>
                     Loading...
                   </td>
                 </tr>
               ) : materials.length > 0 ? (
-                materials.map((material, idx) => (
+                materials.map((material) => (
                   <tr
-                    key={material.id || idx}
+                    key={material.id}
                     className={
                       removingIds.includes(material.id) ? "removing" : ""
                     }
                   >
-                    <td>{material.title || "Unknown User"}</td>
-                    <td>{material.description}</td>
+                    <td>{material.title}</td>
                     <td>{material.course}</td>
                     <td>{material.level}</td>
-                    <td>{material.tags.join(", ")}</td>
+                    <td>
+                      {material.approvedByAdmin ? (
+                        <div
+                          style={{
+                            color: "white",
+                            backgroundColor: "green",
+                            padding: "0.2rem 0.5rem",
+                            borderRadius: "0.3rem",
+                            width: "fit-content",
+                          }}
+                        >
+                          Approved
+                        </div>
+                      ) : (
+                        <div
+                          style={{
+                            color: "white",
+                            backgroundColor: "orange",
+                            padding: "0.2rem 0.5rem",
+                            borderRadius: "0.3rem",
+                            width: "fit-content",
+                          }}
+                        >
+                          Pending
+                        </div>
+                      )}
+                    </td>
+
+                    <td>
+                      {" "}
+                      {new Date(material.uploadedAt).toLocaleDateString()}
+                    </td>
                     <td style={{ display: "flex", gap: "1rem" }}>
-                      {/* <i className="bi bi-download action-icon" 
-                onClick={() => downloadYourMaterial(material.id)}></i> */}
                       <div style={{ color: "blue" }} title="View">
                         <i className="bi bi-eye"></i>
                       </div>
@@ -117,43 +140,13 @@ export default function Messages() {
                 ))
               ) : (
                 <tr>
-                  <td
-                    colSpan={4}
-                    style={{ textAlign: "center", marginLeft: "510px" }}
-                  >
-                    No messages found.
+                  <td colSpan={6} style={{ textAlign: "center" }}>
+                    No materials found.
                   </td>
                 </tr>
               )}
             </tbody>
           </table>
-          {/* Pagination */}
-          <div
-            className="Page"
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              margin: 16,
-            }}
-          >
-            <button
-              onClick={() => setPage((p) => Math.max(1, p - 1))}
-              disabled={page === 1 || loading}
-              style={{ marginRight: 8 }}
-            >
-              Previous
-            </button>
-            <span style={{ alignSelf: "center" }}>
-              Page {page} of {totalPages}
-            </span>
-            <button
-              onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-              disabled={page === totalPages || loading}
-              style={{ marginLeft: 8 }}
-            >
-              Next
-            </button>
-          </div>
         </div>
       </div>
     </div>
