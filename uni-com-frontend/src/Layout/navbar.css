@@ -5,6 +5,7 @@
   justify-content: space-between;
 
 }
+
 .nav-links {
   display: flex;
   gap: 60px;
@@ -206,4 +207,17 @@ padding: 0.5rem;
 .bi-search {
  margin-left: 0.5rem;
     color: #223b6d;
+}
+@media (max-width: 600px) {
+  .titleham h3,
+  .titleham div .bi-list {
+   font-size: 1.3rem;
+  }
+  .nav-link{
+    padding: 10px;
+  }
+  .nav-search{
+    width: 50%;
+    padding: rem;
+  }
 }

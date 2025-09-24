@@ -6,3 +6,8 @@
 .footer-container{
     margin-left: 200px;
 }
+@media (max-width: 600px) {
+.footer{
+  display: none;
+}
+}

@@ -44,7 +44,7 @@ export default function Layout({
       />
 
       <div className="layout__content">
-        <SideBar isCollapsed={isCollapsed} role={role} />
+        <SideBar isCollapsed={isCollapsed} role={role}   onClose={() => setIsCollapsed(true)}/>
         <main className="layout__main">
           <Outlet />
         </main>

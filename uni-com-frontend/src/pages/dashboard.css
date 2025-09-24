@@ -218,6 +218,12 @@ justify-content: center;
 .material-card a:hover {
   text-decoration: underline;
 }
+@media (max-width: 715px) {
+.dashboard-card-platform li h1{
+  font-size: 1.5rem;
+
+}
+}
 .dashboard-card-platform {
   display: grid;
   gap: 1rem;

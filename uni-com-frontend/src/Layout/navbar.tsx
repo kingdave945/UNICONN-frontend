@@ -51,7 +51,7 @@ export default function NavBar({
   return (
     <nav className="nav">
       <div className="nav-link">
-        <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+        <div className="titleham" style={{ display: "flex", alignItems: "center", gap: "20px" }}>
           <div
             className="sidebar-toggle"
             onClick={() => setIsCollapsed(!isCollapsed)}

@@ -2,16 +2,24 @@ import "./sidebar.css";
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import api from "../API/Interceptor";
+
 interface SideBarProps {
   role: string | null;
   isCollapsed: boolean;
+  onClose?: () => void; // 🔹 for closing sidebar on click
 }
 
-export default function SideBar({ role, isCollapsed }: SideBarProps) {
+export default function SideBar({ role, isCollapsed, onClose }: SideBarProps) {
   const location = useLocation();
-  const [pendingCount, setPendingCount] = useState(0);
+  const [_pendingCount, setPendingCount] = useState(0);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
 
-  // 🔹 Fetch pending count when sidebar mounts
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 600);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   useEffect(() => {
     const fetchPendingCount = async () => {
       try {
@@ -56,53 +64,11 @@ export default function SideBar({ role, isCollapsed }: SideBarProps) {
             className={`agent-sidebar__link ${
               isActive ? "agent-sidebar__link--active" : ""
             }`}
+            onClick={() => isMobile && onClose?.()} // 🔹 close on link click
           >
-    <i className={item.icon} style={{ position: "relative" }}>
-  {isCollapsed  && (
-    item.icon === 'bi bi-file-earmark-spreadsheet' &&(
- <span
-      style={{
-        position: "absolute",
-        top: "-6px",  
-        right: "-8px", 
-        backgroundColor: "red",
-        color: "white",
-        borderRadius: "50%",
-        padding: "2px 6px",
-        fontSize: "0.65rem",
-        fontWeight: "bold",
-      }}
-    >
-      {pendingCount}
-    </span>
-    )
-   
-  )}
-</i>
-
-            {!isCollapsed && (
-              <span className="sidebar-label" style={{ position: "relative" }}>
-                {item.label}
-                {item.label === "Material Review" && pendingCount > 0 && (
-                  <span
-                    style={{
-                     position: "absolute",
-        top: "-9px",  
-        right: "-30px", 
-        backgroundColor: "red",
-        color: "white",
-        borderRadius: "50%",
-        padding: "2px 6px",
-        fontSize: "0.65rem",
-        fontWeight: "bold",
-      }}
-             
-                  
-                  >
-                    {pendingCount}
-                  </span>
-                )}
-              </span>
+            <i className={item.icon}></i>
+            {(isMobile || !isCollapsed) && (
+              <span className="sidebar-label">{item.label}</span>
             )}
           </Link>
         </li>
@@ -110,13 +76,17 @@ export default function SideBar({ role, isCollapsed }: SideBarProps) {
     });
 
   return (
-    <div className="toggler">
+    <>
+      {/* Sidebar itself */}
       <div className={`agent-sidebar ${isCollapsed ? "collapsed" : ""}`}>
-        <ul className="agent-sidebar__nav-list">{renderNavItems(commonItems)}</ul>
+        <ul className="agent-sidebar__nav-list">
+         {isMobile && <li className="firstLi">UniConnect</li>}
+          {renderNavItems(commonItems)}
+        </ul>
 
         {isAdmin && (
           <>
-            {isCollapsed ? (
+            {isCollapsed && !isMobile ? (
               <hr className="sidebar-divider" />
             ) : (
               <p className="sidebar-section-title">Admin Dashboard</p>
@@ -127,6 +97,11 @@ export default function SideBar({ role, isCollapsed }: SideBarProps) {
           </>
         )}
       </div>
-    </div>
+
+      {/* Overlay for mobile */}
+      {isMobile && !isCollapsed && (
+        <div className="sidebar-overlay" onClick={onClose}></div>
+      )}
+    </>
   );
 }
