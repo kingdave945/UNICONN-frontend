@@ -5,7 +5,7 @@ import {
   deleteMaterial,
 } from "../../API";
 import { toast } from "react-toastify";
-
+import api from "../../API/Interceptor";
 interface Material {
   id: number;
   title: string;
@@ -60,7 +60,25 @@ export default function Messages() {
       setRemovingIds((prev) => prev.filter((id) => id !== materialId));
     }
   };
+const [openingId, setOpeningId] = useState<number | null>(null);
 
+const handleView = async (id: number) => {
+  try {
+    setOpeningId(id);
+    const res = await api.get(`/api/StudyMaterials/download/${id}`, {
+      responseType: "blob",
+    });
+
+    const file = new Blob([res.data], { type: "application/pdf" });
+    const fileURL = URL.createObjectURL(file);
+    window.open(fileURL, "_blank");
+  } catch (err: any) {
+    console.error("Failed to view file:", err);
+    alert(err.response?.data?.message || "Could not open file");
+  } finally {
+    setOpeningId(null);
+  }
+};
   return (
     <div className="limiter">
       <div className="container-table100">
@@ -128,8 +146,8 @@ export default function Messages() {
                       {new Date(material.uploadedAt).toLocaleDateString()}
                     </td>
                     <td style={{ display: "flex", gap: "1rem" }}>
-                      <div style={{ color: "blue" }} title="View">
-                        <i className="bi bi-eye"></i>
+                      <div style={{ color: "blue" }} title="View" onClick={() => handleView(material.id)}>
+                       {openingId === material.id ?  <i className="bi bi-eye"></i> :  <i className="bi bi-eye"></i>}
                       </div>
                       <i
                         className="bi bi-trash action-icon danger"

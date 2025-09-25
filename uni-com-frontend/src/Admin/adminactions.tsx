@@ -83,7 +83,7 @@ const handlePromote = async () => {
 
   return (
     <>
-      <div className="admin-action-features" style={{ fontSize: "14px" }}>
+      <div className="admin-action-features" >
         {/* Warn button */}
         <div
           className="features-admin"

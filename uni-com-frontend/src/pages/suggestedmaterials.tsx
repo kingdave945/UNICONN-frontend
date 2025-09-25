@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getSuggestedMaterials } from "../API";
 import { GetLevel } from "../UserInfo/fullname";
 import "./dashboard.css";
-
+import api from "../API/Interceptor";
 interface Material {
   id: number;
   title: string;
@@ -49,7 +49,25 @@ export default function SuggestedMaterials() {
     handleGetter();
   }, [level]);
 
+const [openingId, setOpeningId] = useState<number | null>(null);
 
+const handleView = async (id: number) => {
+  try {
+    setOpeningId(id);
+    const res = await api.get(`/api/StudyMaterials/download/${id}`, {
+      responseType: "blob",
+    });
+
+    const file = new Blob([res.data], { type: "application/pdf" });
+    const fileURL = URL.createObjectURL(file);
+    window.open(fileURL, "_blank");
+  } catch (err: any) {
+    console.error("Failed to view file:", err);
+    alert(err.response?.data?.message || "Could not open file");
+  } finally {
+    setOpeningId(null);
+  }
+};
 
   return (
     <div className="suggested-materials" >
@@ -87,13 +105,13 @@ export default function SuggestedMaterials() {
                   <h4>{item.title}</h4>
                 </div>
                 <p className="author">Uploaded By {item.uploadedBy}</p>
-                <a
-                  href={`/${item.filePath}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  View
-                </a>
+              <span
+  onClick={() => handleView(item.id)}
+  style={{ cursor: "pointer", color: "blue" }}
+>
+  {openingId === item.id ? "Opening File..." : "View"}
+</span>
+
               </div>
             ))}
           </div>

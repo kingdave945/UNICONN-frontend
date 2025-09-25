@@ -1,8 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useRef, useState, useEffect } from "react";
-// import { motion, AnimatePresence } from "framer-motion";
-import { GetFullName } from "../UserInfo/fullname";
-import { GetEmail } from "../UserInfo/fullname";
+import Popup from "./popup";
 import "../Layout/navbar.css";
 interface NavbarProps {
 
@@ -52,6 +50,7 @@ export default function NavBar({
     <nav className="nav">
       <div className="nav-link">
         <div className="titleham" style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+
           <div
             className="sidebar-toggle"
             onClick={() => setIsCollapsed(!isCollapsed)}
@@ -59,8 +58,8 @@ export default function NavBar({
             <i
               className={`bi ${isCollapsed ? "bi bi-list" : "bi bi-list"}`}
             ></i>
-          </div>
-          <h3
+          </div> 
+            <h3
             className="dream-home"
             onClick={() => navigate("/")}
             style={{ cursor: "pointer" }}
@@ -68,7 +67,7 @@ export default function NavBar({
             <span>Uniconnect</span>
           </h3>
         </div>
-
+           
         <div className="nav-search">
           {tokenKey && (
             <>
@@ -84,69 +83,30 @@ export default function NavBar({
                  
                 </div>
               </div>
-              <ul className="nav-user-settings">
-                <li
-                  className="nav-avatar-circle"
-                  onClick={() => setPopup(!popup)}
-                >
-                  <i className="bi bi-person-fill"></i>
-                </li>
-                <li className="nav-li-second">
-                  <ul ref={popupRefII}>
-                    <li>
-                      <div className="user-profile-popup">
-                        {popup ? (
-                          <div>
-                            <div className="popup-user-profile">
-                              <div className="user-profile-info">
-                                <h3>{GetFullName()}</h3>
-                                <h4>{GetEmail()}</h4>
-                              </div>
-                              <div className="user-profile-actions">
-                                <div
-                                  className="nav-logout"
-                                  onClick={() => navigate("/profile/settings")}
-                                >
-                                  <i className="bi bi-gear"></i>
-                                  <p>Settings</p>
-                                </div>
+              <div className="popup-component1">
+ <Popup 
+              popup={popup}
+              setPopup={setPopup}
+              popupRefII={popupRefII}
+              handleLogout={handleLogout}
 
-                                <div className="nav-logout">
-                                  <i className="bi bi-door-open"></i>
-                                  <p onClick={handleLogout}>Log Out</p>
-                                </div>
-                                <div className="nav-logout">
-                                  <ul>
-                                    <li
-                                      style={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                        gap: "5px",
-                                      }}
-                                    >
-                                      <i className="bi bi-palette"></i>{" "}
-                                      <p>Theme</p>
-                                    </li>
-                                    {/* <li><ul>
-                                <li >Light</li>
-                                <li >Dark</li>
-                              </ul></li> */}
-                                  </ul>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        ) : (
-                          <div></div>
-                        )}
-                      </div>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
+              />
+              </div>
+             
             </>
           )}
         </div>
+{tokenKey &&(
+  <div className="popup-component2">
+              <Popup
+                popup={popup}
+                setPopup={setPopup}
+                popupRefII={popupRefII}
+                handleLogout={handleLogout}
+              />
+            </div>
+)}
+     
       </div>
     </nav>
   );

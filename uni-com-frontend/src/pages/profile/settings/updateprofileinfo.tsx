@@ -139,7 +139,7 @@ export default function ProfileInfo() {
           </button>
         ) : (
           <>
-            <button type="submit" onClick={handleUpdate}>
+            <button type="submit" onClick={handleUpdate} style={{marginRight: '10px'}} disabled={saving}>
               {!saving ? "Save" : "Saving..."}
             </button>
             <button type="button" onClick={() => setIsEditing(false)}>

@@ -74,6 +74,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.1),
 #Overview-sec2 h3{
    margin-bottom: 1rem; 
 }
+
 .user-man-input input{
 width: 100%;
 outline: none;
@@ -81,7 +82,7 @@ border: 0;
 }
 .user-man-input{
   display: flex;
-  width: 30%;
+  width: 100%;
   
   align-items: center;
 border: 2px solid #2f5199;
@@ -260,4 +261,81 @@ padding: 5px;
 .promote-buttons button{
 border: none;
  padding: 0.7rem;
+}
+.status-indicator .span-label{
+  font-size: 14px;
+}
+@media(max-width: 999px) {
+.user-man-input{
+  width: 50%;
+}
+}
+@media (max-width: 832px) {
+.admin-dashboard-title h2{
+  font-size: 1.1rem;
+}
+.cards{
+  padding: 1rem;
+}
+.cards h1{
+  font-size: 1.1rem;
+}
+  .table-study-materials th,
+  .table-study-materials td {
+    font-size: 0.75rem;
+    padding: 0.75rem;
+  }
+
+
+}
+@media(max-width: 625px) {    
+.table-study-materials{
+  margin-left: -15px;
+}
+  .table-study-materials th,
+  .table-study-materials td {
+    font-size: 0.55rem;
+    padding: 0.55rem;
+  }
+
+}
+@media (max-width: 521px) {
+   .table-study-materials th,
+  .table-study-materials td {
+    font-size: 0.65rem;
+    padding: 0.65rem;
+  }
+   .td-userman1 > span:nth-child(1) {
+  font-size: 11px;
+}
+.td-userman1 > span:nth-child(2) {
+  color: #858484;
+    font-size: 10px;
+}
+
+}
+@media (max-width: 500px) {
+   .table-study-materials th,
+  .table-study-materials td {
+    font-size: 0.55rem;
+    padding: 0.55rem;
+  }
+ .td-userman1 > span:nth-child(1) {
+  font-size: 9px;
+}
+.td-userman1 > span:nth-child(2) {
+  color: #858484;
+    font-size: 8px;
+}
+
+}
+@media (max-width: 425px) {
+   .table-study-materials th,
+  .table-study-materials td {
+    font-size: 0.35rem;
+    padding: 0.35rem;
+  }
+ .td-userman1 > span:nth-child(1) {
+  font-size: 8px;
+}   
 }

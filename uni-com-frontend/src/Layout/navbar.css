@@ -1,10 +1,17 @@
-.nav-link {
+
+@media (min-width: 551px) {
+  .nav-link {
   padding: 5px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 
 }
+   .popup-component2{
+display: none;
+ }
+}
+
 
 .nav-links {
   display: flex;
@@ -130,8 +137,8 @@ ul {
 .user-profile-popup .popup-user-profile {
   position: absolute;
   top: 110%;
-  left: -350%;
-  width: 900%;
+  left: -240%;
+  width: 600%;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -182,6 +189,9 @@ ul {
   gap: 5px;
   cursor: pointer;
 }
+.nav-logout p{
+  color: #2f5199;
+}
 .user-profile-actions {
   display: flex;
   flex-direction: column;
@@ -208,16 +218,50 @@ padding: 0.5rem;
  margin-left: 0.5rem;
     color: #223b6d;
 }
-@media (max-width: 600px) {
-  .titleham h3,
+.bi-door-open{
+  font-size: 1.5rem;
+  color: #2f5199;
+  margin-left: 0.3rem;
+}
+@media (max-width: 640px) {
   .titleham div .bi-list {
-   font-size: 1.3rem;
+   font-size: 1.6rem;
+  }
+ .dream-home {
+   font-size: 1.6rem;
   }
   .nav-link{
     padding: 10px;
   }
   .nav-search{
-    width: 50%;
-    padding: rem;
+    width: 60%;
+  
   }
+  .nav-search input{
+    padding: 0.3rem;
+    
+  }
+
+
+}
+@media (max-width: 550px) {
+.dream-home{
+  display: none;
+
+}
+
+.nav-link{
+  display: flex;
+  align-items: center;
+gap: 5rem;
+}
+/* .nav-li-first{
+margin-right: -9rem;
+} */
+ .popup-component1{
+display: none;
+ }
+.nav-search{
+  width: 190%;
+}
 }

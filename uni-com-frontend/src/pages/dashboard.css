@@ -285,3 +285,22 @@ background-color: #2F5199;
 color: white;
 border: none;
 }
+@media (max-width: 440px) {
+  .container__content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .cards-container {
+    grid-template-columns: 1fr; /* Single column on small screens */
+  }
+.dashboard h2{
+  font-size: 20px;
+}
+.dashboard h3{
+  font-size: 18px;
+}
+.dashboard-cards h1,
+.dashboard-cards p{
+  font-size: 15px;
+}
+}

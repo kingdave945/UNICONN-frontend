@@ -107,6 +107,42 @@ color: rgb(196, 11, 11);
     border: none;
     color: white;
 }
+.btn-actions{
+    
+    text-align: end;
+    margin-top: 10px;
+    margin-right: -16px;
+}
+.btn-actions button{
+    background-color: #2563eb;
+    border: none;
+    padding: 0.6rem;
+    color: white;
+}
 /* .Delete-card{
     margin-top: 20px;
 } */
+ @media (max-width: 600px) {
+.cp-card h2{
+font-size: 1.2rem;
+}
+.cp-card p {
+    font-size: 0.9rem;
+}
+.user-profile-info-card{
+    padding: 1.5rem;
+}
+.delete-user-profile-info-card{
+    padding: 1.5rem;
+}
+.delete-user-profile-info-card h2 {
+    font-size: 1.2rem;
+}
+.delete-user-profile-info-card p {
+    font-size: 0.9rem;
+}
+.my-input-fields input {
+    padding: 0.4rem;
+   
+}
+}

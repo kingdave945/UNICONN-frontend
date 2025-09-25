@@ -69,11 +69,39 @@ color: #2f5199;
   box-shadow: 0 8px 20px rgba(0,0,0,0.2);
   position: relative;
   animation: fadeIn 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
-.modalContent div{
+.modalContent .userintfoadvised{
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  color: #1a2a4d;
+}
+.modalContent .actions{
+  display: flex;
+  gap: 1rem;
+}
+.modalContent .actions button{
+  text-decoration: none;
+  color: #2f5199;
+  font-weight: bold;
+  border: none;
+  font-size: 1rem;
+  background: none;
+}
+.modalContent span{
+  display: flex;
+  gap: 1rem;
+}
+.modalContent span a{
+  text-decoration: none;
+  color: #2f5199;
+  font-weight: bold;
+}
+.modalContent span a:hover{
+  text-decoration: underline;
 }
 .close-btn {
   position: absolute;

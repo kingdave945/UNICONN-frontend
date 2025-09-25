@@ -12,10 +12,10 @@ interface SideBarProps {
 export default function SideBar({ role, isCollapsed, onClose }: SideBarProps) {
   const location = useLocation();
   const [_pendingCount, setPendingCount] = useState(0);
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 700);
 
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= 600);
+    const handleResize = () => setIsMobile(window.innerWidth <= 700);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);

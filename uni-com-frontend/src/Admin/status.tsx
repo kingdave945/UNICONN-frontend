@@ -9,8 +9,8 @@ interface UserManProps {
 export default function Status({ userStats }: UserManProps) {
     const status = userStats.activeUsers > 0;
     return (
-        <div>
-        <span style={{fontSize: '14px'}}>
+        <div className="status-indicator">
+        <span className="status-label">
             <strong>{status ? 
           <span style={{ backgroundColor: 'green', color: 'white', padding:'5px' }}>Active</span> 
           : 
