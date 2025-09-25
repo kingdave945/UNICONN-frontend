@@ -162,9 +162,4 @@ width: 97%;
 
 }
 }
-@media (max-width: 715px) {
- .upload-container {
-  max-width: 300px;
 
-}
-}
