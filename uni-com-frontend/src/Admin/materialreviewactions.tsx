@@ -2,12 +2,12 @@ import type { Material } from "./materialreview";
 import { Approve, Reject } from "../API";
 import { toast } from "react-toastify";
 import { useState } from "react";
-
 interface Actions {
   item: Material;
+  onActionComplete: (id: number) => void; 
 }
 
-export default function MaterialReviewActions({ item }: Actions) {
+export default function MaterialReviewActions({ item, onActionComplete }: Actions) {
   const [reason, setReason] = useState("");
   const [reject, setReject] = useState<Material | null>(null);
   const [loading, setLoading] = useState(false);
@@ -17,6 +17,10 @@ export default function MaterialReviewActions({ item }: Actions) {
       setLoading(true);
       await Approve({ id: item.id });
       toast.success("Material approved ✅");
+
+      // ✅ tell parent to remove this item
+      onActionComplete(item.id);
+
     } catch (err) {
       toast.error("Failed to approve ❌");
     } finally {
@@ -30,13 +34,17 @@ export default function MaterialReviewActions({ item }: Actions) {
     try {
       setLoading(true);
       await Reject({
-        id: reject.id,          // ✅ use the reject state, not props
+        id: reject.id,
         reason: reason,
         deleteFile: true
       });
       toast.success("Material rejected ✅");
-      setReject(null); // close modal after success
-      setReason("");   // clear reason field
+
+      // ✅ remove rejected item from parent list
+      onActionComplete(reject.id);
+
+      setReject(null); // close modal
+      setReason("");   // clear input
     } catch (err) {
       toast.error("Failed to reject ❌");
     } finally {
@@ -56,7 +64,7 @@ export default function MaterialReviewActions({ item }: Actions) {
                 <i className="bi bi-check2"></i>
               </div>
               <div
-                onClick={() => setReject(item)} // ✅ set full item
+                onClick={() => setReject(item)}
                 className="reject-btn"
                 title="Reject"
               >
@@ -93,4 +101,3 @@ export default function MaterialReviewActions({ item }: Actions) {
     </>
   );
 }
-// kjkkkkkkkkkkkkkk//

@@ -4,16 +4,22 @@ import { GetFullName } from "../UserInfo/fullname";
 import SuggestedMaterials from "./suggestedmaterials";
 import Skeleton from "../components/Skeleton";
 // import { getUserStats } from "../API/dashboard"; // 👉 Example future API
-
+import { StudentInfoMaterials, FetchStudyMaterials } from "../API";
 export default function Dashboard() {
   const [loading, setLoading] = useState(true);
 
   // Stats state (mock now, real API later)
-  const [stats, setStats] = useState({
+  const [stats, setStats] = useState(
+    {
     totalMaterials: 0,
-    favourites: 0,
-    departmentMaterials: 0,
-  });
+     
+  }
+);
+  const [departmentMaterials, setDepartmentMaterials] = useState(
+    {
+      departmentMaterials: 0,
+    }
+  );
 
   
   const getGreeting = () => {
@@ -27,19 +33,11 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        // 🚧 Replace this with a real API call later
-        // const response = await getUserStats();
-        // setStats(response.data);
-
-        // Mocking delay
-        setTimeout(() => {
-          setStats({
-            totalMaterials: 12,
-            favourites: 5,
-            departmentMaterials: 42,
-          });
-          setLoading(false);
-        }, 2000);
+        const response = await StudentInfoMaterials({ pageNumber: 1, pageSize: 10 });
+        console.log("📊 Dashboard stats response:", response.data.totalItems);
+      setStats({
+        totalMaterials: response.data.totalItems 
+      });
       } catch (error) {
         console.error("❌ Failed to load dashboard stats:", error);
         setLoading(false);
@@ -48,6 +46,31 @@ export default function Dashboard() {
 
     fetchStats();
   }, []);
+
+  useEffect(() => {
+    const fetchDepartmentMaterials = async () => {
+      try {
+        const response = await FetchStudyMaterials();
+        console.log("📊 Department materials response:", response);
+        const materials = response.data.items;
+
+      setDepartmentMaterials({
+        departmentMaterials: materials.length
+      });
+      }
+        catch (error) {
+        console.error("❌ Failed to load department materials:", error);
+        setLoading(false);
+      }
+      finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDepartmentMaterials();
+  }
+, []);
+
 
   return (
     <>
@@ -65,12 +88,9 @@ export default function Dashboard() {
                 <h1>{stats.totalMaterials}</h1>
                 <p>Total Materials Uploaded</p>
               </li>
+              
               <li className="dashboard-cards">
-                <h1>{stats.favourites}</h1>
-                <p>Favourites Saved</p>
-              </li>
-              <li className="dashboard-cards">
-                <h1>{stats.departmentMaterials}</h1>
+                <h1>{departmentMaterials.departmentMaterials}</h1>
                 <p>Department Materials</p>
               </li>
             </ul>

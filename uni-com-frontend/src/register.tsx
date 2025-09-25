@@ -196,7 +196,7 @@ const handlePasswordChange = (e: string) => {
                   >
                     <option value="">Select Role</option>
                     <option value="Student">Student</option>
-                    <option value="Admin">Admin</option>
+                 
                   </select>
 
                   <select

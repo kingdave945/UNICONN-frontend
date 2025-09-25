@@ -95,6 +95,11 @@ export interface StudentProfile {
     registeredAt: string;
   };
 }
+interface StudentMaterials {
+
+  pageNumber?: number;
+  pageSize?: number;
+}
 const rawUser = sessionStorage.getItem("user");
 const userData = rawUser ? JSON.parse(rawUser) : null;
 const userDate = userData?.data;
@@ -338,6 +343,39 @@ export const getSuggestedMaterials = async (params: SuggestedMaterials) => {
     throw error;
   }
 };
+export const StudentInfoMaterials = async (params: StudentMaterials) => {
+  try {
+    const response = await api.get(
+      `/api/StudyMaterials/my-materials`,
+      {
+        params: {
+          pageNumber: params.pageNumber ?? 1,
+          pageSize: params.pageSize ?? 10,
+        },
+      }
+    );
+    return response.data || [];
+  } catch (error: any) {
+    console.error(
+      "❌ Failed to get materialsniggA:",
+      error.response?.data || error.message
+    );
+    throw error;
+  }
+};
+export const FetchStudyMaterials = async () => {
+  try {
+    const response = await api.get(`/api/StudyMaterials`);
+    console.log("Study Materials:", response.data);
+    return response.data;
+  } catch (error: any) {
+    console.error(
+      "❌ Failed to get study materials:",
+      error.response?.data || error.message
+    );
+    throw error;
+  }
+}
 
 export const getSuggestedMaterialsResult = async (
   params: SuggestedMaterials

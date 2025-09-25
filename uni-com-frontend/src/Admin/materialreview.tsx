@@ -60,6 +60,9 @@ const [materials, setMaterials] = useState<Material[]>([]);
                   </div>
                   <MaterialReviewActions
                   item={item}
+                    onActionComplete={(id: number) => {
+    setMaterials((prev) => prev.filter((mat) => mat.id !== id));
+  }}
                   />
                 </li>
                 ))}

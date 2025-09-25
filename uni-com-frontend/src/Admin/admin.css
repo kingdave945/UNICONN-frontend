@@ -82,7 +82,7 @@ border: 0;
 }
 .user-man-input{
   display: flex;
-  width: 100%;
+  width: 30%;
   
   align-items: center;
 border: 2px solid #2f5199;
