@@ -323,21 +323,16 @@ export const resetPassword = async (data: ResetPassword) => {
     throw error;
   }
 };
-export const getSuggestedMaterials = async (params: SuggestedMaterials) => {
+export const getSuggestedMaterials = async () => {
   try {
     const response = await api.get(
-      `/api/StudyMaterials/by-level/${params.level}`,
-      {
-        params: {
-          pageNumber: params.pageNumber ?? 1,
-          pageSize: params.pageSize ?? 10,
-        },
-      }
+       `/api/StudyMaterials/by-department`
     );
-    return response.data.data.data || [];
+    console.log("Study Materials by Department:", response.data);
+    return response.data || [];
   } catch (error: any) {
     console.error(
-      "❌ Failed to get study materials:",
+      "❌ Failed to get study materials by department:",
       error.response?.data || error.message
     );
     throw error;

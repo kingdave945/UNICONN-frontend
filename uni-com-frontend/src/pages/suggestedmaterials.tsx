@@ -25,18 +25,11 @@ export default function SuggestedMaterials() {
       try {
         setLoading(true);
         setError(null);
-
-        const materials = await getSuggestedMaterials({
-          level,
-          pageNumber: 1,
-          pageSize: 4,
-        });
-
+        const materials = await getSuggestedMaterials();
         setSuggestions(materials);
         if (!materials || materials.length === 0) {
           setError("No suggested materials found.");
         }
-
         console.log("📘 Suggested materials:", materials);
       } catch (err) {
         setError("❌ Unable to fetch suggested materials.");

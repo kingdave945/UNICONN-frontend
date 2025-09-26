@@ -84,7 +84,7 @@ export default function NavBar({
                 </div>
               </div>
               <div className="popup-component1">
- <Popup 
+              <Popup 
               popup={popup}
               setPopup={setPopup}
               popupRefII={popupRefII}
@@ -96,7 +96,7 @@ export default function NavBar({
             </>
           )}
         </div>
-{tokenKey &&(
+{/* {tokenKey &&(
   <div className="popup-component2">
               <Popup
                 popup={popup}
@@ -106,7 +106,7 @@ export default function NavBar({
               />
             </div>
 )}
-     
+      */}
       </div>
     </nav>
   );

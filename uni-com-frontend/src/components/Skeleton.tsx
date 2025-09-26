@@ -34,16 +34,7 @@ export default function Skeleton() {
           animation: "pulse 1.5s infinite",
         }}
       />
-      <div
-        style={{
-          backgroundColor: "#e0e0e0",
-       padding:'2rem',
-       marginBottom:'1rem',
-       width:'80%',
-       height:'12vh',
-          animation: "pulse 1.5s infinite",
-        }}
-      />
+    
     
   
    

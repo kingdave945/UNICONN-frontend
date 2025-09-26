@@ -111,6 +111,7 @@ const handlePasswordChange = (e: string) => {
               placeholder="Old Password"
               name="oldPassword"
               required
+              disabled={loading}
               value={oldPassword}
               onChange={(e) => setOldPassword(e.target.value)}
             />
@@ -124,6 +125,7 @@ const handlePasswordChange = (e: string) => {
               placeholder="New Password"
               name="newPassword"
               required
+              disabled={loading}
               value={newPassword}
               onChange={inputChange}
             />
@@ -137,6 +139,7 @@ const handlePasswordChange = (e: string) => {
               placeholder="Confirm New Password"
               name="confirmPassword"
               required
+              disabled={loading}
               value={confirmPassword}
                onChange={(e) => {setConfirmPassword(e.target.value);
                 togglePasswordVisibility;

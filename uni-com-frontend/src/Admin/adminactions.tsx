@@ -44,7 +44,7 @@ export default function AdminActions({ user }: AdminActionProps) {
           return;
       }
       const response = await api.post(endpoint, payload);
-      toast.success(`${actionType} successful`);
+      toast.success(`Action was performed successfully`);
       console.log(`${actionType} response:`, response.data);
       setIsOpen(false);
       setMessage("");

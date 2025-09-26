@@ -169,6 +169,7 @@ const handlePasswordChange = (e: string) => {
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     placeholder="Your full name"
+                    disabled={loading}
                     required
                   />
                 </div>
@@ -182,6 +183,7 @@ const handlePasswordChange = (e: string) => {
                     value={userName}
                     onChange={(e) => setUserName(e.target.value)}
                     placeholder="Your username"
+                    disabled={loading}
                     required
                   />
                 </div>
@@ -193,6 +195,7 @@ const handlePasswordChange = (e: string) => {
                     value={role}
                     onChange={(e) => setRole(e.target.value)}
                     required
+                    disabled={loading}
                   >
                     <option value="">Select Role</option>
                     <option value="Student">Student</option>
@@ -205,6 +208,7 @@ const handlePasswordChange = (e: string) => {
                     value={selectedUniversity}
                     onChange={(e) => setSelectedUniversity(e.target.value)}
                     required
+                     disabled={loading}
                   >
                     <option value="">Select University</option>
                     {myUni.map((uni) => (
@@ -225,6 +229,7 @@ const handlePasswordChange = (e: string) => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
+                     disabled={loading}
                   />
                 </div>
 
@@ -239,6 +244,7 @@ const handlePasswordChange = (e: string) => {
                       value={password}
                       onChange={inputChange}
                       required
+                       disabled={loading}
                     />
                     <div
                       onClick={togglePasswordVisibility}
@@ -279,6 +285,7 @@ const handlePasswordChange = (e: string) => {
                     value={level}
                     onChange={(e) => setLevel(Number(e.target.value))}
                     required
+                     disabled={loading}
                   >
                     <option value="">Select Level</option>
                     <option value="100">100</option>
@@ -299,6 +306,7 @@ const handlePasswordChange = (e: string) => {
                     onChange={(e) => setCourseOfStudy(e.target.value)}
                     placeholder="Your course of study"
                     required
+                     disabled={loading}
                   />
                 </div>
                 <div>

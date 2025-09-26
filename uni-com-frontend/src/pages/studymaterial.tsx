@@ -53,7 +53,7 @@ export default function StudyMaterial() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
+ 
 
     if (!title || !course || !description || !file || !level || tags.length === 0) {
       toast.error("Please fill in all fields and upload a file.");
@@ -64,6 +64,7 @@ export default function StudyMaterial() {
     const uploadData = { title, course, description, file, level, Tags: tags };
 
     try {
+      setLoading(true);
       await uploadMaterials(uploadData);
       setTitle("");
       setCourse("");
@@ -71,7 +72,7 @@ export default function StudyMaterial() {
       setFile(null);
       setPreviewUrl(null);
       setLevel("");
-      setTags([]);
+      setTags(['']);
       window.scrollTo({ top: 0, behavior: "smooth" });
       toast.success("Upload successful ✅");
     } catch (err) {
@@ -99,6 +100,7 @@ export default function StudyMaterial() {
             onChange={(e) => setTitle(e.target.value)}
             placeholder="e.g., Advanced Algorithms Notes"
             required
+            disabled={loading}
           />
         </div>
 
@@ -158,6 +160,7 @@ export default function StudyMaterial() {
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Provide a detailed description"
             required
+            disabled={loading}
           />
         </div>
 
@@ -169,6 +172,7 @@ export default function StudyMaterial() {
               value={level}
               onChange={(e) => setLevel(e.target.value)}
               required
+              disabled={loading}
             >
               <option value="">Select Level</option>
               <option value="100">100 Level</option>
@@ -187,6 +191,7 @@ export default function StudyMaterial() {
               onChange={(e) => setCourse(e.target.value)}
               placeholder="e.g., CSC301"
               required
+              disabled={loading}
             />
           </div>
         </section>
@@ -201,6 +206,7 @@ export default function StudyMaterial() {
             }
             placeholder="e.g., notes, past questions"
             required
+            disabled={loading}
           />
           <p className="form-note">Separate tags with commas.</p>
         </div>

@@ -1,10 +1,10 @@
-import { Routes, Route } from "react-router-dom";
-import ProtectedRouteUsers from "./components/ProtectedRouteUsers";
-import { Navigate } from "react-router-dom";
-import "bootstrap-icons/font/bootstrap-icons.css";
-import Register from "./register";
-import "./App.css";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
+import "bootstrap-icons/font/bootstrap-icons.css";
+import "react-toastify/dist/ReactToastify.css";
+import "./App.css";
+import ProtectedRouteUsers from "./components/ProtectedRouteUsers";
 import Layout from "./Layout/layout";
 import Dashboard from "./pages/dashboard";
 import StudyMaterial from "./pages/studymaterial";
@@ -15,22 +15,20 @@ import Favorites from "./pages/profile/favorites";
 import UserMan from "./Admin/usermanagement";
 import Overview from "./Admin/overview";
 import MaterialReview from "./Admin/materialreview";
-import { useState } from "react";
 import ForgetPassword from "./components/forgotpassword";
 import ConfirmEmail from "./components/confirmemal";
-import { useNavigate } from "react-router-dom";
 import Login from "./loginlogin";
 import ResetPassword from "./components/resetpassword";
 import RegisterReg from "./registerreg";
+import Register from "./register";
 import AgentSkeleton from "./components/AgentSkeleton";
+import MatSkeleton from "./components/matreviewskeleton";
 import BrowseDepartmentMaterials from "./pages/browsedepartmentmaterials";
 import Search from "./pages/search";
 import Loader from "./components/Loader";
-import MatSkeleton from "./components/matreviewskeleton";
+import OfflinePage from "./components/offline"; 
 export default function App() {
-
   const navigate = useNavigate();
- 
 
   const [role, setRole] = useState<string | null>(
     sessionStorage.getItem("role")
@@ -38,7 +36,7 @@ export default function App() {
 
   const handleLogin = (newRole: string) => {
     sessionStorage.setItem("role", newRole);
-    setRole(newRole); // updates all children instantly
+    setRole(newRole);
   };
 
   const handleLogout = () => {
@@ -47,11 +45,35 @@ export default function App() {
     setRole(null);
     navigate("/login");
   };
+
   const [searchQuery, setSearchQuery] = useState("");
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
+
+  useEffect(() => {
+    function handleOnline() {
+      setIsOnline(true);
+    }
+    function handleOffline() {
+      setIsOnline(false);
+    }
+
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+
+    return () => {
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
+  }, []);
+
+  
+  if (!isOnline) {
+    return <OfflinePage />;
+  }
+
   return (
     <>
       <ToastContainer />
-
       <div className="applayout">
         <Routes>
           <Route
@@ -60,10 +82,9 @@ export default function App() {
               <ProtectedRouteUsers>
                 <Layout
                   role={role}
-                 
                   handleLogout={handleLogout}
-                   searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
+                  searchQuery={searchQuery}
+                  setSearchQuery={setSearchQuery}
                 />
               </ProtectedRouteUsers>
             }
@@ -77,33 +98,18 @@ export default function App() {
               <Route index element={<Navigate to="materials" />} />
               <Route path="materials" element={<Materials />} />
               <Route path="favorites" element={<Favorites />} />
-              <Route path="settings" element={<Settings />}></Route>
+              <Route path="settings" element={<Settings />} />
             </Route>
-            <Route path="/search" element={<Search
-             searchQuery={searchQuery}
-              />}/>
+            <Route
+              path="/search"
+              element={<Search searchQuery={searchQuery} />}
+            />
             <Route path="/studymaterial" element={<StudyMaterial />} />
-            <Route
-              path="/Admin/Overview"
-              element={
-                // <ProtectedRouteAdmin>
-                // </ProtectedRouteAdmin>
-                <Overview />
-              }
-            />
-            <Route
-              path="/Admin/MaterialReview"
-              element={
-                // <ProtectedRouteAdmin>
-                // </ProtectedRouteAdmin>
-                <MaterialReview />
-              }
-            />
+            <Route path="/Admin/Overview" element={<Overview />} />
+            <Route path="/Admin/MaterialReview" element={<MaterialReview />} />
             <Route
               path="/Admin/User-Management"
               element={
-                // <ProtectedRouteAdmin>
-                // </ProtectedRouteAdmin>
                 <UserMan
                   userStats={{
                     totalUsers: 0,
@@ -123,7 +129,7 @@ export default function App() {
           <Route path="/confirm-email" element={<ConfirmEmail />} />
           <Route path="/forgot-password" element={<ForgetPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
-          <Route path="/diddy" element={<Loader/>}/>
+          <Route path="/diddy" element={<Loader />} />
         </Routes>
       </div>
     </>
