@@ -329,7 +329,7 @@ export const getSuggestedMaterials = async () => {
        `/api/StudyMaterials/by-department`
     );
     console.log("Study Materials by Department:", response.data);
-    return response.data || [];
+    return response.data.items || [];
   } catch (error: any) {
     console.error(
       "❌ Failed to get study materials by department:",
